@@ -16,7 +16,7 @@ const userReducer = (state=userReducerDefaultState,action)=>{
     switch(action.type){
         case 'SET_USER':
             return action.user
-        case 'DELETE_USER':
+        case 'CLEAR_USER':
             return userReducerDefaultState
         case 'EDIT_USER_INFO':
             return {...state,...action.updates}
