@@ -1,5 +1,7 @@
-import generateAPI from '../utils/api'
 
+import axios from 'axios'
+axios.defaults.headers.post['Content-Type'] = 'application/json';
+axios.defaults.baseURL = process.env.DEV_URL
 export const editUserInfo =  (updates) =>{
     type : 'EDIT_USER_INFO',
     updates
@@ -8,8 +10,8 @@ export const editUserInfo =  (updates) =>{
 export const startEditUserInfo = (updates)=>{
     return async (dispatch,getState)=>{
         try{
-        const api = generateAPI(getState().auth.token)
-        await api.patch('/users/me',JSON.stringify(updates))
+        
+        await axios.patch('/users/me',JSON.stringify(updates))
         dispatch(editUserInfo(updates))
         }catch(e){
             dispatch({
@@ -28,8 +30,8 @@ export const newCollaboration = (collaborator) =>{
 export const startNewCollaboration = (collaborator)=>{
     return (dispatch,getState)=>{
         try{
-            const api = generateAPI(getState().auth.token)
-            await api.post('/users/acceptcollab',JSON.stringify(collaborator))
+            
+            await axios.post('/users/acceptcollab',JSON.stringify(collaborator))
             dispatch(newCollaboration(collaborator))
         }catch(e){
             dispatch({
@@ -43,8 +45,8 @@ export const startNewCollaboration = (collaborator)=>{
 export const startAddPhoneNUmber = (phoneNumber)=>{
     return (dispatch,getState)=>{
         try{
-            const api = generateAPI(getState().auth.token)
-            await api.post('/users/phone',JSON.stringify({phoneNumber}))
+            
+            await axios.post('/users/phone',JSON.stringify({phoneNumber}))
             dispatch({
                 type:'ADD_PHONE',
                 phoneNumber

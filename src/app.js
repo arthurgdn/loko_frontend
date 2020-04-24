@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import ReactDOM from 'react-dom'
 import {Provider} from 'react-redux'
 import 'normalize.css/normalize.css'
@@ -6,11 +6,9 @@ import './styles/styles.scss'
 
 import AppRouter, {history} from './routers/AppRouter'
 import configureStore from './store/configureStore'
+import setAuthToken from './utils/setAuthToken'
+import {loadUser, startLoadUser} from './actions/auth'
 
-import {login,logout} from './actions/auth'
-import LoadingPage from './components/LoadingPage'
-
-import {firebase} from  './firebase/firebase'
 
 
 const store = configureStore()
@@ -18,12 +16,6 @@ const store = configureStore()
 
 
 
-const jsx = (
-    <Provider store={store}>
-        <AppRouter/>
-    </Provider>
-    
-)
 
 let hasRendered = false
 const renderApp = ()=>{
@@ -32,21 +24,31 @@ const renderApp = ()=>{
         hasRendered = true
     }
 }
-ReactDOM.render(<LoadingPage/>,document.getElementById('app'))
 
 
-firebase.auth().onAuthStateChanged((user)=>{
-    if(user){
-        store.dispatch(login(user.uid))
-        renderApp()
-           
-    }
-    else {
-        store.dispatch(logout())
-        renderApp()
-        history.push('/')
-    }
-})
+const App = ()=>{
+    useEffect(() => {
+        if (localStorage.token) {
+            const token = localStorage.getItem('token')
+            axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+            store.dispatch(login(token))
+            store.dispatch(startLoadUser())
+          } else {
+            delete axios.defaults.headers.common['Authorization'];
+            
+          }
+        
+      }, []);
+      return (
+        <Provider store={store}>
+            <AppRouter/>
+        </Provider>
+        
+    )
+
+}
+ReactDOM.render(<App/>,document.getElementById('app'))
+
 
 
 
