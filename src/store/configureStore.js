@@ -5,10 +5,11 @@ import profileReducer from '../reducers/profile'
 import authReducer from '../reducers/auth'
 import feedFiltersReducer from '../reducers/feedFilters'
 import feedReducer from '../reducers/feed'
-import  groupsReducer from '../reducers/groups'
+import  groupOffersReducer from '../reducers/groupOffers'
 import conversationsReducer from '../reducers/conversations'
 import offersReducer from '../reducers/offers'
-import keywordsReducer from '../reducers/keywords'
+import keywordOffersReducer from '../reducers/keywordOffers'
+import messagesReducer from '../reducers/messages'
 
 //We configure the store with the different reducers
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
@@ -18,11 +19,12 @@ export default ()=>{
         profile : profileReducer,
         feedFilters : feedFiltersReducer,
         feed : feedReducer,
-        groups : groupsReducer,
+        groupOffers : groupOffersReducer,
         conversations : conversationsReducer,
         offers : offersReducer,
-        keywords : keywordsReducer,
-        auth: authReducer
+        keywordOffers : keywordOffersReducer,
+        auth: authReducer,
+        messages : messagesReducer
     }),
     composeEnhancers(applyMiddleware(thunk))
      )

@@ -1,7 +1,5 @@
-const offersReducerDefaultState = []
-
-//Reducer for user's offers (created + collaborating on)
-const offersReducer = (state=offersReducerDefaultState,action)=>{
+const groupOffersReducerDefaultState = []
+const keywordOffersReducer = (state=groupOffersReducerDefaultState,action)=>{
     
     switch(action.type){
         case 'SET_OFFERS':
@@ -20,9 +18,9 @@ const offersReducer = (state=offersReducerDefaultState,action)=>{
             })
         case 'REMOVE_OFFER':
             return state.filter(({id})=>id!==action.id)
-         
+            
         default: 
             return state
     }
 }
-export default offersReducer
+export default groupOffersReducer

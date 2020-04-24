@@ -7,7 +7,9 @@ const userReducerDefaultState = {
         type:"Point",
         coordinates:[]
     },
-    collaborators:[]
+    collaborators:[],
+    userKeywords : [],
+    userGroups : []
 }
 const userReducer = (state=userReducerDefaultState,action)=>{
     
