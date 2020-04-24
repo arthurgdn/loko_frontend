@@ -1,3 +1,4 @@
+import generateAPI from '../utils/api'
 import axios from 'axios'
 export const login = (token)=>({
     type: 'LOGIN',
@@ -24,11 +25,8 @@ export const startLogin = (email,password)=>{
             dispatch(login(res.data.token));
 
             //We then set the user's data
-            config.headers  = {
-                'Content-Type' : 'application/json',
-                'Authorization' : 'Bearer ' + res.data.token
-            }
-            const user = await axios.get(process.env.DEV_URL+'/users/me',config)
+            const api = generateAPI(res.data.token)
+            const user = await api.get('/users/me')
             
             dispatch(loadUser(user.data));
             
@@ -49,13 +47,8 @@ export const startLogin = (email,password)=>{
 export const startLoadUser =()=>{
     return async (dispatch,getState)=>{
         try {
-            const config = {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization' : 'Bearer ' + getState().auth.token
-                  }
-            }
-            const res = await axios.get(process.env.DEV_URL+'/users/me',config)
+            const api = generateAPI(getState().auth.token)
+            const res = await api.get('/users/me')
         
             dispatch({
               type: 'USER_LOADED'
@@ -74,13 +67,8 @@ export const logout = ()=>({
 export const startLogout = ()=>{
     return async (dispatch,getState)=>{
         try{
-            const config = {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization' : 'Bearer ' + getState().auth.token
-                  }
-            }
-            await axios.post(process.env.DEV_URL+'/users/logout',config)
+            const api = generateAPI(getState().auth.token)
+            await aapi.post('/users/logout')
             dispatch(logout)
             dispatch({
                 type : 'CLEAR_USER'
