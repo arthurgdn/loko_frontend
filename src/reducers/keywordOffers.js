@@ -2,8 +2,8 @@ const keywordOffersReducerDefaultState = []
 const keywordOffersReducer = (state=keywordOffersReducerDefaultState,action)=>{
     
     switch(action.type){
-        case 'SET_OFFERS':
-            return action.offers
+        case 'SET_KEYWORD_FEED':
+            return action.feed
         default: 
             return state
     }

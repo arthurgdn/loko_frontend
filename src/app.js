@@ -4,10 +4,9 @@ import {Provider} from 'react-redux'
 import 'normalize.css/normalize.css'
 import './styles/styles.scss'
 
-import AppRouter, {history} from './routers/AppRouter'
+import AppRouter from './routers/AppRouter'
 import configureStore from './store/configureStore'
-import setAuthToken from './utils/setAuthToken'
-import {loadUser, startLoadUser} from './actions/auth'
+import {login, startLoadUser} from './actions/auth'
 
 
 

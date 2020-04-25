@@ -17,8 +17,8 @@ const profileReducer = (state=profileReducerDefaultState,action)=>{
     switch(action.type){
         case 'SET_PROFILE':
             return action.profile
-        case 'DELETE_USER':
-            return userReducerDefaultState
+        case 'CLEAR_PROFILE':
+            return profileReducerDefaultState
         case 'EDIT_PROFILE':
             return {...state,...action.updates}
         case 'ADD_COMPLETED_OFFER':

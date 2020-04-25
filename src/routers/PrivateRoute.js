@@ -18,7 +18,7 @@ export const PrivateRoute = ({isAuthenticated,component:Component,...rest})=>(
     )}/>
 )
 const mapStateToProps = (state)=>({
-    isAuthenticated : !!state.auth.uid
+    isAuthenticated : !!state.auth.isAuthenticated
 
 })
 export default connect(mapStateToProps)(PrivateRoute)

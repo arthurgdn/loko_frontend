@@ -1,12 +1,12 @@
 const groupOffersReducerDefaultState = []
-const keywordOffersReducer = (state=groupOffersReducerDefaultState,action)=>{
+const groupOffersReducer = (state=groupOffersReducerDefaultState,action)=>{
     
     switch(action.type){
-        case 'SET_OFFERS':
+        case 'SET_GROUP_OFFERS':
             return action.offers
-        case 'ADD_OFFER':
+        case 'ADD_GROUP_OFFER':
             return [...state,action.offer]
-        case 'EDIT_OFFER':
+        case 'EDIT_GROUP_OFFER':
             return state.map((offer)=>{
                 if(offer.id===action.id){
                    
@@ -16,7 +16,7 @@ const keywordOffersReducer = (state=groupOffersReducerDefaultState,action)=>{
                     return offer
                 }
             })
-        case 'REMOVE_OFFER':
+        case 'REMOVE_GROUP_OFFER':
             return state.filter(({id})=>id!==action.id)
             
         default: 

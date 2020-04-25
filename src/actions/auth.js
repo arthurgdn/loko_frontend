@@ -24,7 +24,7 @@ export const startLogin = (email,password)=>{
             const res = await axios.post(process.env.DEV_URL+'/users/login', body, config);
             localStorage.setItem('auth_token',res.data.token)
             dispatch(login(res.data.token));
-
+            axios.defaults.headers.common['Authorization'] = 'Bearer ' + res.data.token;
             //We then set the user's data
             
             const user = await axios.get('/users/me')
