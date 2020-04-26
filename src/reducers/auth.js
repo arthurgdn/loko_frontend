@@ -1,4 +1,4 @@
-authReducerDefaultState = {
+const authReducerDefaultState = {
     token: localStorage.getItem('token'),
     isAuthenticated: null,
     loading : true,

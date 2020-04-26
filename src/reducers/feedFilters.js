@@ -1,3 +1,4 @@
+import moment from 'moment'
 const feedFiltersReducerDefaultState = {
     text:'',
     sortBy:'points',

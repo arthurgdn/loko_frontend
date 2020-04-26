@@ -1,6 +1,7 @@
 import React,{useEffect} from 'react'
 import ReactDOM from 'react-dom'
 import {Provider} from 'react-redux'
+import axios from 'axios'
 import 'normalize.css/normalize.css'
 import './styles/styles.scss'
 
