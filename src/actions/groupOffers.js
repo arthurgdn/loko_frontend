@@ -2,7 +2,7 @@
 import axios from 'axios'
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 axios.defaults.baseURL = process.env.DEV_URL
-
+//On pourra enventuellement rajouter ensuite d'autres actions en fonctions de celles affichées dans les groupes
 export const setGroupOffers = (offers)=>{
     type : 'SET_GROUP_OFFERS',
     offers
