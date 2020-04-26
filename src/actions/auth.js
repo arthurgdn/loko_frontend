@@ -1,6 +1,5 @@
 import axios from 'axios'
-axios.defaults.headers.post['Content-Type'] = 'application/json';
-axios.defaults.baseURL = process.env.DEV_URL
+
 export const login = (token)=>({
     type: 'LOGIN',
     token
@@ -9,20 +8,40 @@ export const loadUser = (user)=>({
     type: 'SET_USER',
     user
 })
+export const register = (token)=>({
+  type : 'REGISTER',
+  token
+})
+export const startRegister = (registration_form)=>{
+  return async (dispatch)=>{
+    try{
+      console.log(registration_form)
+      console.log(axios.defaults.baseURL)
+        const res = await axios.post('/users',JSON.stringify(registration_form))
+        
+        localStorage.setItem('token',res.data.token)
+        dispatch(register(res.data.token))
+        dispatch(loadUser(res.data.user));
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + res.data.token;
+    }catch(e){
+      console.log(e)
+      dispatch({
+        type: 'ERROR',
+        e
+      })
+    }
+  }
+}
 export const startLogin = (email,password)=>{
     return async (dispatch)=>{
-        const config = {
-            headers: {
-              'Content-Type': 'application/json'
-            }
-          };
         
+        console.log('logging in')
           const body = JSON.stringify({ email, password });
         
           try {
               //We try to login the user
-            const res = await axios.post(process.env.DEV_URL+'/users/login', body, config);
-            localStorage.setItem('auth_token',res.data.token)
+            const res = await axios.post('/users/login', body);
+            localStorage.setItem('token',res.data.token)
             dispatch(login(res.data.token));
             axios.defaults.headers.common['Authorization'] = 'Bearer ' + res.data.token;
             //We then set the user's data
@@ -31,15 +50,11 @@ export const startLogin = (email,password)=>{
             
             dispatch(loadUser(user.data));
             
-          } catch (err) {
-            const errors = err.response.data.errors;
-            //On ajoute ensuite les eventuelles erreurs
-            if (errors) {
-              errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
-            }
-        
+          } catch (e) {
+            console.log(e)
             dispatch({
-              type: 'LOGIN_FAIL'
+              type: 'ERROR',
+              e
             });
           }
     }
@@ -66,14 +81,16 @@ export const logout = ()=>({
     type:'LOGOUT'
 })
 export const startLogout = ()=>{
-    return async (dispatch,getState)=>{
+    return async (dispatch)=>{
         try{
-            
+            console.log('logging out')
             await axios.post('/users/logout')
-            dispatch(logout)
+            localStorage.removeItem('token')
+            dispatch(logout())
             dispatch({
                 type : 'CLEAR_USER'
             })
+            
         }catch(e){
             dispatch({
               type: 'LOGOUT_ERROR'

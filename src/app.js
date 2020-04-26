@@ -28,17 +28,24 @@ const renderApp = ()=>{
 
 const App = ()=>{
     useEffect(() => {
-        if (localStorage.token) {
+        axios.defaults.headers.post['Content-Type'] = 'application/json';
+        axios.defaults.baseURL = process.env.DEV_URL
+        console.log(localStorage.getItem('token'))
+        if (localStorage.getItem('token')) {
+            
             const token = localStorage.getItem('token')
             axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+            
             store.dispatch(login(token))
             store.dispatch(startLoadUser())
           } else {
+           
             delete axios.defaults.headers.common['Authorization'];
             
           }
         
       }, []);
+    
       return (
         <Provider store={store}>
             <AppRouter/>

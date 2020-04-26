@@ -12,6 +12,12 @@ export default (state = authReducerDefaultState,action)=>{
                 isAuthenticated : true,
                 loading : false
             }
+        case 'REGISTER':
+            return {
+                isAuthenticated : true,
+                token : action.token,
+                loading : false
+            }
         case 'LOGIN':
             return {
                 isAuthenticated : true,
@@ -20,7 +26,7 @@ export default (state = authReducerDefaultState,action)=>{
             }
         case 'LOGOUT':
             return {
-                isAuthenticated : false,
+                isAuthenticated : null,
                 token : null,
                 loading : false
             }
