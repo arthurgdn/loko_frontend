@@ -36,6 +36,7 @@ module.exports = (env)=>{
             CSSExtract,
             new webpack.DefinePlugin({
                 'process.env.DEV_URL' : JSON.stringify(process.env.DEV_URL),
+                'process.env.MAPBOX_API_KEY' : JSON.stringify(process.env.MAPBOX_API_KEY)
                 })
         ],
         devtool : isProduction ? 'source-map' : 'inline-source-map',
