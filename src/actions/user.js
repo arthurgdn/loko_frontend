@@ -28,7 +28,7 @@ export const newCollaboration = (collaborator) =>{
 }
 // collaborator = {_id:collaborator_id}
 export const startNewCollaboration = (collaborator)=>{
-    return (dispatch,getState)=>{
+    return async (dispatch)=>{
         try{
             
             await axios.post('/users/acceptcollab',JSON.stringify(collaborator))
@@ -41,9 +41,20 @@ export const startNewCollaboration = (collaborator)=>{
         }
     }
 }
-
+export const startSendCollaboration = (collaborator)=>{
+    return async (dispatch)=>{
+    try{
+        await axios.post('/users/sendcollabdemand',JSON.stringify(collaborator))
+    }catch(e){
+        dispatch({
+            type: 'ERROR',
+            e
+        })
+    }
+}
+}
 export const startAddPhoneNUmber = (phoneNumber)=>{
-    return (dispatch,getState)=>{
+    return async (dispatch,getState)=>{
         try{
             
             await axios.post('/users/phone',JSON.stringify({phoneNumber}))

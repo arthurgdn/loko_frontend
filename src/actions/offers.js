@@ -33,7 +33,7 @@ export const startSetOffers = () =>{
         try {
             const res1 = await axios.get('/offer/me')
             const res2 = await axios.get('/offer/collaborated/me')
-            dispatch(setOffers([...res1.data,...res2.data]))
+            dispatch(setOffers([...res1.data._doc,...res2.data._doc]))
         }catch(e){
             dispatch({
                 type : 'ERROR',
@@ -50,7 +50,7 @@ export const startAddOffer = (offer_id)=>{
     return async (dispatch)=>{
         try {
             const res = await axios.post('/offer/create',JSON.stringify({_id:offer_id}))
-            dispatch(addOffer(res.data))
+            dispatch(addOffer(res.data._doc))
         }catch(e){
             dispatch({
                 type : 'ERROR',

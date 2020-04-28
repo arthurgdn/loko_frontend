@@ -10,6 +10,7 @@ body {
     color: $dark-grey;
     line-height: 1.6;
     
+    
 }
 
 button {
@@ -22,3 +23,8 @@ button:disabled {
 .is-active{
     font-weight:bold;
 }
+.main-area{
+    margin-left : 160px;
+    margin-top : 100px;
+}
+

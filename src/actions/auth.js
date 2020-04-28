@@ -15,14 +15,13 @@ export const register = (token)=>({
 export const startRegister = (registration_form)=>{
   return async (dispatch)=>{
     try{
-      console.log(registration_form)
-      console.log(axios.defaults.baseURL)
+      
         const res = await axios.post('/users',JSON.stringify(registration_form))
         
-        localStorage.setItem('token',res.data.token)
-        dispatch(register(res.data.token))
-        dispatch(loadUser(res.data.user));
-        axios.defaults.headers.common['Authorization'] = 'Bearer ' + res.data.token;
+        localStorage.setItem('token',res.data._doc.token)
+        dispatch(register(res.data._doc.token))
+        dispatch(loadUser(res.data._doc.user));
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + res.data._doc.token;
     }catch(e){
       console.log(e)
       dispatch({
@@ -48,7 +47,7 @@ export const startLogin = (email,password)=>{
             
             const user = await axios.get('/users/me')
             
-            dispatch(loadUser(user.data));
+            dispatch(loadUser(user.data._doc));
             
           } catch (e) {
             console.log(e)
@@ -69,7 +68,7 @@ export const startLoadUser =()=>{
             dispatch({
               type: 'USER_LOADED'
             })
-            dispatch(loadUser(res.data))
+            dispatch(loadUser(res.data._doc))
           } catch (err) {
             dispatch({
               type: 'AUTH_ERROR'
@@ -83,7 +82,7 @@ export const logout = ()=>({
 export const startLogout = ()=>{
     return async (dispatch)=>{
         try{
-            console.log('logging out')
+            
             await axios.post('/users/logout')
             localStorage.removeItem('token')
             dispatch(logout())
