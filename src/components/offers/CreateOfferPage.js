@@ -3,9 +3,10 @@ import {connect} from 'react-redux'
 import OfferForm from './OfferForm'
 import {startAddOffer} from '../../actions/offers'
 class  CreateOfferPage extends React.Component{
-    onSubmit=(offer)=>{
-        this.props.startAddOffer(offer)
-        this.props.history.push('/')
+    onSubmit=(offer,image)=>{
+        console.log('submitted:',offer,image)
+        this.props.startAddOffer(offer,image)
+        
     }
     render(){
         return (
@@ -24,6 +25,6 @@ class  CreateOfferPage extends React.Component{
     }
 }
 const mapDispatchToProps=(dispatch)=>({
-    startAddOffer: (offer)=>dispatch(startAddOffer(offer))
+    startAddOffer: (offer,image)=>dispatch(startAddOffer(offer,image))
 }) 
 export default connect(undefined,mapDispatchToProps)(CreateOfferPage)

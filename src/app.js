@@ -8,6 +8,7 @@ import './styles/styles.scss'
 import AppRouter from './routers/AppRouter'
 import configureStore from './store/configureStore'
 import {login, startLoadUser} from './actions/auth'
+import { startSetAllKeywords } from './actions/keywords'
 
 
 
@@ -38,6 +39,7 @@ const App = ()=>{
             
             store.dispatch(login(token))
             store.dispatch(startLoadUser())
+            store.dispatch(startSetAllKeywords())
           } else {
            
             delete axios.defaults.headers.common['Authorization'];

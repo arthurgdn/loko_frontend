@@ -1,6 +1,7 @@
 
 import axios from 'axios'
 axios.defaults.headers.post['Content-Type'] = 'application/json';
+axios.defaults.headers.post['Accept'] = 'application/json'
 axios.defaults.baseURL = process.env.DEV_URL
 export const editOffer =  (id,updates) =>{
     type : 'EDIT_OFFER',
@@ -42,16 +43,23 @@ export const startSetOffers = () =>{
         }
     }
 }
-export const addOffer = (offer)=>{
+export const addOffer = (offer)=>({
     type : 'ADD_OFFER',
     offer
-}
-export const startAddOffer = (offer_id)=>{
+})
+export const startAddOffer = (offer,image)=>{
     return async (dispatch)=>{
         try {
-            const res = await axios.post('/offer/create',JSON.stringify({_id:offer_id}))
-            dispatch(addOffer(res.data._doc))
+            
+            const res = await axios.post('/offer/create',JSON.stringify(offer))
+            const imageBody = new FormData()
+            console.log(image)
+            imageBody.append('image',image)
+            console.log(imageBody['image'])
+            const buffer = await axios.post('/offer/'+res.data._id+'/image',imageBody)
+            dispatch(addOffer({...res.data,image:buffer.data}))
         }catch(e){
+            console.log(e)
             dispatch({
                 type : 'ERROR',
                 e

@@ -47,7 +47,7 @@ export const startLogin = (email,password)=>{
             
             const user = await axios.get('/users/me')
             
-            dispatch(loadUser(user.data._doc));
+            dispatch(loadUser(user.data));
             
           } catch (e) {
             console.log(e)
@@ -68,7 +68,7 @@ export const startLoadUser =()=>{
             dispatch({
               type: 'USER_LOADED'
             })
-            dispatch(loadUser(res.data._doc))
+            dispatch(loadUser(res.data))
           } catch (err) {
             dispatch({
               type: 'AUTH_ERROR'

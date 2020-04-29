@@ -29,6 +29,14 @@ module.exports = (env)=>{
                 use : [{loader:'css-loader',options:{sourceMap:true}},{loader:'sass-loader',options:{sourceMap:true}}]
             }),
             test:/\.s?css$/
+        },
+        {
+            test: /\.svg$/,
+            include: [/react-images-upload/],
+            loader: 'file-loader',
+            options: {
+                name: '[name].[ext]?[hash]'
+            }
         }
         ]
         },

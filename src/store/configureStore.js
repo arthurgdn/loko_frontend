@@ -11,6 +11,7 @@ import offersReducer from '../reducers/offers'
 import keywordOffersReducer from '../reducers/keywordOffers'
 import messagesReducer from '../reducers/messages'
 import errorReducer from '../reducers/error'
+import keywordsReducer from '../reducers/keywords'
 
 //We configure the store with the different reducers
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
@@ -24,6 +25,7 @@ export default ()=>{
         conversations : conversationsReducer,
         offers : offersReducer,
         keywordOffers : keywordOffersReducer,
+        keywords : keywordsReducer,
         auth: authReducer,
         messages : messagesReducer,
         error : errorReducer
