@@ -9,13 +9,14 @@ import TopicPage from '../components/TopicPage'
 import ConversationPage from '../components/ConversationPage'
 import ConversationsPage from '../components/ConversationsPage'
 import CreateOfferPage from '../components/offers/CreateOfferPage'
-
-import createHistory from 'history/createBrowserHistory'
+import EditProfilePage from '../components/profile/EditProfilePage'
+import {createBrowserHistory} from 'history'
 import NotFoundPage from '../components/NotFoundPage'
 import {Router,Switch,Route} from 'react-router-dom'
 import PrivateRoute from './PrivateRoute'
 import PublicRoute from './PublicRoute'
-export const history = createHistory()
+
+export const history = createBrowserHistory()
 const AppRouter = ()=>(
     <Router history={history}>
         <div>
@@ -24,6 +25,7 @@ const AppRouter = ()=>(
                 <PublicRoute exact={true} path='/' component={LoginPage}/>
                 <PrivateRoute exact={true} path='/home' component={HomePage}/>
                 <PrivateRoute exact={true} path='/me' component={PersonnalProfilePage}/>
+                <PrivateRoute exact={true} path='/settings' component={EditProfilePage}/>
                 <PrivateRoute exact={true} path='/profile/:id' component={ProfilePage}/>
                 <PrivateRoute exact={true} path='/group/:id' component={GroupPage}/>
                 <PrivateRoute exact={true} path='/topic/:id' component = {TopicPage}/>

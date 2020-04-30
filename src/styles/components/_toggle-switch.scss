@@ -79,4 +79,89 @@
   .toggle-switch-checkbox:checked + .toggle-switch-label .toggle-switch-switch {
     right: 0px;
   }
+
+  //Toggle switch for location
+
+  .toggle-switch-location {
+    position: relative;
+    width: 85px;
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    text-align: left;
+  }
+  .toggle-switch-checkbox-location {
+    display: none;
+  }
+  .toggle-switch-label-location {
+    display: block;
+    overflow: hidden;
+    cursor: pointer;
+    border: 0 solid #ccc;
+    border-radius: 20px;
+    margin: 0;
+  }
+  .toggle-switch-inner-location {
+    display: block;
+    width: 200%;
+    margin-left: -100%;
+    transition: margin 0.3s ease-in 0s;
+  }
+  .toggle-switch-inner-location::before, .toggle-switch-inner-location::after {
+    display: block;
+    float: left;
+    width: 50%;
+    height: 34px;
+    padding: 0;
+    line-height: 34px;
+    font-size: 14px;
+    color: white;
+    font-weight: bold;
+    box-sizing: border-box;
+  }
+  .toggle-switch-inner-location:before {
+    content: "Oui";
+    text-transform: uppercase;
+    padding-left: 10px;
+    background-color: #f90;
+    color: #fff;
+  }
+  .toggle-switch-disabled-location {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  .toggle-switch-disabled-location::before {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  .toggle-switch-inner-location::after {
+    content: "Non";
+    text-transform: uppercase;
+    padding-right: 10px;
+    background-color: #ccc;
+    color: #fff;
+    text-align: right;
+  }
+  .toggle-switch-switch-location {
+    display: block;
+    width: 34px;
+    margin: 5px;
+    background: #fff;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 40px;
+    border: 0 solid #ccc;
+    border-radius: 20px;
+    transition: all 0.3s ease-in 0s;
+  }
+  .toggle-switch-checkbox-location:checked + .toggle-switch-label-location .toggle-switch-inner-location {
+    margin-left: 0;
+  }
+  .toggle-switch-checkbox-location:checked + .toggle-switch-label-location .toggle-switch-switch-location {
+    right: 0px;
+  }
+  
   

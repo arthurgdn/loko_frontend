@@ -77,15 +77,16 @@ const TippedSlider = createSliderWithTooltip(Slider)
                 ).catch((e)=>this.setState({error:'Impossible de déterminer la position'}))
                 
                
-
+                this.setState(()=>({useBrowserLocation}))
             })
         }else{
             this.setState(()=>({error:'Vous devez autoriser la géolocalisation'}))
         }}
         else{
+            this.setState(()=>({useBrowserLocation}))
             this.setState(()=>({locationResult : ''}))
         }
-        this.setState(()=>({useBrowserLocation}))
+        
     }
     onLocationInputChange = (e)=>{
         const locationInput = e.target.value
@@ -180,19 +181,26 @@ const TippedSlider = createSliderWithTooltip(Slider)
                         required
                     ></textarea>
 
-                    <input type="checkbox"
-                        checked={this.state.useBrowserLocation}
-                        value="Utiliser ma position"
-                        name="useBrowserLocation"
+                    
+                    <p>Utiliser ma position</p>
+                    <div className="toggle-switch-location">
+                        <input type="checkbox" checked={this.state.useBrowserLocation} 
                         onChange={this.onUseBrowserLocationChange}
-                    />
-                    <label htmlFor="useBrowserLocation">Utiliser ma position</label>
-                    <input type="text"
+                        className="toggle-switch-checkbox-location" name="useBrowserLocation"  id="useBrowserLocation" />
+                        <label className="toggle-switch-label-location" htmlFor="useBrowserLocation">
+                        <span className="toggle-switch-inner-location"></span>
+                        <span className="toggle-switch-switch-location"></span>
+                        </label>
+                    </div>
+                    {!this.state.useBrowserLocation&& (
+                        <input type="text"
                         disabled={this.state.useBrowserLocation}
                         value = {this.state.locationInput}
                         placeholder="Lieu de l'annonce"
                         className="text-input"
                         onChange={this.onLocationInputChange}/>
+
+                    )} 
 
                     {this.state.locationResult&& <p>{this.state.locationResult}</p>}
                     <p>L'offre concerne un rayon de (km) :</p>

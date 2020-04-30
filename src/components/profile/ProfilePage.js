@@ -6,7 +6,7 @@ import {startSendCollaboration} from '../../actions/user'
 import { startSetProfile } from '../../actions/profile';
 
 
-const ProfilePage = ({ startSendCollaboration,startSetProfile,match,profile,user }) => {
+const ProfilePage = ({ startSendCollaboration,match,profile,user }) => {
   
     
   return (
@@ -24,21 +24,21 @@ const ProfilePage = ({ startSendCollaboration,startSetProfile,match,profile,user
             <h3>{profile.firstName} {profile.lastName}</h3>
             <img src={process.env.DEV_URL+"/users/"+match.params.id+"/avatar"}/>
             <p>{getLocationFormatted(profile.location.coordinates[1],profile.location.coordinates[0])}</p>
-            <p>{profile.description}</p>
-            <p>{profile.summary}</p>
+            <p>Description : {profile.description}</p>
+            <p>Ce que je recherche : {profile.summary}</p>
             <h3>Mes compétences: </h3>
             <ul>
-                {profile.skills.map((skill)=>(<li>{skill}</li>))}
+                {profile.skills.map((skill)=>(<li key={skill}>{skill}</li>))}
             </ul>
             <h3>Mes sujets : </h3>
             <ul>
-                {profile.keywords.map((keyword)=>(<li>{
+                {profile.keywords.map((keyword)=>(<li key={keyword}>{
                     //api to generate keyword text from id later, same for completed offers
                     keyword}</li>))}
             </ul>
             <h3>J'ai répondu à ces annonces : </h3>
             <ul>
-            {profile.completedOffers.map((offer)=>(<li>{
+            {profile.completedOffers.map((offer)=>(<li key={offer._id}>{
                 //api to generate keyword text from id later, same for completed offers
                 offer}</li>))}
         </ul>

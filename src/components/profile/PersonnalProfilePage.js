@@ -4,10 +4,10 @@ import {connect } from 'react-redux'
 import {startSetProfile} from '../../actions/profile'
 const PersonnalProfilePage = ({user,profile,startSetProfile})=>{
     useEffect(()=>{
-        if(profile.firstName===''){
+        
             startSetProfile(user._id)
             console.log('profile set')
-        }
+        
         
     },[startSetProfile,user._id])
     return (

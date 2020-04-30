@@ -53,13 +53,13 @@ export const startAddOffer = (offer,image)=>{
             
             const res = await axios.post('/offer/create',JSON.stringify(offer))
             const imageBody = new FormData()
-            console.log(image)
+            
             imageBody.append('image',image)
-            console.log(imageBody['image'])
+            
             const buffer = await axios.post('/offer/'+res.data._id+'/image',imageBody)
             dispatch(addOffer({...res.data,image:buffer.data}))
         }catch(e){
-            console.log(e)
+            
             dispatch({
                 type : 'ERROR',
                 e

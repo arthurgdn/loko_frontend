@@ -1,6 +1,7 @@
 
 import axios from 'axios'
 axios.defaults.headers.post['Content-Type'] = 'application/json';
+axios.defaults.headers.patch['Content-Type'] = 'application/json'
 axios.defaults.baseURL = process.env.DEV_URL
 export const editProfile =  (updates) =>({
     type : 'EDIT_PROFILE',
@@ -8,7 +9,7 @@ export const editProfile =  (updates) =>({
 })
 
 export const startEditProfile = (updates)=>{
-    return async (dispatch,getState)=>{
+    return async (dispatch)=>{
         try{
         
         await axios.patch('/profile',JSON.stringify(updates))
@@ -32,10 +33,14 @@ export const startSetProfile = (profile_id) =>{
         try {
             
             const res = await axios.get('/profile/'+profile_id)
-            console.log(res.data)
-            dispatch(setProfile(res.data))
+            
+            const formattedKeywords = []
+            for(const keyword of res.data.keywords){
+                formattedKeywords.push(keyword.name)
+            }
+            dispatch(setProfile({...res.data,keywords:formattedKeywords}))
         }catch(e){
-            console.log(e)
+            
             dispatch({
                 type : 'ERROR',
                 e

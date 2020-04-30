@@ -9,6 +9,7 @@ import AppRouter from './routers/AppRouter'
 import configureStore from './store/configureStore'
 import {login, startLoadUser} from './actions/auth'
 import { startSetAllKeywords } from './actions/keywords'
+import { startSetProfile } from './actions/profile'
 
 
 
@@ -28,10 +29,10 @@ const renderApp = ()=>{
 
 
 const App = ()=>{
-    useEffect(() => {
+    useEffect( () => {
         axios.defaults.headers.post['Content-Type'] = 'application/json';
         axios.defaults.baseURL = process.env.DEV_URL
-        console.log(localStorage.getItem('token'))
+        
         if (localStorage.getItem('token')) {
             
             const token = localStorage.getItem('token')
@@ -40,6 +41,7 @@ const App = ()=>{
             store.dispatch(login(token))
             store.dispatch(startLoadUser())
             store.dispatch(startSetAllKeywords())
+            
           } else {
            
             delete axios.defaults.headers.common['Authorization'];
