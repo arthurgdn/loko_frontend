@@ -18,10 +18,10 @@ export const startRegister = (registration_form)=>{
       
         const res = await axios.post('/users',JSON.stringify(registration_form))
         
-        localStorage.setItem('token',res.data._doc.token)
-        dispatch(register(res.data._doc.token))
-        dispatch(loadUser(res.data._doc.user));
-        axios.defaults.headers.common['Authorization'] = 'Bearer ' + res.data._doc.token;
+        localStorage.setItem('token',res.data.token)
+        dispatch(register(res.data.token))
+        dispatch(loadUser(res.data.user));
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + res.data.token;
     }catch(e){
       console.log(e)
       dispatch({

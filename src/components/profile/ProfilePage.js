@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import getLocationFormatted from '../../actions/getLocationFormatted'
@@ -7,7 +7,11 @@ import { startSetProfile } from '../../actions/profile';
 
 
 const ProfilePage = ({ startSendCollaboration,match,profile,user }) => {
-  
+    const [profileLocation,setProfileLocation] = useState('')
+    console.log(profile.location)
+    getLocationFormatted(profile.location.coordinates[1],profile.location.coordinates[0]).then((locationFormatted)=>{
+        console.log(locationFormatted)
+        setProfileLocation(locationFormatted)})
     
   return (
       <div> 
@@ -23,7 +27,7 @@ const ProfilePage = ({ startSendCollaboration,match,profile,user }) => {
             }}>Message</button></div>) : (<Link to='/settings/profile'>Modifier</Link>)}
             <h3>{profile.firstName} {profile.lastName}</h3>
             <img src={process.env.DEV_URL+"/users/"+match.params.id+"/avatar"}/>
-            <p>{getLocationFormatted(profile.location.coordinates[1],profile.location.coordinates[0])}</p>
+            <p>{profileLocation}</p>
             <p>Description : {profile.description}</p>
             <p>Ce que je recherche : {profile.summary}</p>
             <h3>Mes compétences: </h3>

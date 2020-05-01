@@ -1,19 +1,33 @@
 
 import axios from 'axios'
 axios.defaults.headers.post['Content-Type'] = 'application/json';
+axios.defaults.headers.patch['Content-Type'] = 'application/json'
 axios.defaults.baseURL = process.env.DEV_URL
-export const editUserInfo =  (updates) =>{
+export const editUserInfo =  (updates) =>({
     type : 'EDIT_USER_INFO',
     updates
-}
+})
 
-export const startEditUserInfo = (updates)=>{
-    return async (dispatch,getState)=>{
+export const startEditUserInfo = (updates,profilePicture)=>{
+    return async (dispatch)=>{
         try{
         
         await axios.patch('/users/me',JSON.stringify(updates))
-        dispatch(editUserInfo(updates))
+        console.log(profilePicture)
+        if(profilePicture!=='') {
+            const imageBody = new FormData()
+            
+            imageBody.append('avatar',profilePicture)
+            
+            const buffer = await axios.post('/users/me/avatar',imageBody)
+            
+             dispatch(editUserInfo({...updates,profilePicture:buffer.data}))
+        }  else{
+            dispatch(editUserInfo(updates))
+        } 
+        
         }catch(e){
+            console.log(e)
             dispatch({
                 type:'ERROR',
                 e
@@ -52,6 +66,35 @@ export const startSendCollaboration = (collaborator)=>{
         })
     }
 }
+}
+
+export const changePassword = (currentPass,password)=>{
+    return async (dispatch)=>{
+        try{
+            
+            await axios.patch('/users/me/password',{currentPass,password})
+        }catch(e){
+            dispatch({type : 'ERROR',
+            e
+        })
+        }
+    }
+}
+
+export const deleteAccount = (password)=>{
+    return async (dispatch)=>{
+        try{
+            console.log(password)
+            await axios.post('/users/me/delete',{password})
+            localStorage.removeItem('token')
+            dispatch({type:'LOGOUT'})
+            dispatch({type : 'CLEAR_USER'})
+        }catch(e){
+            dispatch({type : 'ERROR',
+            e
+        })
+        }
+    }
 }
 export const startAddPhoneNUmber = (phoneNumber)=>{
     return async (dispatch,getState)=>{
