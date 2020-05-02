@@ -7,6 +7,7 @@ const LoginPage= ({startLogin})=>{
     return (
         <div>
             <p>Here is the login/register  page</p>
+            
             <LoginForm/>
             <RegisterForm/>
         </div>

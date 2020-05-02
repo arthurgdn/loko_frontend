@@ -34,7 +34,7 @@ const ProfilePage = ({ startSendCollaboration,match,profile,user }) => {
             <ul>
                 {profile.skills.map((skill)=>(<li key={skill}>{skill}</li>))}
             </ul>
-            <h3>Mes sujets : </h3>
+            <h3>Mes centres d'intérêt : </h3>
             <ul>
                 {profile.keywords.map((keyword)=>(<li key={keyword}>{
                     //api to generate keyword text from id later, same for completed offers

@@ -24,18 +24,22 @@ export const startEditOffer = (id,updates)=>{
     }
 }
 
-export const setOffers = (offers)=>{
+export const setOffers = (offers)=>({
     type : 'SET_OFFERS',
     offers
-}
+})
 
 export const startSetOffers = () =>{
     return async (dispatch)=>{
+        console.log('on est la')
         try {
-            const res1 = await axios.get('/offer/me')
-            const res2 = await axios.get('/offer/collaborated/me')
-            dispatch(setOffers([...res1.data._doc,...res2.data._doc]))
+            
+            
+            const res = await axios.get('/offers/collaborated/me')
+            
+            dispatch(setOffers(res.data))
         }catch(e){
+            console.log(e)
             dispatch({
                 type : 'ERROR',
                 e
@@ -52,12 +56,17 @@ export const startAddOffer = (offer,image)=>{
         try {
             
             const res = await axios.post('/offer/create',JSON.stringify(offer))
-            const imageBody = new FormData()
+            if(image!=={}){
+                const imageBody = new FormData()
             
-            imageBody.append('image',image)
+                imageBody.append('image',image)
             
-            const buffer = await axios.post('/offer/'+res.data._id+'/image',imageBody)
-            dispatch(addOffer({...res.data,image:buffer.data}))
+                const buffer = await axios.post('/offer/'+res.data._id+'/image',imageBody)
+                dispatch(addOffer({...res.data,image:buffer.data}))
+            }else{
+                dispatch(addOffer({...res.data,image:{}}))
+            }
+            
         }catch(e){
             
             dispatch({

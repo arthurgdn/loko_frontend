@@ -53,6 +53,7 @@ const LoginForm = ({ startLogin, isAuthenticated }) => {
         </div>
         <input type="submit"  value="Login" />
       </form>
+      <Link to='/reset'>Mot de passe oublié?</Link>
       
     </div>
   );
