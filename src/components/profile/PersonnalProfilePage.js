@@ -3,13 +3,7 @@ import {Redirect} from 'react-router-dom'
 import {connect } from 'react-redux'
 import {startSetProfile} from '../../actions/profile'
 const PersonnalProfilePage = ({user,profile,startSetProfile})=>{
-    useEffect(()=>{
-        
-            startSetProfile(user._id)
-            console.log('profile set')
-        
-        
-    },[startSetProfile,user._id])
+   
     return (
         <Redirect to={'/profile/'+user._id}/>
     )

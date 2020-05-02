@@ -2,10 +2,7 @@ const profileReducerDefaultState = {
     firstName:'',
     lastName:'',
     profilePicture:'',
-    location : {
-        type:"Point",
-        coordinates:[]
-    },
+    location : '',
     summary : '',
     skills : [],
     keywords : [],

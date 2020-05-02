@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import getLocationFormatted from '../../actions/getLocationFormatted'
@@ -6,12 +6,40 @@ import {startSendCollaboration} from '../../actions/user'
 import { startSetProfile } from '../../actions/profile';
 
 
-const ProfilePage = ({ startSendCollaboration,match,profile,user }) => {
+const ProfilePage = ({ startSendCollaboration,startSetProfile,match,stateProfile,user }) => {
     const [profileLocation,setProfileLocation] = useState('')
-    console.log(profile.location)
-    getLocationFormatted(profile.location.coordinates[1],profile.location.coordinates[0]).then((locationFormatted)=>{
-        console.log(locationFormatted)
-        setProfileLocation(locationFormatted)})
+    const [profile,setProfile] = useState({
+        firstName:'',
+        lastName:'',
+        location : '',
+        description:'',
+        summary:'',
+        keywords:[],
+        skills : [],
+        completedOffers:[]
+
+    })
+    useEffect(()=>{
+        startSetProfile(match.params.id)
+    },[])
+    
+    useEffect(()=>{
+        setProfile(stateProfile)
+        
+        
+    },[stateProfile,startSetProfile])
+
+    useEffect(()=>{
+        console.log(profile.location)
+        if(profile.location!==''){
+            getLocationFormatted(profile.location.coordinates[1],profile.location.coordinates[0]).then((locationFormatted)=>{
+                console.log(locationFormatted)
+                setProfileLocation(locationFormatted)})
+        }
+        
+    }
+    ,[profile.location])
+    
     
   return (
       <div> 
@@ -52,7 +80,7 @@ const ProfilePage = ({ startSendCollaboration,match,profile,user }) => {
 
 
 const mapStateToProps = (state)=>({
-    profile : state.profile,
+    stateProfile : state.profile,
     user : state.user
 })
 const mapDispatchToProps = (dispatch)=>({
