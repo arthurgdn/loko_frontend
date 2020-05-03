@@ -14,7 +14,7 @@ const EditUserForm = ({user,startEditUserInfo})=>{
     const [locationInput,setLocationInput] = useState('')
     const [locationResult,setLocationResult] = useState('')
     useEffect(()=>{
-        getLocationFormatted(user.location.coordinates[1],user.location.coordinates[0]).then((getLocationFormatted)=>setLocationResult(getLocationFormatted))
+        getLocationFormatted(user.location.coordinates[1],user.location.coordinates[0]).then((getLocationFormatted)=>{setLocationResult(getLocationFormatted)})
     
     },[])
     

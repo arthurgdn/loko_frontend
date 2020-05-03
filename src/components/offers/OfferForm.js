@@ -9,6 +9,7 @@ import 'rc-slider/assets/index.css';
 import { connect } from 'react-redux'
 const createSliderWithTooltip = Slider.createSliderWithTooltip;
 const TippedSlider = createSliderWithTooltip(Slider)
+import getLocationFormatted from '../../actions/getLocationFormatted'
 //import {SingleDatePicker} from 'react-dates'
 
 //import 'react-dates/initialize'
@@ -18,6 +19,7 @@ const TippedSlider = createSliderWithTooltip(Slider)
  class OfferForm extends React.Component{
     constructor(props){
         super(props)
+        console.log(props)
         const userGroups = props.userGroups
         const allKeywords = props.allKeywords
         
@@ -30,24 +32,40 @@ const TippedSlider = createSliderWithTooltip(Slider)
             keyword.value = keyword.name
             keyword.label= keyword.name
         }
+        const formattedKeywords = []
+        if(props.keywords){
+            
+            for(const keyword of props.keywords){
+                
+                formattedKeywords.push({value : keyword.name,label:keyword.name})
+            }
+        }
         
         this.state = {
         title : props.title ? props.title : '',
-        //Location input will be a string, but geocode api will transform it to the required format
+        
         location : props.location?props.location : {type:['Point'],coordinates:[]},
         locationInput : props.locationInput ? props.locationInput : '',
         locationResult : props.locationResult?props.locationResult : '',
         useBrowserLocation: false,
-        locationRadius : props.locationRadius?props.locationRadius : 0,
+        locationRadius : props.locationRadius? Math.round(1000*Math.log10(10*props.locationRadius)): 0,
         scope : props.scope?props.scope : 'general',
-        keywords : props.keywords?props.keywords : [],
-        image : props.image?props.image : {},
+        keywords : props.keywords?formattedKeywords : [],
+        image : {},
         description : props.description ? props.description :'',
         groups : props.groups ? props.groups : [],
         userGroups,
         allKeywords,
         error: ''
         }
+        
+        
+    }
+    componentDidMount = ()=>{
+        getLocationFormatted(this.state.location.coordinates[1],this.state.location.coordinates[0]).then((getLocationFormatted)=>{this.setState(()=>({locationResult:getLocationFormatted}))
+        
+    })
+        
     }
     
     onDescriptionChange = (e)=>{
@@ -104,8 +122,7 @@ const TippedSlider = createSliderWithTooltip(Slider)
         }
     
     onLocationRadiusChange = (value)=>{
-        
-        this.setState(()=>({locationRadius: Math.round(10**(value/1000))/10}))
+        this.setState(()=>({locationRadius:value}))
     }
     onDescriptionChange = (e)=>{
         const description = e.target.value
@@ -129,12 +146,13 @@ const TippedSlider = createSliderWithTooltip(Slider)
     }
     //Might be a bit different when we add a new keyword to the list
     onKeywordsChange = (keywords)=>{
+        console.log(keywords)
         if(keywords===null){
             this.setState(()=>({keywords:[]}))
         }else{
         const keywordsFormatted = []
         for (const keyword of keywords){
-            keywordsFormatted.push({keyword: keyword.value.toLowerCase()})
+            keywordsFormatted.push({value: keyword.value.toLowerCase(),label : keyword.value.toLowerCase()})
         }
         this.setState(()=>({keywords:keywordsFormatted}))
     }
@@ -148,14 +166,19 @@ const TippedSlider = createSliderWithTooltip(Slider)
         if(!this.state.description || !this.state.title || this.state.location.coordinates.length===0 || !this.state.scope){
             this.setState(()=>({error:'Veuillez renseigner les informations obligatoires'}))
         }else{
+            const formattedKeywords = []
+            for(const keyword of this.state.keywords){
+                formattedKeywords.push(keyword.value)
+            }
+            console.log(this.state.locationRadius)
             this.setState(()=>({error:''}))
             this.props.onSubmit({
                 title: this.state.title,
                 description:this.state.description,
                 location : this.state.location,
-                locationRadius : this.state.locationRadius,
+                locationRadius :Math.round(10**(this.state.locationRadius/1000)/10),
                 scope : this.state.scope,
-                keywords: this.state.keywords,
+                keywords: formattedKeywords,
                 groups : this.state.groups
                 
             },this.state.image)
@@ -208,6 +231,7 @@ const TippedSlider = createSliderWithTooltip(Slider)
                     <TippedSlider
                     min={0}
                     max={4000}
+                    value = {this.state.locationRadius}
                     onChange={this.onLocationRadiusChange}
                     tipFormatter={(value)=>Math.round(10**(value/1000))/10}
                     marks = {{1000:"1",2000:"10",3000:"100",4000:"1000"}}
@@ -233,6 +257,7 @@ const TippedSlider = createSliderWithTooltip(Slider)
                     <p>Mots clés associés</p>
                     <CreatableSelect
                     options = {this.state.allKeywords}
+                    value={this.state.keywords}
                     isMulti
                     onChange = {this.onKeywordsChange}
                     />

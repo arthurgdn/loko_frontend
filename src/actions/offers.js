@@ -1,21 +1,32 @@
 
 import axios from 'axios'
 axios.defaults.headers.post['Content-Type'] = 'application/json';
+axios.defaults.headers.patch['Content-Type'] = 'application/json';
 axios.defaults.headers.post['Accept'] = 'application/json'
 axios.defaults.baseURL = process.env.DEV_URL
-export const editOffer =  (id,updates) =>{
+export const editOffer =  (id,updates) =>({
     type : 'EDIT_OFFER',
     id,
     updates
-}
+})
 
-export const startEditOffer = (id,updates)=>{
+export const startEditOffer = (id,updates,image={})=>{
     return async (dispatch)=>{
         try{
         
-            await axios.patch('/offer/'+id,JSON.stringify(updates))
-            dispatch(editOffer(id,updates))
+            const res = await axios.patch('/offer/'+id,JSON.stringify(updates))
+            if(Object.keys(image).length>0){
+                const imageBody = new FormData()
+            
+                imageBody.append('image',image)
+            
+                const buffer = await axios.post('/offer/'+id+'/image',imageBody)
+                dispatch(editOffer(id,{...res.data,image:buffer.data}))
+            }else{
+                dispatch(editOffer(id,{...res.data,image:{}}))
+            }
         }catch(e){
+            console.log(e)
             dispatch({
                 type:'ERROR',
                 e
@@ -77,10 +88,10 @@ export const startAddOffer = (offer,image)=>{
     }
 }
 
-export const removeOffer = (id) =>{
+export const removeOffer = (id) =>({
     type:'REMOVE_OFFER',
     id
-}
+})
 
 export const startRemoveOffer = (id)=>{
     return async (dispatch)=>{
@@ -88,6 +99,7 @@ export const startRemoveOffer = (id)=>{
             await axios.delete('/offer/'+id)
             dispatch(removeOffer(id))
         }catch(e){
+            
             dispatch({
                 type : 'ERROR',
                 e
