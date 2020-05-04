@@ -5,7 +5,7 @@ import moment from 'moment'
 import numeral from 'numeral'
 import getLocationFormatted from '../../actions/getLocationFormatted'
 import OfferCommentSection from './OfferCommentSection'
-const OfferElement =  ({title,description,createdAt,locationRadius,location,image,_id,keywords,publisherName,publisherId})=>{
+const OfferElement =  ({title,description,createdAt,locationRadius,location,image,_id,keywords,publisherName,publisherId,displayComments,displayAllComments})=>{
     const [locationResult,setLocationResult] = useState('')
     
     useEffect(()=>{
@@ -28,7 +28,7 @@ const OfferElement =  ({title,description,createdAt,locationRadius,location,imag
             
             <ul>{keywords.map((keyword)=>(<li key={keyword.name}>{keyword.name}</li>))}</ul>
             <span>{moment(createdAt).format('MMMM Do, YYYY')}</span>
-            <OfferCommentSection offer_id={_id}/>
+            {displayComments && <OfferCommentSection displayAllComments={displayAllComments} offer_id={_id}/>}
 
         </div>
         )
