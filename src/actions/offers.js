@@ -26,7 +26,7 @@ export const startEditOffer = (id,updates,image={})=>{
                 dispatch(editOffer(id,{...res.data,image:{}}))
             }
         }catch(e){
-            console.log(e)
+            
             dispatch({
                 type:'ERROR',
                 e
@@ -42,15 +42,15 @@ export const setOffers = (offers)=>({
 
 export const startSetOffers = () =>{
     return async (dispatch)=>{
-        console.log('on est la')
+        
         try {
             
             
             const res = await axios.get('/offers/collaborated/me')
             
-            dispatch(setOffers(res.data))
+            dispatch(setOffers(res.data?res.data:[]))
         }catch(e){
-            console.log(e)
+            
             dispatch({
                 type : 'ERROR',
                 e

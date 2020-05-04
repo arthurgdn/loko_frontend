@@ -10,7 +10,7 @@ const OfferList = ({offers,startSetOffers})=>{
         startSetOffers()
     },[])
     useEffect(()=>{
-        console.log('using effect')
+        
         setOffers(offers)
     },[startSetOffers,offers])
     return (

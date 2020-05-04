@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import moment from 'moment'
 import numeral from 'numeral'
 import getLocationFormatted from '../../actions/getLocationFormatted'
+import OfferCommentSection from './OfferCommentSection'
 const OfferElement =  ({title,description,createdAt,locationRadius,location,image,_id,keywords,publisherName,publisherId})=>{
     const [locationResult,setLocationResult] = useState('')
     
@@ -25,8 +26,9 @@ const OfferElement =  ({title,description,createdAt,locationRadius,location,imag
             <p>Dans un rayon de : {locationRadius} </p>
             {image&& (<img  src={process.env.DEV_URL+"/offer/"+_id+"/image"}/>)}
             
-            <ul>{keywords.map((keyword)=>(<li>{keyword.name}</li>))}</ul>
+            <ul>{keywords.map((keyword)=>(<li key={keyword.name}>{keyword.name}</li>))}</ul>
             <span>{moment(createdAt).format('MMMM Do, YYYY')}</span>
+            <OfferCommentSection offer_id={_id}/>
 
         </div>
         )
