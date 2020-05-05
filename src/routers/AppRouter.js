@@ -22,6 +22,7 @@ import MiniatureOfferList from '../components/offer/MiniatureOfferList'
 import ManageOffer from '../components/offer/ManageOffer'
 import EditOfferPage from '../components/offers/EditOfferPage'
 import DisplayOfferPage from '../components/offers/DisplayOfferPage'
+import CollaboratorsPage from '../components/collaborators/CollaboratorsPage'
 
 export const history = createBrowserHistory()
 const AppRouter = ()=>(
@@ -34,6 +35,7 @@ const AppRouter = ()=>(
                 <PublicRoute exact={true} path='/resetPass/:token' component={ResetPasswordPage}/>
                 <PrivateRoute exact={true} path='/home' component={HomePage}/>
                 <PrivateRoute exact={true} path='/me' component={PersonnalProfilePage}/>
+                <PrivateRoute exact={true} path='/me/collaborations' component={CollaboratorsPage}/>
                 <PrivateRoute exact={true} path='/settings' component={SettingsPage}/>
                 <PrivateRoute exact={true} path='/profile/:id' component={ProfilePage}/>
                 <PrivateRoute exact={true} path='/offers/gestion' component={MiniatureOfferList}/>

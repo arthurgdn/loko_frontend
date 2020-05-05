@@ -35,19 +35,62 @@ export const startEditUserInfo = (updates,profilePicture)=>{
         }
     }
 }
-
-export const newCollaboration = (collaborator) =>{
-    type :'NEW_COLLAB',
-    collaborator
-}
-// collaborator = {_id:collaborator_id}
-export const startNewCollaboration = (collaborator)=>{
+export const setCollaborators = (collaborators) =>({
+    type: 'SET_COLLABORATORS',
+    collaborators
+})
+export const startSetCollaborators = ()=>{
     return async (dispatch)=>{
         try{
-            
-            await axios.post('/users/acceptcollab',JSON.stringify(collaborator))
-            dispatch(newCollaboration(collaborator))
+            const res = await axios.get('/users/collab')
+            dispatch(setCollaborators(res.data))
         }catch(e){
+            dispatch({
+                type: 'ERROR',
+                e
+            })
+        }
+    }
+}
+export const setCollaborationDemands = (collaborationDemands) =>({
+    type: 'SET_COLLABORATION_DEMANDS',
+    collaborationDemands
+})
+export const startSetCollaborationDemands = ()=>{
+    return async (dispatch)=>{
+        try{
+            const res = await axios.get('/users/collabdemands')
+            dispatch(setCollaborationDemands(res.data))
+        }catch(e){
+            dispatch({
+                type: 'ERROR',
+                e
+            })
+        }
+    }
+}
+export const removeCollaborationDemand = (collaborator)=>({
+    type:'REMOVE_COLLAB_DEMAND',
+    collaborator 
+})
+export const newCollaboration = (collaborator) =>({
+    type :'NEW_COLLAB',
+    collaborator
+})
+// collaborator = {_id:collaborator_id}
+export const startNewCollaboration = (collaborator,status)=>{
+    return async (dispatch)=>{
+        try{
+            console.log(collaborator,status)
+            const res = await axios.post('/users/sortcollab',JSON.stringify({_id : collaborator,status}))
+            if(status==='accept'){
+                dispatch(newCollaboration(res.data))
+                console.log(res.data)
+            }
+            dispatch(removeCollaborationDemand(collaborator))
+            
+        }catch(e){
+            console.log(e)
             dispatch({
                 type:'ERROR',
                 e

@@ -5,9 +5,16 @@ import moment from 'moment'
 import numeral from 'numeral'
 import getLocationFormatted from '../../actions/getLocationFormatted'
 import OfferCommentSection from './OfferCommentSection'
-const OfferElement =  ({title,description,createdAt,locationRadius,locationText,location,image,_id,keywords,publisherName,publisherId,displayComments,displayAllComments})=>{
+import CollaborationDemandForm from './CollaborationDemandForm'
+import {startSendCollaborationDemand} from '../../actions/offers'
+const OfferElement =  ({user,title,description,createdAt,locationRadius,locationText,collaborators,location,image,_id,keywords,publisherName,publisherId,displayComments,displayAllComments,displayCollaborationDemandForm,startSendCollaborationDemand})=>{
     
-
+    const onCollaborationDemandSent = (message)=>{
+        
+        startSendCollaborationDemand(_id,message)
+    }
+    const isCollaborator = collaborators.find((collaborator)=>String(collaborator._id)===String(user._id))
+    
     return(
         <div>
             <Link to={'/profile/'+publisherId}>
@@ -23,6 +30,11 @@ const OfferElement =  ({title,description,createdAt,locationRadius,locationText,
             
             <ul>{keywords.map((keyword)=>(<li key={keyword.name}>{keyword.name}</li>))}</ul>
             <span>{moment(createdAt).format('MMMM Do, YYYY')}</span>
+            {displayCollaborationDemandForm && <div>
+                    {isCollaborator?(<p>Vous travaillez sur cette annonce</p>):(
+                        <CollaborationDemandForm onCollaborationDemandSent={onCollaborationDemandSent}/>
+                    )}
+                </div>}
             {displayComments && <OfferCommentSection displayAllComments={displayAllComments} offer_id={_id}/>}
 
         </div>
@@ -33,5 +45,11 @@ const OfferElement =  ({title,description,createdAt,locationRadius,locationText,
          
          
     }
+const mapStateToProps = (state)=>({
+    user : state.user
+})
+const mapDispatchToProps = (dispatch)=>({
+    startSendCollaborationDemand : (id,message)=>dispatch(startSendCollaborationDemand(id,message))
+})
 
-export default OfferElement
+export default connect(mapStateToProps,mapDispatchToProps)(OfferElement)

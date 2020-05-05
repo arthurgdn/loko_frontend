@@ -17,7 +17,7 @@ const OfferList = ({offers,startSetOffers})=>{
         <div className="content-container">
             {showingOffers.length===0?(
                 <p>Vous n'avez pas encore publié d'offres</p>):(
-                    showingOffers.map((offer)=><OfferElement displayComments={true} displayAllComments={false} key={offer._id} {...offer} />)
+                    showingOffers.map((offer)=><OfferElement displayCollaborationDemandForm={true} displayComments={true} displayAllComments={false} key={offer._id} {...offer} />)
                 )}
         </div>
 

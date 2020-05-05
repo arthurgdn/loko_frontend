@@ -108,3 +108,18 @@ export const startRemoveOffer = (id)=>{
 
     }
 }
+
+export const startSendCollaborationDemand = (id,message)=>{
+    return async(dispatch)=>{
+        try{
+            console.log('envoi')
+            await axios.post('/offer/'+id+'/demand',JSON.stringify({message}))
+        }catch(e){
+            console.log(e)
+            dispatch({
+                type:'ERROR',
+                e
+            })
+        }
+    }
+}

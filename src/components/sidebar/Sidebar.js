@@ -8,8 +8,9 @@ const Sidebar = ({user }) => {
     <div className="sidebar">
         <div className="content-container">
             <Link className="button new-offer" to='/nouvelle_annonce'>Créer une annonce</Link>
-            <Link to='/offers/me'>Mes offres</Link>
-            <Link to='/offers/gestion'>Gérer mes offres</Link>
+            <Link to='/offers/me'>Mes annonces</Link>
+            <Link to='/offers/gestion'>Gérer mes annonces</Link>
+            <Link to='/me/collaborations'>Mes collaborations</Link>
         </div>
     </div>
   )

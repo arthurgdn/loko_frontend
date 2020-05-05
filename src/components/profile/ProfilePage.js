@@ -2,13 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import getLocationFormatted from '../../actions/getLocationFormatted'
-import {startSendCollaboration} from '../../actions/user'
+import {startSendCollaboration,startNewCollaboration} from '../../actions/user'
 import { startSetProfile } from '../../actions/profile';
 
 
-const ProfilePage = ({ startSendCollaboration,startSetProfile,match,stateProfile,user }) => {
+const ProfilePage = ({ startSendCollaboration,startSetProfile,match,stateProfile,user_id,collaborators,collaborationDemands,startNewCollaboration }) => {
     
-    
+    console.log(collaborationDemands)
+    const isCollaborator = collaborators.find((collaborator)=>String(collaborator.collaborator)===match.params.id)
+    const isInCollaborationDemands = collaborationDemands.find((demand)=>String(demand.demand)===match.params.id)
+    console.log(isInCollaborationDemands)
     const [profile,setProfile] = useState({
         firstName:'',
         lastName:'',
@@ -30,17 +33,33 @@ const ProfilePage = ({ startSendCollaboration,startSetProfile,match,stateProfile
         
         
     },[stateProfile,startSetProfile])
-
+    const accept=(e)=>{
+        const collaborator = e.currentTarget.id.substr(6,e.currentTarget.id.length)
+        
+        startNewCollaboration(collaborator,'accept')
+    }
+    const reject = (e)=>{
+        const collaborator = e.currentTarget.id.substr(6,e.currentTarget.id.length)
+        
+        startNewCollaboration(collaborator,'reject')
+    }
     
     
   return (
       <div> 
             
             
-            {match.params.id!==user._id ?(<div><button onClick={(e)=>{
-                //We could add in store something to keep track if a demand was sent
+            {match.params.id!==user_id ?(<div>
+                {(!isCollaborator && !isInCollaborationDemands) && <button onClick={(e)=>{
+                
                 startSendCollaboration({_id : match.params.id})
-            }}>Collaborer </button>
+            }}>Collaborer </button>}
+
+            {isInCollaborationDemands && (
+                <div>
+                    <button id={"accept"+match.params.id} onClick={accept}>Accepter</button>
+                    <button id={"reject"+match.params.id} onClick={reject}>Rejeter</button>
+                </div>)}
             <button onClick={(e)=>{
         
                 //Create a new conversation(on the server) and redirect to this conversation
@@ -73,11 +92,14 @@ const ProfilePage = ({ startSendCollaboration,startSetProfile,match,stateProfile
 
 const mapStateToProps = (state)=>({
     stateProfile : state.profile,
-    user : state.user
+    user_id : state.user._id,
+    collaborators : state.user.collaborators,
+    collaborationDemands : state.user.collaborationDemands
 })
 const mapDispatchToProps = (dispatch)=>({
     startSetProfile : (profile_id)=>dispatch(startSetProfile(profile_id)),
-    startSendCollaboration : (collaborator)=>dispatch(startSendCollaboration(collaborator))
+    startSendCollaboration : (collaborator)=>dispatch(startSendCollaboration(collaborator)),
+    startNewCollaboration : (collaborator,status)=>dispatch(startNewCollaboration(collaborator,status))
 })
 export default connect(
     mapStateToProps,

@@ -27,7 +27,7 @@ const DisplayOfferPage = ({match})=>{
     return (
         <div>
             {error &&(<p>{error}</p>)}
-            {Object.keys(offer).length===0?(<p>Aucune offre ne correspond</p>):(<OfferElement displayComments={true} displayAllComments={true} key={offer._id} {...offer}/>)}
+            {Object.keys(offer).length===0?(<p>Aucune offre ne correspond</p>):(<OfferElement displayCollaborationDemandForm={true} displayComments={true} displayAllComments={true} key={offer._id} {...offer}/>)}
             
     
         </div>
