@@ -5,13 +5,8 @@ import moment from 'moment'
 import numeral from 'numeral'
 import getLocationFormatted from '../../actions/getLocationFormatted'
 import OfferCommentSection from './OfferCommentSection'
-const OfferElement =  ({title,description,createdAt,locationRadius,location,image,_id,keywords,publisherName,publisherId,displayComments,displayAllComments})=>{
-    const [locationResult,setLocationResult] = useState('')
+const OfferElement =  ({title,description,createdAt,locationRadius,locationText,location,image,_id,keywords,publisherName,publisherId,displayComments,displayAllComments})=>{
     
-    useEffect(()=>{
-        getLocationFormatted(location.coordinates[1],location.coordinates[0]).then((getLocationFormatted)=>setLocationResult(getLocationFormatted))
-        
-    },[])
 
     return(
         <div>
@@ -22,7 +17,7 @@ const OfferElement =  ({title,description,createdAt,locationRadius,location,imag
             
             <h3>{title}</h3>
             <p>{description}</p>
-            <p>Recherche à {locationResult} </p>
+            <p>Recherche à {locationText} </p>
             <p>Dans un rayon de : {locationRadius} </p>
             {image&& (<img  src={process.env.DEV_URL+"/offer/"+_id+"/image"}/>)}
             

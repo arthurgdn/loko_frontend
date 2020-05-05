@@ -12,11 +12,8 @@ const EditUserForm = ({user,startEditUserInfo})=>{
     const [location,setLocation] = useState(user.location?user.location:{type:'Point',coordinates:[]})
     const [useBrowserLocation,setUseBrowserLocation] = useState(false)
     const [locationInput,setLocationInput] = useState('')
-    const [locationResult,setLocationResult] = useState('')
-    useEffect(()=>{
-        getLocationFormatted(user.location.coordinates[1],user.location.coordinates[0]).then((getLocationFormatted)=>{setLocationResult(getLocationFormatted)})
-    
-    },[])
+    const [locationText,setLocationText] = useState(user.locationText?user.locationText:'')
+   
     
     const [error,setError]= useState('')
     
@@ -31,7 +28,7 @@ const EditUserForm = ({user,startEditUserInfo})=>{
                 axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${process.env.MAPBOX_API_KEY}&language=fr&limit=1`).then(
                     (res)=>{
                         const features = res.data.features[0].context
-                        setLocationResult(features[1].text_fr + ", "+ features[2].text_fr +", "+features[3].text_fr)
+                        setLocationText(features[1].text_fr + ", "+ features[2].text_fr +", "+features[3].text_fr)
                         setLocationInput('')
                         setLocation({type : "Point",coordinates:[longitude,latitude]})
                         
@@ -47,7 +44,7 @@ const EditUserForm = ({user,startEditUserInfo})=>{
         }}
         else{
             setUseBrowserLocation(useBrowser)
-            setLocationResult('')
+            setLocationText('')
             
         }
     }
@@ -58,7 +55,7 @@ const EditUserForm = ({user,startEditUserInfo})=>{
             (res)=>{
                 const latitude = res.data.features[0].center[0]
                 const longitude = res.data.features[0].center[1]
-                setLocationResult(res.data.features[0].place_name)
+                setLocationText(res.data.features[0].place_name)
                 setLocation({type:"Point",coordinates:[longitude,latitude]})
                 
             }
@@ -72,7 +69,8 @@ const EditUserForm = ({user,startEditUserInfo})=>{
         startEditUserInfo({
             firstName,
             lastName,
-            location
+            location,
+            locationText
         },profilePicture)
 
     }
@@ -113,7 +111,7 @@ const EditUserForm = ({user,startEditUserInfo})=>{
 
                     )} 
 
-                    {locationResult&& <p>{locationResult}</p>}
+                    {locationText&& <p>{locationText}</p>}
                     <p>Photo de profil</p>
                     <img  src={process.env.DEV_URL+"/users/"+user._id+"/avatar"}/>
                     <ImageUploader

@@ -7,6 +7,7 @@ const userReducerDefaultState = {
         type:"Point",
         coordinates:[]
     },
+    locationText:'',
     collaborators:[],
     userKeywords : [],
     userGroups : []

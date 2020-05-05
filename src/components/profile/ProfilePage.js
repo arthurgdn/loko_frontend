@@ -7,11 +7,13 @@ import { startSetProfile } from '../../actions/profile';
 
 
 const ProfilePage = ({ startSendCollaboration,startSetProfile,match,stateProfile,user }) => {
-    const [profileLocation,setProfileLocation] = useState('')
+    
+    
     const [profile,setProfile] = useState({
         firstName:'',
         lastName:'',
         location : '',
+        locationText: '',
         description:'',
         summary:'',
         keywords:[],
@@ -29,16 +31,6 @@ const ProfilePage = ({ startSendCollaboration,startSetProfile,match,stateProfile
         
     },[stateProfile,startSetProfile])
 
-    useEffect(()=>{
-        console.log(profile.location)
-        if(profile.location!==''){
-            getLocationFormatted(profile.location.coordinates[1],profile.location.coordinates[0]).then((locationFormatted)=>{
-                console.log(locationFormatted)
-                setProfileLocation(locationFormatted)})
-        }
-        
-    }
-    ,[profile.location])
     
     
   return (
@@ -55,7 +47,7 @@ const ProfilePage = ({ startSendCollaboration,startSetProfile,match,stateProfile
             }}>Message</button></div>) : (<Link to='/settings/profile'>Modifier</Link>)}
             <h3>{profile.firstName} {profile.lastName}</h3>
             <img src={process.env.DEV_URL+"/users/"+match.params.id+"/avatar"}/>
-            <p>{profileLocation}</p>
+            <p>Localisation : {profile.locationText}</p>
             <p>Description : {profile.description}</p>
             <p>Ce que je recherche : {profile.summary}</p>
             <h3>Mes compétences: </h3>

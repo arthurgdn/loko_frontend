@@ -46,7 +46,7 @@ import getLocationFormatted from '../../actions/getLocationFormatted'
         
         location : props.location?props.location : {type:['Point'],coordinates:[]},
         locationInput : props.locationInput ? props.locationInput : '',
-        locationResult : props.locationResult?props.locationResult : '',
+        locationText : props.locationText?props.locationText : '',
         useBrowserLocation: false,
         locationRadius : props.locationRadius? Math.round(1000*Math.log10(10*props.locationRadius)): 0,
         scope : props.scope?props.scope : 'general',
@@ -61,12 +61,7 @@ import getLocationFormatted from '../../actions/getLocationFormatted'
         
         
     }
-    componentDidMount = ()=>{
-        getLocationFormatted(this.state.location.coordinates[1],this.state.location.coordinates[0]).then((getLocationFormatted)=>{this.setState(()=>({locationResult:getLocationFormatted}))
-        
-    })
-        
-    }
+    
     
     onDescriptionChange = (e)=>{
         const description = e.target.value
@@ -88,7 +83,7 @@ import getLocationFormatted from '../../actions/getLocationFormatted'
                     (res)=>{
                         const features = res.data.features[0].context
                         
-                        this.setState({locationResult :features[1].text_fr + ", "+ features[2].text_fr +", "+features[3].text_fr }) 
+                        this.setState({locationText :features[1].text_fr + ", "+ features[2].text_fr +", "+features[3].text_fr }) 
                         this.setState({locationInput : ''})
                         this.setState({location : {type : "Point",coordinates:[longitude,latitude]}})
                     }
@@ -102,7 +97,7 @@ import getLocationFormatted from '../../actions/getLocationFormatted'
         }}
         else{
             this.setState(()=>({useBrowserLocation}))
-            this.setState(()=>({locationResult : ''}))
+            this.setState(()=>({locationText : ''}))
         }
         
     }
@@ -113,7 +108,7 @@ import getLocationFormatted from '../../actions/getLocationFormatted'
             (res)=>{
                 const latitude = res.data.features[0].center[0]
                 const longitude = res.data.features[0].center[1]
-                this.setState({locationResult : res.data.features[0].place_name})
+                this.setState({locationText : res.data.features[0].place_name})
                 this.setState({location : {type : "Point",coordinates:[longitude,latitude]}})
             }
         ).catch((e)=>{
@@ -176,6 +171,7 @@ import getLocationFormatted from '../../actions/getLocationFormatted'
                 title: this.state.title,
                 description:this.state.description,
                 location : this.state.location,
+                locationText : this.state.locationText,
                 locationRadius :Math.round(10**(this.state.locationRadius/1000)/10),
                 scope : this.state.scope,
                 keywords: formattedKeywords,
@@ -225,7 +221,7 @@ import getLocationFormatted from '../../actions/getLocationFormatted'
 
                     )} 
 
-                    {this.state.locationResult&& <p>{this.state.locationResult}</p>}
+                    {this.state.locationText&& <p>{this.state.locationText}</p>}
                     <p>L'offre concerne un rayon de (km) :</p>
                     
                     <TippedSlider
