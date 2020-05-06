@@ -10,7 +10,7 @@ const offersReducer = (state=offersReducerDefaultState,action)=>{
             return [...state,action.offer]
         case 'EDIT_OFFER':
             return state.map((offer)=>{
-                if(offer.id===action.id){
+                if(offer._id===action.id){
                    
                     return {...offer,
                         ...action.updates}
@@ -19,7 +19,7 @@ const offersReducer = (state=offersReducerDefaultState,action)=>{
                 }
             })
         case 'REMOVE_OFFER':
-            return state.filter(({id})=>id!==action.id)
+            return state.filter(({_id})=>_id!==action.id)
          
         default: 
             return state

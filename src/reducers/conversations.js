@@ -8,8 +8,17 @@ const conversationsReducer = (state=conversationsReducerDefaultState,action)=>{
         case 'NEW_CONVERSATION':
             return [...state,action.conversation]
         case 'REMOVE_CONVERSATION':
-            return state.filter(({id})=>id!==action.id)
-         
+            return state.filter(({_id})=>_id!==action.id)
+        case 'EDIT_CONVERSATION':
+            return state.map((conversation)=>{
+                if(conversation._id===action.id){
+                   
+                    return {...conversation,
+                        ...action.updates}
+                }else{
+                    return conversation
+                }
+            }) 
         default: 
             return state
     }

@@ -7,10 +7,14 @@ const Sidebar = ({user }) => {
   return (
     <div className="sidebar">
         <div className="content-container">
-            <Link className="button new-offer" to='/nouvelle_annonce'>Créer une annonce</Link>
-            <Link to='/offers/me'>Mes annonces</Link>
-            <Link to='/offers/gestion'>Gérer mes annonces</Link>
-            <Link to='/me/collaborations'>Mes collaborations</Link>
+        <ul>
+          <Link className="button new-offer" to='/nouvelle_annonce'><li>Créer une annonce</li></Link>
+          <Link to='/offers/me'><li>Mes annonces</li></Link>
+          <Link to='/offers/gestion'><li>Gérer mes annonces</li></Link>
+          <Link to='/me/collaborations'><li>Mes collaborations</li></Link>
+          <Link to='/conversations'><li>Mes conversations</li></Link>
+        </ul>
+            
         </div>
     </div>
   )

@@ -1,13 +1,15 @@
 
 import axios from 'axios'
 axios.defaults.headers.post['Content-Type'] = 'application/json';
+axios.defaults.headers.patch['Content-Type'] = 'application/json';
+axios.defaults.headers.post['Accept'] = 'application/json'
 axios.defaults.baseURL = process.env.DEV_URL
 
 
-export const setConversations = (conversations)=>{
+export const setConversations = (conversations)=>({
     type : 'SET_CONVERSATIONS',
     conversations
-}
+})
 
 export const startSetConversations = () =>{
     return async (dispatch)=>{
@@ -15,6 +17,7 @@ export const startSetConversations = () =>{
             const res = await axios.get('/conversations/me')
             dispatch(setConversations(res.data))
         }catch(e){
+            console.log(e)
             dispatch({
                 type : 'ERROR',
                 e
@@ -23,10 +26,10 @@ export const startSetConversations = () =>{
     }
 }
 
-export const newConversation = (conversation)=>{
+export const newConversation = (conversation)=>({
     type : 'NEW_CONVERSATION',
     conversation
-}
+})
 
 export const startNewConversation = (conv_data)=>{
     return async (dispatch)=>{
@@ -55,6 +58,41 @@ export const startRemoveConversation = (id)=>{
         }catch(e){
             dispatch({
                 type : 'ERROR',
+                e
+            })
+        }
+    }
+}
+
+export const editConversation =  (id,updates) =>({
+    type : 'EDIT_CONVERSATION',
+    id,
+    updates
+})
+
+export const startEditConversation = (id,updates,image={})=>{
+    return async (dispatch)=>{
+        try{
+            
+            const res = await axios.patch('/conversation/'+id,JSON.stringify(updates))
+            
+            if(image.name){
+                const imageBody = new FormData()
+            
+                imageBody.append('image',image)
+                
+                const buffer = await axios.post('/conversation/'+id+'/image',imageBody)
+                
+                dispatch(editConversation(id,{...res.data,image:buffer.data}))
+                dispatch({type: 'EDIT_SPECIFIC_CONVERSATION',updates : {...res.data,image:buffer.data}})
+            }else{
+                dispatch(editConversation(id,{...res.data,image:{}}))
+                dispatch({type: 'EDIT_SPECIFIC_CONVERSATION',updates : {...res.data,image:{}}})
+            }
+        }catch(e){
+            console.log(e)
+            dispatch({
+                type:'ERROR',
                 e
             })
         }
