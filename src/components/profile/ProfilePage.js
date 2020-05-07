@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
-import getLocationFormatted from '../../actions/getLocationFormatted'
+
 import {startSendCollaboration,startNewCollaboration} from '../../actions/user'
 import { startSetProfile } from '../../actions/profile';
 
 
-const ProfilePage = ({ startSendCollaboration,startSetProfile,match,stateProfile,user_id,collaborators,collaborationDemands,startNewCollaboration }) => {
+const ProfilePage = ({ startSendCollaboration,startSetProfile,match,stateProfile,user_id,collaborators,collaborationDemands,startNewCollaboration,history }) => {
     
-    console.log(collaborationDemands)
+    
     const isCollaborator = collaborators.find((collaborator)=>String(collaborator.collaborator)===match.params.id)
     const isInCollaborationDemands = collaborationDemands.find((demand)=>String(demand.demand)===match.params.id)
-    console.log(isInCollaborationDemands)
+    
     const [profile,setProfile] = useState({
         firstName:'',
         lastName:'',
@@ -43,6 +43,9 @@ const ProfilePage = ({ startSendCollaboration,startSetProfile,match,stateProfile
         
         startNewCollaboration(collaborator,'reject')
     }
+    const sendMessage = (e)=>{
+        history.push('/load/conversation/'+match.params.id)
+    }
     
     
   return (
@@ -60,10 +63,7 @@ const ProfilePage = ({ startSendCollaboration,startSetProfile,match,stateProfile
                     <button id={"accept"+match.params.id} onClick={accept}>Accepter</button>
                     <button id={"reject"+match.params.id} onClick={reject}>Rejeter</button>
                 </div>)}
-            <button onClick={(e)=>{
-        
-                //Create a new conversation(on the server) and redirect to this conversation
-            }}>Message</button></div>) : (<Link to='/settings/profile'>Modifier</Link>)}
+            <button onClick={sendMessage}>Message</button></div>) : (<Link to='/settings/profile'>Modifier</Link>)}
             <h3>{profile.firstName} {profile.lastName}</h3>
             <img src={process.env.DEV_URL+"/users/"+match.params.id+"/avatar"}/>
             <p>Localisation : {profile.locationText}</p>

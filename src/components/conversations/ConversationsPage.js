@@ -43,7 +43,7 @@ const ConversationsPage = ({collaborators,startSetCollaborators,startNewConversa
             //On regarde si la conversation existe déjà et dans ce cas la on redirige vers celle-ci
             const existingConversation = displayedConversations.find((conversation)=>!!conversation.members.find((member)=>member.member===members[0].value))
             if(existingConversation){
-                console.log('exists!',existingConversation._id)
+                
                 history.push('/conversation/'+existingConversation._id)
             }else{
                 const formattedMembers = []

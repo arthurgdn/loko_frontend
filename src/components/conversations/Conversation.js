@@ -26,7 +26,7 @@ const Conversation =  ({match,user_id,stateConversation,startSetConversation,col
         if(Object.keys(stateConversation).length>0 && stateConversation._id!==match.params.id){
             startSetConversation(match.params.id)
         }else if(Object.keys(stateConversation).length===0){
-            console.log('starting')
+            
             startSetConversation(match.params.id)
         }
         startSetCollaborators()
@@ -39,7 +39,7 @@ const Conversation =  ({match,user_id,stateConversation,startSetConversation,col
     },[stateConversation,startSetConversation])
     useEffect(()=>{
         //On vérifie qu'on a le bon format pour la liste des collaborateurs
-        console.log(stateConversation)
+        
         if((collaborators.length>0 && !!stateConversation.members && Object.keys(collaborators[0]).length===3)||collaborators.length===0){
             const formattedCollaborators = []
             for (const collaborator of collaborators){
@@ -53,7 +53,7 @@ const Conversation =  ({match,user_id,stateConversation,startSetConversation,col
     },[stateConversation,startSetConversation])
     const onSelectedMembersChange = (collaborator)=>{
         setMember(collaborator)
-        console.log(collaborator)
+        
     }
     const addMember = ()=>{
         
@@ -82,6 +82,7 @@ const Conversation =  ({match,user_id,stateConversation,startSetConversation,col
                             )
                         
                     }
+                    <Messages conv_id={match.params.id}/>
                     <button onClick={()=>setDisplayInfo(!displayInfo)}>Informations</button>
                     {displayInfo && (
                         <div>

@@ -24,7 +24,7 @@ import EditOfferPage from '../components/offers/EditOfferPage'
 import DisplayOfferPage from '../components/offers/DisplayOfferPage'
 import CollaboratorsPage from '../components/collaborators/CollaboratorsPage'
 import ConversationsPage from '../components/conversations/ConversationsPage'
-
+import LoadConversation from '../components/conversations/LoadConversation'
 export const history = createBrowserHistory()
 const AppRouter = ()=>(
     <Router history={history}>
@@ -49,6 +49,7 @@ const AppRouter = ()=>(
                 <PrivateRoute exact={true} path='/conversations' component = {ConversationsPage}/>
                 <PrivateRoute exact={true} path='/nouvelle_annonce' component={CreateOfferPage}/>
                 <PrivateRoute exact={true} path='/conversation/:id' component={Conversation}/>
+                <PrivateRoute exact={true} path='/load/conversation/:id' component={LoadConversation}/>
                 <Route component={NotFoundPage}/>
             </Switch>
         </div>

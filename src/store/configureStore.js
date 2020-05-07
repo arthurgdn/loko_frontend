@@ -14,7 +14,7 @@ import errorReducer from '../reducers/error'
 import keywordsReducer from '../reducers/keywords'
 import commentsReducer from '../reducers/comments'
 import conversationReducer from '../reducers/conversation'
-
+import socketReducer from '../reducers/socket'
 //We configure the store with the different reducers
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 export default ()=>{
@@ -32,7 +32,8 @@ export default ()=>{
         messages : messagesReducer,
         error : errorReducer,
         comments : commentsReducer,
-        conversation: conversationReducer
+        conversation: conversationReducer,
+        socket : socketReducer
     }),
     composeEnhancers(applyMiddleware(thunk))
      )
