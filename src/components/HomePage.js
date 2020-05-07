@@ -1,8 +1,9 @@
 import React from 'react'
+import FeedContainer from './feed/FeedContainer'
 
 const HomePage = ()=>(
     <div>
-        <p>Vous êtes connectés</p>
+        <FeedContainer/>
         
     </div>
 )

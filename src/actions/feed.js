@@ -4,10 +4,10 @@ axios.defaults.headers.post['Content-Type'] = 'application/json';
 axios.defaults.baseURL = process.env.DEV_URL
 
 
-export const setFeed = (feed)=>{
+export const setFeed = (feed)=>({
     type : 'SET_FEED',
     feed
-}
+})
 
 export const startSetFeed = () =>{
     return async (dispatch)=>{
