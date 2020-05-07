@@ -87,7 +87,7 @@ const Conversation =  ({match,user_id,stateConversation,startSetConversation,col
                     {displayInfo && (
                         <div>
                             {conversation.description && (<p>{conversation.description}</p>)}
-                            {(conversation.image && Object.keys(conversation.image).length>0) && (<img className="header__picture" src={process.env.DEV_URL+"/conversation/"+conversation._id+"/image"}/>)}
+                            {conversation.hasImage && (<img className="header__picture" src={process.env.DEV_URL+"/conversation/"+conversation._id+"/image"}/>)}
                             <h3>Membres : </h3>
                             {conversation.members.map((member)=>
                                 <div key={member.member}>

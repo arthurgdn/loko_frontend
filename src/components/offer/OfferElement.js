@@ -7,7 +7,7 @@ import getLocationFormatted from '../../actions/getLocationFormatted'
 import OfferCommentSection from './OfferCommentSection'
 import CollaborationDemandForm from './CollaborationDemandForm'
 import {startSendCollaborationDemand} from '../../actions/offers'
-const OfferElement =  ({user,title,description,createdAt,locationRadius,locationText,collaborators,location,image,_id,keywords,publisherName,publisherId,displayComments,displayAllComments,displayCollaborationDemandForm,startSendCollaborationDemand})=>{
+const OfferElement =  ({user,title,description,createdAt,locationRadius,locationText,collaborators,hasImage,_id,keywords,publisherName,publisherId,displayComments,displayAllComments,displayCollaborationDemandForm,startSendCollaborationDemand})=>{
     
     const onCollaborationDemandSent = (message)=>{
         
@@ -26,7 +26,7 @@ const OfferElement =  ({user,title,description,createdAt,locationRadius,location
             <p>{description}</p>
             <p>Recherche à {locationText} </p>
             <p>Dans un rayon de : {locationRadius} </p>
-            {image&& (<img  src={process.env.DEV_URL+"/offer/"+_id+"/image"}/>)}
+            {hasImage&& (<img  src={process.env.DEV_URL+"/offer/"+_id+"/image"}/>)}
             
             <ul>{keywords.map((keyword)=>(<li key={keyword.name}>{keyword.name}</li>))}</ul>
             <span>{moment(createdAt).format('MMMM Do, YYYY')}</span>

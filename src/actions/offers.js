@@ -21,9 +21,9 @@ export const startEditOffer = (id,updates,image={})=>{
                 imageBody.append('image',image)
             
                 const buffer = await axios.post('/offer/'+id+'/image',imageBody)
-                dispatch(editOffer(id,{...res.data,image:buffer.data}))
+                dispatch(editOffer(id,res.data))
             }else{
-                dispatch(editOffer(id,{...res.data,image:{}}))
+                dispatch(editOffer(id,res.data))
             }
         }catch(e){
             
@@ -67,15 +67,15 @@ export const startAddOffer = (offer,image)=>{
         try {
             
             const res = await axios.post('/offer/create',JSON.stringify(offer))
-            if(image!=={}){
+            if(Object.keys(image).length!==0){
                 const imageBody = new FormData()
             
                 imageBody.append('image',image)
             
                 const buffer = await axios.post('/offer/'+res.data._id+'/image',imageBody)
-                dispatch(addOffer({...res.data,image:buffer.data}))
+                dispatch(addOffer(res.data))
             }else{
-                dispatch(addOffer({...res.data,image:{}}))
+                dispatch(addOffer(res.data))
             }
             
         }catch(e){

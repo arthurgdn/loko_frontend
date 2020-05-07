@@ -10,7 +10,7 @@ const ConversationsList = ({displayedConversations,user_id})=>{
             displayedConversations.map((conversation)=> (
                 <div key={conversation._id}>
                     <Link to={'/conversation/'+conversation._id}>
-                        {conversation.image && <img className="header__picture" src={process.env.DEV_URL+"/conversation/"+conversation._id+"/image"}/>}
+                        {conversation.hasImage && <img className="header__picture" src={process.env.DEV_URL+"/conversation/"+conversation._id+"/image"}/>}
                         {conversation.name?(<p>{conversation.name}</p>):
                             conversation.members.map((member)=>(<div key={member.member}>
                                 {member.member===user_id?(<p></p>):(<p>{member.firstName + ' '+member.lastName + '-'}</p>)}

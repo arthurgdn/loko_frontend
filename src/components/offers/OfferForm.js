@@ -165,7 +165,7 @@ import getLocationFormatted from '../../actions/getLocationFormatted'
             for(const keyword of this.state.keywords){
                 formattedKeywords.push(keyword.value)
             }
-            console.log(this.state.locationRadius)
+            console.log(this.state.image)
             this.setState(()=>({error:''}))
             this.props.onSubmit({
                 title: this.state.title,

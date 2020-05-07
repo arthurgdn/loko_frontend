@@ -83,11 +83,11 @@ export const startEditConversation = (id,updates,image={})=>{
                 
                 const buffer = await axios.post('/conversation/'+id+'/image',imageBody)
                 
-                dispatch(editConversation(id,{...res.data,image:buffer.data}))
-                dispatch({type: 'EDIT_SPECIFIC_CONVERSATION',updates : {...res.data,image:buffer.data}})
+                dispatch(editConversation(id,res.data))
+                dispatch({type: 'EDIT_SPECIFIC_CONVERSATION',updates : res.data})
             }else{
                 dispatch(editConversation(id,{...res.data,image:{}}))
-                dispatch({type: 'EDIT_SPECIFIC_CONVERSATION',updates : {...res.data,image:{}}})
+                dispatch({type: 'EDIT_SPECIFIC_CONVERSATION',updates : res.data})
             }
         }catch(e){
             console.log(e)
