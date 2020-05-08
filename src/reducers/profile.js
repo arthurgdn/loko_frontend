@@ -8,6 +8,7 @@ const profileReducerDefaultState = {
     skills : [],
     keywords : [],
     completedOffers : [],
+    recommendations : [],
     collaborators:[]
 }
 const profileReducer = (state=profileReducerDefaultState,action)=>{
@@ -19,6 +20,8 @@ const profileReducer = (state=profileReducerDefaultState,action)=>{
             return profileReducerDefaultState
         case 'EDIT_PROFILE':
             return {...state,...action.updates}
+        case 'SEND_RECOMMENDATION':
+            return {...state,recommendations : [...state.recommendations,action.recommendation] }
         case 'ADD_COMPLETED_OFFER':
             return {...state,completedOffers : [...completedOffers,action.completedOffer]}
         default: 

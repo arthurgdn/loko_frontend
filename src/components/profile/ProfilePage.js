@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 
 import {startSendCollaboration,startNewCollaboration} from '../../actions/user'
-import { startSetProfile } from '../../actions/profile';
+import { startSetProfile, startSendRecommendation } from '../../actions/profile';
+import RecommendationForm from './RecommendationForm'
 
-
-const ProfilePage = ({ startSendCollaboration,startSetProfile,match,stateProfile,user_id,collaborators,collaborationDemands,startNewCollaboration,history }) => {
+const ProfilePage = ({ startSendCollaboration,startSetProfile,startSendRecommendation,match,stateProfile,user_id,collaborators,collaborationDemands,startNewCollaboration,history }) => {
     
     
     const isCollaborator = collaborators.find((collaborator)=>String(collaborator.collaborator)===match.params.id)
@@ -21,6 +21,7 @@ const ProfilePage = ({ startSendCollaboration,startSetProfile,match,stateProfile
         summary:'',
         keywords:[],
         skills : [],
+        recommendations : [],
         completedOffers:[]
 
     })
@@ -46,7 +47,9 @@ const ProfilePage = ({ startSendCollaboration,startSetProfile,match,stateProfile
     const sendMessage = (e)=>{
         history.push('/load/conversation/'+match.params.id)
     }
-    
+    const sendRecommendation = (content)=>{
+        startSendRecommendation(match.params.id,content)
+    }
     
   return (
       <div> 
@@ -84,7 +87,18 @@ const ProfilePage = ({ startSendCollaboration,startSetProfile,match,stateProfile
             {profile.completedOffers.map((offer)=>(<li key={offer._id}>{
                 //api to generate keyword text from id later, same for completed offers
                 offer}</li>))}
-        </ul>
+            </ul>
+            <h3>Recommendations reçues : </h3>
+            {profile.recommendations.map((recommendation)=>(
+                <div key={recommendation._id}>
+                    <Link to={'/profile/'+recommendation.publisher._id}>
+                        <img className="header__picture" src={process.env.DEV_URL+"/users/"+recommendation.publisher._id+"/avatar"}/>
+                        <p>{recommendation.publisher.firstName} {recommendation.publisher.lastName}</p>
+                    </Link>
+                    <p>{recommendation.content}</p>
+                </div>))}
+                {match.params.id!==user_id && ( <RecommendationForm sendRecommendation={sendRecommendation}/>) }
+               
       </div>
   )
 };
@@ -99,7 +113,8 @@ const mapStateToProps = (state)=>({
 const mapDispatchToProps = (dispatch)=>({
     startSetProfile : (profile_id)=>dispatch(startSetProfile(profile_id)),
     startSendCollaboration : (collaborator)=>dispatch(startSendCollaboration(collaborator)),
-    startNewCollaboration : (collaborator,status)=>dispatch(startNewCollaboration(collaborator,status))
+    startNewCollaboration : (collaborator,status)=>dispatch(startNewCollaboration(collaborator,status)),
+    startSendRecommendation : (profile_id,content)=>dispatch(startSendRecommendation(profile_id,content))
 })
 export default connect(
     mapStateToProps,
