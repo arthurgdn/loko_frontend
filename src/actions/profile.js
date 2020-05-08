@@ -68,12 +68,15 @@ export const addCompletedOffer = (completedOffer)=>({
     type : 'ADD_COMPLETED_OFFER',
     completedOffer
 })
-export const startAddCompletedOffer = (offer_id)=>{
+export const startEditCompletedOffers = (completedOffers)=>{
     return async (dispatch)=>{
         try {
-            const res = await axios.post('/profile/completedOffer',JSON.stringify({_id:offer_id}))
-            dispatch(addCompletedOffer(res.data._doc))
+            
+            const res = await axios.post('/profile/completedOffers',JSON.stringify({completedOffers}))
+            console.log('profile',res.data)
+            dispatch(editProfile(res.data))
         }catch(e){
+            console.log(e)
             dispatch({
                 type : 'ERROR',
                 e

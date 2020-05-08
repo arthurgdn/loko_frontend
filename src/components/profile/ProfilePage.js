@@ -83,11 +83,8 @@ const ProfilePage = ({ startSendCollaboration,startSetProfile,startSendRecommend
                     keyword}</li>))}
             </ul>
             <h3>J'ai répondu à ces annonces : </h3>
-            <ul>
-            {profile.completedOffers.map((offer)=>(<li key={offer._id}>{
-                //api to generate keyword text from id later, same for completed offers
-                offer}</li>))}
-            </ul>
+                    {profile.completedOffers.map((offer)=>(<Link to={'/offer/'+offer.completedOffer} key={offer.completedOffer}><li>{offer.title}</li></Link>))}
+           
             <h3>Recommendations reçues : </h3>
             {profile.recommendations.map((recommendation)=>(
                 <div key={recommendation._id}>
