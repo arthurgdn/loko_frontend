@@ -28,7 +28,7 @@ const OfferElement =  ({user,title,description,createdAt,locationRadius,location
             <p>Dans un rayon de : {locationRadius} </p>
             {hasImage&& (<img  src={process.env.DEV_URL+"/offer/"+_id+"/image"}/>)}
             
-            <ul>{keywords.map((keyword)=>(<li key={keyword.name}>{keyword.name}</li>))}</ul>
+            <ul>{keywords.map((keyword)=>(<li key={keyword.name}><Link to={'/keyword/'+keyword._id}>{keyword.name}</Link></li>))}</ul>
             <span>{moment(createdAt).format('MMMM Do, YYYY')}</span>
             {displayCollaborationDemandForm && <div>
                     {isCollaborator?(<p>Vous travaillez sur cette annonce</p>):(

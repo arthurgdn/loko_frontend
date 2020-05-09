@@ -25,6 +25,7 @@ import DisplayOfferPage from '../components/offers/DisplayOfferPage'
 import CollaboratorsPage from '../components/collaborators/CollaboratorsPage'
 import ConversationsPage from '../components/conversations/ConversationsPage'
 import LoadConversation from '../components/conversations/LoadConversation'
+import KeywordFeed from '../components/feed/KeywordFeed'
 export const history = createBrowserHistory()
 const AppRouter = ()=>(
     <Router history={history}>
@@ -44,6 +45,7 @@ const AppRouter = ()=>(
                 <PrivateRoute exact={true} path='/offer/edit/:id' component={EditOfferPage}/>
                 <PrivateRoute exact={true} path='/offer/:id' component={DisplayOfferPage}/>
                 <PrivateRoute exact={true} path='/group/:id' component={GroupPage}/>
+                <PrivateRoute exact={true} path='/keyword/:id' component={KeywordFeed}/>
                 <PrivateRoute exact={true} path='/topic/:id' component = {TopicPage}/>
                 <PrivateRoute exact={true} path='/offers/me' component={OfferList}/>
                 <PrivateRoute exact={true} path='/conversations' component = {ConversationsPage}/>

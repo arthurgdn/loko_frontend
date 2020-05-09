@@ -24,7 +24,7 @@ const EditProfileForm = ({profile={},stateOffers,startEditCompletedOffers,startS
             
             for(const keyword of profile.keywords){
                 
-                formattedKeywords.push({value : keyword,label:keyword})
+                formattedKeywords.push({value : keyword.name,label:keyword.name,_id:keyword._id})
             }
         }
         const formattedSkills = []

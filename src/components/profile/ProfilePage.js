@@ -25,6 +25,7 @@ const ProfilePage = ({ startSendCollaboration,startSetProfile,startSendRecommend
         completedOffers:[]
 
     })
+    
     useEffect(()=>{
         startSetProfile(match.params.id)
     },[])
@@ -78,9 +79,8 @@ const ProfilePage = ({ startSendCollaboration,startSetProfile,startSendRecommend
             </ul>
             <h3>Mes centres d'intérêt : </h3>
             <ul>
-                {profile.keywords.map((keyword)=>(<li key={keyword}>{
-                    //api to generate keyword text from id later, same for completed offers
-                    keyword}</li>))}
+                {profile.keywords.map((keyword)=>(<li key={keyword._id}><Link to={'/keyword/'+keyword._id}>{
+                    keyword.name}</Link></li>))}
             </ul>
             <h3>J'ai répondu à ces annonces : </h3>
                     {profile.completedOffers.map((offer)=>(<Link to={'/offer/'+offer.completedOffer} key={offer.completedOffer}><li>{offer.title}</li></Link>))}

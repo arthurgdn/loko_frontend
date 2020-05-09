@@ -27,9 +27,13 @@ export const startEditProfile = (updates)=>{
     return async (dispatch)=>{
         try{
         
-        await axios.patch('/profile',JSON.stringify(updates))
-        dispatch(editProfile(updates))
+        const res = await axios.patch('/profile',JSON.stringify(updates))
+        const recommendations = await axios.get('/profile/'+res.data.user+'/recommendations')
+            
+            
+            dispatch(setProfile({...res.data,recommendations:recommendations.data}))
         }catch(e){
+            console.log(e)
             dispatch({
                 type:'ERROR',
                 e
@@ -49,12 +53,8 @@ export const startSetProfile = (profile_id) =>{
             
             const res = await axios.get('/profile/'+profile_id)
             const recommendations = await axios.get('/profile/'+profile_id+'/recommendations')
-            console.log(recommendations.data)
-            const formattedKeywords = []
-            for(const keyword of res.data.keywords){
-                formattedKeywords.push(keyword.name)
-            }
-            dispatch(setProfile({...res.data,keywords:formattedKeywords,recommendations:recommendations.data}))
+            
+            dispatch(setProfile({...res.data,recommendations:recommendations.data}))
         }catch(e){
             
             dispatch({
