@@ -13,6 +13,7 @@ const Sidebar = ({user }) => {
           <Link to='/offers/gestion'><li>Gérer mes annonces</li></Link>
           <Link to='/me/collaborations'><li>Mes collaborations</li></Link>
           <Link to='/conversations'><li>Mes conversations</li></Link>
+          <Link to='/groups'><li>Mes groupes</li></Link>
         </ul>
             
         </div>

@@ -4,7 +4,7 @@ import LoginPage from '../components/LoginPage'
 import HomePage from '../components/HomePage'
 import ProfilePage from '../components/profile/ProfilePage'
 import PersonnalProfilePage from '../components/profile/PersonnalProfilePage'
-import GroupPage from '../components/GroupPage'
+import GroupPage from '../components/groups/GroupPage'
 import TopicPage from '../components/TopicPage'
 import Conversation from '../components/conversations/Conversation'
 
@@ -26,6 +26,8 @@ import CollaboratorsPage from '../components/collaborators/CollaboratorsPage'
 import ConversationsPage from '../components/conversations/ConversationsPage'
 import LoadConversation from '../components/conversations/LoadConversation'
 import KeywordFeed from '../components/feed/KeywordFeed'
+import GroupsPage from '../components/groups/GroupsPage'
+import CreateGroupPage from '../components/groups/CreateGroupPage'
 export const history = createBrowserHistory()
 const AppRouter = ()=>(
     <Router history={history}>
@@ -35,6 +37,7 @@ const AppRouter = ()=>(
                 <PublicRoute exact={true} path='/' component={LoginPage}/>
                 <PublicRoute exact={true} path='/reset' component={ForgottenPasswordPage}/>
                 <PublicRoute exact={true} path='/resetPass/:token' component={ResetPasswordPage}/>
+                
                 <PrivateRoute exact={true} path='/home' component={HomePage}/>
                 <PrivateRoute exact={true} path='/me' component={PersonnalProfilePage}/>
                 <PrivateRoute exact={true} path='/me/collaborations' component={CollaboratorsPage}/>
@@ -45,6 +48,8 @@ const AppRouter = ()=>(
                 <PrivateRoute exact={true} path='/offer/edit/:id' component={EditOfferPage}/>
                 <PrivateRoute exact={true} path='/offer/:id' component={DisplayOfferPage}/>
                 <PrivateRoute exact={true} path='/group/:id' component={GroupPage}/>
+                <PrivateRoute exact={true} path='/groups' component={GroupsPage}/>
+                <PrivateRoute exact={true} path='/nouveau_groupe' component={CreateGroupPage}/>
                 <PrivateRoute exact={true} path='/keyword/:id' component={KeywordFeed}/>
                 <PrivateRoute exact={true} path='/topic/:id' component = {TopicPage}/>
                 <PrivateRoute exact={true} path='/offers/me' component={OfferList}/>
