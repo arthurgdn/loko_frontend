@@ -34,7 +34,28 @@ export const startCreateGroup = (group,image)=>{
         
     }
 }
-
+export const startEditGroup = (id,updates,image)=>{
+    return async (dispatch)=>{
+        try{
+            const res = await axios.patch('/group/'+id,JSON.stringify(updates))
+            if(image.name){
+                const imageBody = new FormData()
+            
+                imageBody.append('image',image)
+                
+                const buffer = await axios.post('/group/'+res.data._id+'/image',imageBody)
+                dispatch(setGroup({...res.data,hasImage:true}))
+            }else{
+                dispatch(setGroup(res.data))
+            }
+        }catch(e){
+            disaptch({
+                type : 'ERROR',
+                e
+            })
+        }
+    }
+}
 export const startSetGroup = (id)=>{
     return async (dispatch)=>{
         try{

@@ -2,22 +2,30 @@ import React, { useEffect,useState } from "react"
 import {connect} from 'react-redux'
 import {startSetKeywordFeed} from '../../actions/keywordOffers'
 import OfferElement from "../offer/OfferElement"
+import FeedGroupElement from './FeedGroupElement'
 
 const KeywordFeed = ({keywordOffers,startSetKeywordFeed,match})=>{
-    const [showingOffers,setOffers]= useState([])
+    const [showingItems,setItems]= useState([])
     useEffect(()=>{
         
         startSetKeywordFeed(match.params.id)
     },[])
     useEffect(()=>{
         
-        setOffers(keywordOffers)
+        setItems(keywordOffers)
     },[startSetKeywordFeed,keywordOffers])
     return (
         <div className="content-container">
-            {showingOffers.length===0?(
-                <p>Pas d'offres associées à ce mot clé</p>):(
-                    showingOffers.map((offer)=><OfferElement displayCollaborationDemandForm={true} displayComments={true} displayAllComments={false} key={offer._id} {...offer} />)
+            {showingItems.length===0?(
+                <p>Pas d'offres ou de groupes associées à ce mot clé</p>):(
+                    showingItems.map((item)=>{
+                        
+                        return item.type==='offer'?(
+                            <OfferElement displayCollaborationDemandForm={true} displayComments={true} displayAllComments={false} key={item._id} {...item} />
+                        ):(
+                            <FeedGroupElement key={item._id} {...item}/>
+                        )
+                    })
                 )}
         </div>
 
