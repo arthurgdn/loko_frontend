@@ -1,10 +1,8 @@
-import moment from 'moment'
+
 const feedFiltersReducerDefaultState = {
     text:'',
     sortBy:'points',
-    startDate:moment().startOf('month'),
-    endDate:moment().endOf('month'),
-    locationRadius : 50
+    distanceRadius : 50
 }
 
 const feedFiltersReducer = (state=feedFiltersReducerDefaultState,action)=>{
@@ -16,12 +14,8 @@ const feedFiltersReducer = (state=feedFiltersReducerDefaultState,action)=>{
             return {...state,sortBy:'points'}
         case 'SORT_BY_DATE':
             return {...state,sortBy:'date'}
-        case 'SET_START_DATE':
-            return {...state,startDate:action.date}
-        case 'SET_END_DATE':
-            return {...state,endDate:action.date}
-        case 'SET_LOCATION_RADIUS':
-            return {...state,locationRadius:action.radius}
+        case 'SET_DISTANCE_RADIUS':
+            return {...state,distanceRadius:action.radius}
         default: 
             return state
     }

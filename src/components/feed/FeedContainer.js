@@ -2,6 +2,7 @@ import React, { useEffect,useState } from "react"
 import {connect} from 'react-redux'
 import {startSetFeed} from '../../actions/feed'
 import OfferElement from "../offer/OfferElement"
+import getFilteredFeed from '../../selectors/getFilteredFeed'
 
 const FeedContainer = ({feed,startSetFeed})=>{
     const [showingOffers,setOffers]= useState([])
@@ -11,7 +12,7 @@ const FeedContainer = ({feed,startSetFeed})=>{
     },[])
     useEffect(()=>{
         
-        setOffers(feed)
+        setOffers(getFilteredFeed(feed))
     },[startSetFeed,feed])
     return (
         <div className="content-container">

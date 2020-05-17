@@ -5,7 +5,6 @@ import HomePage from '../components/HomePage'
 import ProfilePage from '../components/profile/ProfilePage'
 import PersonnalProfilePage from '../components/profile/PersonnalProfilePage'
 import GroupPage from '../components/groups/GroupPage'
-import TopicPage from '../components/TopicPage'
 import Conversation from '../components/conversations/Conversation'
 
 import CreateOfferPage from '../components/offers/CreateOfferPage'
@@ -37,7 +36,6 @@ const AppRouter = ()=>(
                 <PublicRoute exact={true} path='/' component={LoginPage}/>
                 <PublicRoute exact={true} path='/reset' component={ForgottenPasswordPage}/>
                 <PublicRoute exact={true} path='/resetPass/:token' component={ResetPasswordPage}/>
-                
                 <PrivateRoute exact={true} path='/home' component={HomePage}/>
                 <PrivateRoute exact={true} path='/me' component={PersonnalProfilePage}/>
                 <PrivateRoute exact={true} path='/me/collaborations' component={CollaboratorsPage}/>
@@ -51,7 +49,6 @@ const AppRouter = ()=>(
                 <PrivateRoute exact={true} path='/groups' component={GroupsPage}/>
                 <PrivateRoute exact={true} path='/nouveau_groupe' component={CreateGroupPage}/>
                 <PrivateRoute exact={true} path='/keyword/:id' component={KeywordFeed}/>
-                <PrivateRoute exact={true} path='/topic/:id' component = {TopicPage}/>
                 <PrivateRoute exact={true} path='/offers/me' component={OfferList}/>
                 <PrivateRoute exact={true} path='/conversations' component = {ConversationsPage}/>
                 <PrivateRoute exact={true} path='/nouvelle_annonce' component={CreateOfferPage}/>

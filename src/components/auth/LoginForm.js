@@ -51,7 +51,7 @@ const LoginForm = ({ startLogin, isAuthenticated }) => {
             minLength="6"
           />
         </div>
-        <input type="submit"  value="Login" />
+        <input type="submit"  value="Se connecter" />
       </form>
       <Link to='/reset'>Mot de passe oublié?</Link>
       
