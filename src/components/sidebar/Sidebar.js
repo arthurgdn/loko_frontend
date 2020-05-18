@@ -14,6 +14,7 @@ const Sidebar = ({user }) => {
           <Link to='/me/collaborations'><li>Mes collaborations</li></Link>
           <Link to='/conversations'><li>Mes conversations</li></Link>
           <Link to='/groups'><li>Mes groupes</li></Link>
+          <Link to='/rechercher'><li>Rechercher</li></Link>
         </ul>
             
         </div>

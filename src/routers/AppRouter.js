@@ -27,6 +27,7 @@ import LoadConversation from '../components/conversations/LoadConversation'
 import KeywordFeed from '../components/feed/KeywordFeed'
 import GroupsPage from '../components/groups/GroupsPage'
 import CreateGroupPage from '../components/groups/CreateGroupPage'
+import SearchPage from '../components/search/SearchPage'
 export const history = createBrowserHistory()
 const AppRouter = ()=>(
     <Router history={history}>
@@ -40,6 +41,7 @@ const AppRouter = ()=>(
                 <PrivateRoute exact={true} path='/me' component={PersonnalProfilePage}/>
                 <PrivateRoute exact={true} path='/me/collaborations' component={CollaboratorsPage}/>
                 <PrivateRoute exact={true} path='/settings' component={SettingsPage}/>
+                <PrivateRoute exact={true} path='/rechercher' component={SearchPage}/>
                 <PrivateRoute exact={true} path='/profile/:id' component={ProfilePage}/>
                 <PrivateRoute exact={true} path='/offers/gestion' component={MiniatureOfferList}/>
                 <PrivateRoute exact={true} path='/offer/gestion/:id' component={ManageOffer}/>
