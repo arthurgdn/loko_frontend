@@ -53,8 +53,8 @@ const EditUserForm = ({user,startEditUserInfo})=>{
         setLocationInput(locationInput)
         axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(locationInput)}.json?access_token=${process.env.MAPBOX_API_KEY}&language=fr&limit=1`).then(
             (res)=>{
-                const latitude = res.data.features[0].center[0]
-                const longitude = res.data.features[0].center[1]
+                const longitude = res.data.features[0].center[0]
+                const latitude = res.data.features[0].center[1]
                 setLocationText(res.data.features[0].place_name)
                 setLocation({type:"Point",coordinates:[longitude,latitude]})
                 

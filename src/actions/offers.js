@@ -65,17 +65,23 @@ export const addOffer = (offer)=>({
 export const startAddOffer = (offer,image)=>{
     return async (dispatch)=>{
         try {
-            
+            console.log('offre publiée',offer)
             const res = await axios.post('/offer/create',JSON.stringify(offer))
             if(Object.keys(image).length!==0){
                 const imageBody = new FormData()
             
                 imageBody.append('image',image)
-            
+                
                 const buffer = await axios.post('/offer/'+res.data._id+'/image',imageBody)
                 dispatch(addOffer(res.data))
             }else{
                 dispatch(addOffer(res.data))
+            }
+            if(res.data.scope==='group'){
+                dispatch({
+                    type:'ADD_GROUP_OFFER',
+                    offer : res.data
+                })
             }
             
         }catch(e){

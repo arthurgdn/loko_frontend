@@ -1,7 +1,8 @@
 export default (feed,{text,sortBy,distanceRadius})=>{
     return feed.filter((offer) => {
         const textMatch = offer.title.toLowerCase().includes(text.toLowerCase());
-        const distanceMatch = offer.distance <= distanceRadius
+        console.log(offer.title,offer.distance)
+        const distanceMatch = offer.distance?( offer.distance <= distanceRadius ) :(true) 
         return distanceMatch && textMatch;
       }).sort((a, b) => {
         if (sortBy === 'date') {

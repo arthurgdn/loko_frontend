@@ -43,17 +43,16 @@ import getLocationFormatted from '../../actions/getLocationFormatted'
         
         this.state = {
         title : props.title ? props.title : '',
-        
         location : props.location?props.location : {type:['Point'],coordinates:[]},
         locationInput : props.locationInput ? props.locationInput : '',
         locationText : props.locationText?props.locationText : '',
         useBrowserLocation: false,
         locationRadius : props.locationRadius? Math.round(1000*Math.log10(10*props.locationRadius)): 0,
-        scope : props.scope?props.scope : 'general',
+        scope : props.inGroup?'group': (props.scope?props.scope : 'general'),
         keywords : props.keywords?formattedKeywords : [],
         image : {},
         description : props.description ? props.description :'',
-        groups : props.groups ? props.groups : [],
+        groups : props.inGroup? [{group:props.group._id}] : (props.groups ? props.groups : []),
         userGroups,
         allKeywords,
         error: ''
@@ -106,8 +105,8 @@ import getLocationFormatted from '../../actions/getLocationFormatted'
         this.setState(()=>({locationInput}))
         axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(locationInput)}.json?access_token=${process.env.MAPBOX_API_KEY}&language=fr&limit=1`).then(
             (res)=>{
-                const latitude = res.data.features[0].center[0]
-                const longitude = res.data.features[0].center[1]
+                const longitude = res.data.features[0].center[0]
+                const latitude = res.data.features[0].center[1]
                 this.setState({locationText : res.data.features[0].place_name})
                 this.setState({location : {type : "Point",coordinates:[longitude,latitude]}})
             }
@@ -232,23 +231,27 @@ import getLocationFormatted from '../../actions/getLocationFormatted'
                     tipFormatter={(value)=>Math.round(10**(value/1000))/10}
                     marks = {{1000:"1",2000:"10",3000:"100",4000:"1000"}}
                     />
-                    <p>Statut de la publication :</p>
-                    <div className="toggle-switch">
-                        <input type="checkbox" checked={this.state.scope==='group'} 
-                        onChange={this.onScopeChange}
-                        className="toggle-switch-checkbox" name="toggleSwitchPublic"  id="toggleSwitchPublic" />
-                        <label className="toggle-switch-label" htmlFor="toggleSwitchPublic">
-                        <span className="toggle-switch-inner"></span>
-                        <span className="toggle-switch-switch"></span>
-                        </label>
-                        </div>
-                    {this.state.scope==='group'&&( <div>
-                        <p>Publier dans le groupe suivant : </p>
-                        <Select 
-                        options={this.state.userGroups}
-                        isMulti
-                        onChange = {this.onGroupsChange}
-                        /> </div>) }
+                    {!this.props.inGroup && (
+                    <div>
+                        <p>Statut de la publication :</p>
+                        <div className="toggle-switch">
+                            <input type="checkbox" checked={this.state.scope==='group'} 
+                            onChange={this.onScopeChange}
+                            className="toggle-switch-checkbox" name="toggleSwitchPublic"  id="toggleSwitchPublic" />
+                            <label className="toggle-switch-label" htmlFor="toggleSwitchPublic">
+                            <span className="toggle-switch-inner"></span>
+                            <span className="toggle-switch-switch"></span>
+                            </label>
+                            </div>
+                        {this.state.scope==='group'&&( <div>
+                            <p>Publier dans le groupe suivant : </p>
+                            <Select 
+                            options={this.state.userGroups}
+                            isMulti
+                            onChange = {this.onGroupsChange}
+                            /> </div>) }
+                        
+                    </div>)}
                     
                     <p>Mots clés associés</p>
                     <CreatableSelect

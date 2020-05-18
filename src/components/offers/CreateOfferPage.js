@@ -16,6 +16,7 @@ class  CreateOfferPage extends React.Component{
                 <h1 className="page-header__title">Créer une annonce</h1>
                 <div className="content-container">
                 <OfferForm
+                inGroup = {false}
                 onSubmit={this.onSubmit}
                 /></div>
             </div></div>

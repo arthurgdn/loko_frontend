@@ -12,12 +12,12 @@ const FeedContainer = ({feed,startSetFeed})=>{
     },[])
     useEffect(()=>{
         
-        setOffers(getFilteredFeed(feed))
+        setOffers(feed)
     },[startSetFeed,feed])
     return (
         <div className="content-container">
             {showingOffers.length===0?(
-                <p>...</p>):(
+                <p>Aucune annonce à afficher, ajoutez des centres d'intérêts à votre profil, ou suivez d'autres particuliers</p>):(
                     showingOffers.map((offer)=><OfferElement displayCollaborationDemandForm={true} displayComments={true} displayAllComments={false} key={offer._id} {...offer} />)
                 )}
         </div>
@@ -26,7 +26,7 @@ const FeedContainer = ({feed,startSetFeed})=>{
 }
     
 const mapStateToProps = (state)=>({
-    feed : state.feed
+    feed : getFilteredFeed(state.feed,state.feedFilters)
 })
 const mapDispatchToProps = (dispatch)=>({
     startSetFeed : ()=>dispatch(startSetFeed())

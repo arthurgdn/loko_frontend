@@ -21,8 +21,16 @@ export const startCreateGroup = (group,image)=>{
                 
                 const buffer = await axios.post('/group/'+res.data._id+'/image',imageBody)
                 dispatch(setGroup({...res.data,hasImage:true}))
+                dispatch({
+                    type:'USER_GROUP_CREATED',
+                    group : {...res.data,hasImage:true}
+                })
             }else{
                 dispatch(setGroup(res.data))
+                dispatch({
+                    type:'USER_GROUP_CREATED',
+                    group : res.data
+                })
             }
         }catch(e){
             

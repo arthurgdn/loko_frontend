@@ -9,11 +9,14 @@ axios.defaults.baseURL = process.env.DEV_URL
 import { startSetGroup, startCreateGroup } from '../../actions/groups'
 import ManageGroup from './ManageGroup'
 import GroupOffers from './GroupOffers'
-const GroupPage = ({match,stateGroup,startSetGroup,user})=>{
+import OfferForm from '../offers/OfferForm'
+import { startAddOffer } from '../../actions/offers'
+const GroupPage = ({match,stateGroup,startSetGroup,user,startAddOffer})=>{
     const [group,setGroup] = useState({})
    
     const [isRequested,setIsRequested] = useState(false)
     const [isMember,setIsMember] = useState(false)
+    const [displayOfferForm,setDisplayOfferForm] = useState(false)
     const [error,setError] = useState('')
     useEffect(()=>{
         if(!stateGroup._id || stateGroup._id!==match.params.id){
@@ -42,6 +45,11 @@ const GroupPage = ({match,stateGroup,startSetGroup,user})=>{
         .catch((e)=>setError(e))
     }
 
+    const onSubmit=(offer,image)=>{
+        startAddOffer(offer,image)
+        
+    }
+
     return (
         <div>
             {group._id===match.params.id ? (
@@ -54,6 +62,8 @@ const GroupPage = ({match,stateGroup,startSetGroup,user})=>{
                     
                     {isMember?(
                         <div>
+                            <button onClick={()=>{setDisplayOfferForm(!displayOfferForm)}}>Publier dans le groupe</button>
+                            {displayOfferForm &&(<OfferForm onSubmit={onSubmit} inGroup={true} group={group}/>)}
                             <GroupOffers group_id={group._id}/>
                             <ManageGroup/>
                         </div>
@@ -76,7 +86,8 @@ const mapStateToProps = (state)=>({
 })
 
 const mapDispatchToProps = (dispatch)=>({
-    startSetGroup : (id)=>dispatch(startSetGroup(id))
+    startSetGroup : (id)=>dispatch(startSetGroup(id)),
+    startAddOffer : (offer,image)=>dispatch(startAddOffer(offer,image))
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(GroupPage)

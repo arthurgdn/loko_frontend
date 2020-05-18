@@ -7,9 +7,9 @@ import { sortByPoints, sortByDate,setDistanceRadius,setTextFilter } from '../../
 const createSliderWithTooltip = Slider.createSliderWithTooltip;
 const TippedSlider = createSliderWithTooltip(Slider)
 
-const FeedFiltering = ({filters})=>{
+const FeedFiltering = ({filters,setDistanceRadius,sortByDate,sortByPoints,setTextFilter})=>{
     const [text,setText] = useState(filters.text)
-    const [distanceRadius,setStateDistanceRadius] = useState(filters.distanceRadius)
+    const [distanceRadius,setStateDistanceRadius] = useState(Math.round(1000*Math.log10(10*filters.distanceRadius)))
     
     return (
         <div>
@@ -39,8 +39,10 @@ const FeedFiltering = ({filters})=>{
           />
         <p>Afficher les annonces dans un rayon de : </p>
           <TippedSlider
+          style={{width:400}}
           min={0}
           max={4000}
+          
           value = {distanceRadius}
           onChange={(value)=>{
               setStateDistanceRadius(value)
@@ -59,6 +61,6 @@ const mapDispatchToProps = (dispatch)=>({
     setTextFilter : (text)=>dispatch(setTextFilter(text)),
     sortByPoints : ()=>dispatch(sortByPoints()),
     sortByDate : ()=>dispatch(sortByDate()),
-    setDistanceRadius : ()=>dispatch(setDistanceRadius())
+    setDistanceRadius : (radius)=>dispatch(setDistanceRadius(radius))
 })
 export default connect(mapStateToProps,mapDispatchToProps)(FeedFiltering)

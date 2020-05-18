@@ -29,7 +29,9 @@ const userReducer = (state=userReducerDefaultState,action)=>{
         case 'SET_COLLABORATORS':
             return {...state,collaborators : action.collaborators}
         case 'ADD_PHONE':
-            return {...state,phoneNumber : action.phoneNumber}    
+            return {...state,phoneNumber : action.phoneNumber}   
+        case 'USER_GROUP_CREATED' :
+            return {...state,userGroups : [...state.userGroups,action.group]} 
         case 'REMOVE_COLLAB_DEMAND':
             return {...state,collaborationDemands : state.collaborationDemands.filter((demand)=>demand.demand!==action.collaborator)}
         default: 

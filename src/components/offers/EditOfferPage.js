@@ -18,6 +18,7 @@ class  EditOfferPage extends React.Component{
                 <div className="content-container">
                 <OfferForm
                 onSubmit={this.onSubmit}
+                inGroup={false}
                 {...this.props.offer}
                 /></div>
             </div></div>

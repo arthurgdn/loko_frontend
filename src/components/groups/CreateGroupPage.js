@@ -8,7 +8,7 @@ import ImageUploader from 'react-images-upload'
 import { startCreateGroup } from '../../actions/groups'
 
 
-const CreateGroupPage = ({allKeywords,startCreateGroup})=>{
+const CreateGroupPage = ({allKeywords,startCreateGroup,history})=>{
     const [name,setName] = useState('')
     const [description,setDescription] = useState('')
     const [securityStatus,setSecurityStatus] = useState('')
@@ -96,6 +96,7 @@ const CreateGroupPage = ({allKeywords,startCreateGroup})=>{
                 location,
                 locationText
             },image)
+            history.push('/groups')
         }
         
     }
