@@ -15,10 +15,19 @@ export const PrivateRoute = ({isAuthenticated,component:Component,...rest})=>(
                     <Header/>
                     
                         <div className="main-area">
-                            <Component {...props} />
+                            <div className="main-body">
+                                <div className="content-container">
+                                   
+                                        <Component {...props} />
+                                    
+                                </div>
+                                
+                            </div>
+                            
+                            <Sidebar/>
                         </div>
                     
-                    <Sidebar/>
+                    
                     
                 
                 

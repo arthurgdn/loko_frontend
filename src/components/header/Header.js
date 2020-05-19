@@ -10,19 +10,22 @@ const Header = ({user }) => {
 
   return (
     <header className="header">
-    <div className="content-container">
+    
     <div className="header__content"> 
         <Link className="header__title" to='/home'>
             <h1>Loko</h1>
         </Link>
-        <Link className="header__user" to='/me'>
-            <img className="header__picture" src={process.env.DEV_URL+"/users/"+user._id+"/avatar"}/>
-            
-            <h3>{user.firstName}  {user.lastName}</h3>
-        </Link>
+        <div className="header__profile">
+            <Link className="header__user" to='/me'>
+                <img className="header__picture" src={process.env.DEV_URL+"/users/"+user._id+"/avatar"}/>
+        
+                <h3>{user.firstName}  {user.lastName}</h3>
+            </Link>
             <ToolButton/>
         </div>
+        
         </div>
+        
            
       </header>
   )
