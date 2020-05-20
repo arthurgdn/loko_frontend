@@ -13,6 +13,7 @@ const RegisterForm = ({ startRegister, isAuthenticated }) => {
     password: '',
     password2: ''
   });
+  const [error,setError] = useState('')
 
   const { firstName,lastName, email, password, password2 } = formData;
 
@@ -35,14 +36,13 @@ const RegisterForm = ({ startRegister, isAuthenticated }) => {
   }
 
   return (
-    <div>
-      <h1 className='large text-primary'>S'inscrire</h1>
-      <p className='lead'>
-        <i className='fas fa-user' /> Créez votre compte
-      </p>
-      <form className='form' onSubmit={e => onSubmit(e)}>
-        <div className='form-group'>
+    <div className="showcase__signup">
+      <div className="signup__container">
+      <h1 className='signup__text'>Créer un compte</h1>
+      <form className='signup__form' onSubmit={e => onSubmit(e)}>
+        <div className='signup__form-group'>
           <input
+            className='signup__input'
             type='text'
             placeholder='Prénom'
             name='firstName'
@@ -50,18 +50,20 @@ const RegisterForm = ({ startRegister, isAuthenticated }) => {
             onChange={e => onChange(e)}
           />
         </div>
-        <div className='form-group'>
+        <div className='signup__form-group'>
           <input
             type='text'
+            className='signup__input'
             placeholder='Nom'
             name='lastName'
             value={lastName}
             onChange={e => onChange(e)}
           />
         </div>
-        <div className='form-group'>
+        <div className='signup__form-group'>
           <input
             type='email'
+            className='signup__input'
             placeholder='Addresse Email'
             name='email'
             value={email}
@@ -69,26 +71,34 @@ const RegisterForm = ({ startRegister, isAuthenticated }) => {
           />
           
         </div>
-        <div className='form-group'>
+        <div className='signup__form-group'>
           <input
             type='password'
-            placeholder='Mot de Passe'
+            className='signup__input'
+            placeholder='Mot de passe'
             name='password'
             value={password}
             onChange={e => onChange(e)}
           />
         </div>
-        <div className='form-group'>
+        <div className='signup__form-group'>
           <input
             type='password'
-            placeholder='Confirmer Mot de Passe'
+            className='signup__input'
+            placeholder='Confirmer mot de passe'
             name='password2'
             value={password2}
             onChange={e => onChange(e)}
           />
         </div>
-        <input type='submit'  value="S'inscrire" />
+        <div className="signup__form-group">
+          <input type='submit' className="signup__button"  value="Inscription" />
+        </div>
+        {error && (<p>{error}</p>)}
       </form>
+      
+      </div>
+      
       
     </div>
   );

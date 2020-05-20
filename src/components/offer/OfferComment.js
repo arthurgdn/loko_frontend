@@ -8,7 +8,7 @@ export default ({publisherId,publisherName,content,createdAt})=>(
             <img className="header__picture" src={process.env.DEV_URL+"/users/"+publisherId+"/avatar"}/>
             <h3>{publisherName}</h3>
         </Link>
-        <span>{moment(createdAt).format('MMMM Do, YYYY')}</span>
+        <span>{moment(createdAt).lang('fr').fromNow()}</span>
         <p>{content}</p>
     </div>
 )

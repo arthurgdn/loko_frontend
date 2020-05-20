@@ -12,7 +12,7 @@ const MiniatureOfferElement =  ({_id,title,description,createdAt,publisherName,p
             <Link to={'/offer/gestion/'+_id}>
                 <h3>{title}</h3>
                 <p>{description}</p>
-                <span>{moment(createdAt).format('MMMM Do, YYYY')}</span>
+                <span>{moment(createdAt).lang('fr').fromNow()}</span>
                 <p>Par {publisherName}</p>
             </Link>
         )

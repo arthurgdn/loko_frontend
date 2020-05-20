@@ -1,0 +1,72 @@
+.login__fieldset{
+    border : 1px solid #cacccd;
+    border-radius:10px;
+    background: $off-white;
+    margin : 0 $s-size;
+    padding : $m-size $m-size $xs-size $m-size ;
+    
+}
+
+.login__form{
+    display: flex;
+    flex-direction : row;
+    align-items: center;
+}
+
+.login__form__error{
+    margin: 0 0 $m-size 0;
+    font-style : italic;
+}
+
+.login__input{
+    margin : 0 10px;
+    background: white;
+    border : 1px solid #cacccd;
+    border-radius : 10px;
+    height:35px;
+    padding : $s-size;
+    font-size: $font-size-large;
+    font-weight : 300;
+    &:focus {
+        border: 1px solid $dark-green;
+        background: lighten($off-white,2%);
+        border-bottom: 5px solid $dark-green;
+    }
+
+}
+
+.login__button{
+    
+    background: white;
+    border : 1px solid #cacccd;
+    border-radius : 10px;
+    height:35px;
+    padding : auto;
+    font-size: $font-size-large;
+    font-weight : 300;
+    transition : background .3s ease;
+    
+    &:hover {
+        background:$off-white;
+        border: 1px solid $dark-green;
+    }
+    &:active {
+        background:lighten($dark-green,10%);
+    }
+}
+
+.login__footer{
+    display: flex;
+    justify-content: space-between;
+}
+
+.login__forgot-password{
+    margin-left : auto;
+    margin-right: $m-size;
+    text-decoration : none;
+    color : $dark-grey;
+    font-size : $font-size-small;
+    &:hover{
+        text-decoration: underline 1px $dark-grey;
+    }
+}

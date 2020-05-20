@@ -29,7 +29,7 @@ const OfferElement =  ({user,title,description,createdAt,locationRadius,location
             {hasImage&& (<img  src={process.env.DEV_URL+"/offer/"+_id+"/image"}/>)}
             
             <ul>{keywords.map((keyword)=>(<li key={keyword.name}><Link to={'/keyword/'+keyword._id}>{keyword.name}</Link></li>))}</ul>
-            <span>{moment(createdAt).format('MMMM Do, YYYY')}</span>
+            <span>{moment(createdAt).lang('fr').fromNow()}</span>
             {displayCollaborationDemandForm && <div>
                     {isCollaborator?(<p>Vous travaillez sur cette annonce</p>):(
                         <CollaborationDemandForm onCollaborationDemandSent={onCollaborationDemandSent}/>

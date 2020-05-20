@@ -1,20 +1,24 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect,useRef} from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-
+import {FaRegUserCircle} from 'react-icons/fa'
+import {RiLockPasswordLine} from 'react-icons/ri'
 import { startLogin } from '../../actions/auth';
+
 
 const LoginForm = ({ startLogin, isAuthenticated }) => {
   const [formData, setFormData] = useState({
     email: '',
     password: ''
-  });
-
+  })
+  const emailRef = useRef(null)
+  useEffect(()=>{emailRef.current.focus()},[])
+  const [error,setError] = useState('')
   const { email, password } = formData;
 
   const onChange = e =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
-
+  
   const onSubmit = async e => {
     e.preventDefault();
     startLogin(email, password);
@@ -26,34 +30,47 @@ const LoginForm = ({ startLogin, isAuthenticated }) => {
 
   return (
     <div>
-      <h1 className="large text-primary">Se connecter</h1>
-      <p className="lead">
-        <i className="fas fa-user" /> Connectez vous à votre compte
-      </p>
-      <form className="form" onSubmit={e => onSubmit(e)}>
-        <div className="form-group">
-          <input
-            type="email"
-            placeholder="Addresse Email"
-            name="email"
-            value={email}
-            onChange={e => onChange(e)}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <input
-            type="password"
-            placeholder="Mot de passe"
-            name="password"
-            value={password}
-            onChange={e => onChange(e)}
-            minLength="6"
-          />
-        </div>
-        <input type="submit"  value="Se connecter" />
-      </form>
-      <Link to='/reset'>Mot de passe oublié?</Link>
+      <div className="login__fieldset" >
+        
+        
+      <form className="login__form" onSubmit={e => onSubmit(e)}>
+        <FaRegUserCircle/>
+        <input
+          className="login__input"
+          type="email"
+          ref={emailRef}
+          placeholder="Email"
+          name="email"
+          value={email}
+          onChange={e => onChange(e)}
+          required
+          focus={true}
+        />
+      
+        <RiLockPasswordLine/>
+        <input
+          
+          type="password"
+          className="login__input"
+          placeholder="Mot de passe"
+          required
+          name="password"
+          value={password}
+          onChange={e => onChange(e)}
+          minLength="6"
+        />
+      
+      <input type="submit" className="login__button"  value="Connexion" />
+    </form>
+    <div className="login__footer">
+      {error && (<p className="login__error">{error}</p>)}
+      <Link to='/reset' className="login__forgot-password">Mot de passe oublié?</Link>
+    </div>
+      
+    </div>
+      
+     
+      
       
     </div>
   );

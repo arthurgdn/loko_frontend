@@ -1,6 +1,40 @@
 .sidebar{
-    background : $lighter-blue;
+    background : $lighter-green;
     flex: 0 0 256px;
     order: 0;
 }
+
+.sidebar-container{
+    
+    border-bottom:1px solid $dark-green;
+    
+}
+
+.sidebar__link{
+    display:flex;
+    align-items: center;
+    flex-direction: row;
+    padding: 0;
+    justify-content: space-between;
+    color: darken($dark-green,10%);
+    font-weight: 550;
+    
+    
+    
+}
+.sidebar__navigation{
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height:100%;
+}
+.sidebar__link-container{
+    padding:0 $l-size;
+    transition: background .3s ease;
+    &:hover {
+        background:darken($lighter-green,5%);
+    }
+    
+}
+
     

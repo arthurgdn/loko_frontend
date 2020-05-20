@@ -13,6 +13,7 @@ const Header = ({user }) => {
     
     <div className="header__content"> 
         <Link className="header__title" to='/home'>
+            <img src={process.env.DEV_URL+'/showcase/cactus_mini'}/>
             <h1>Loko</h1>
         </Link>
         <div className="header__profile">

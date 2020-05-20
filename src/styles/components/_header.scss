@@ -1,9 +1,10 @@
 .header{
     
-    background:$dark-blue;
+    background:$dark-green;
     z-index: 0;
     flex: 0 10vh;
     padding:0;
+    margin:0;
     width:100%;
     
     
@@ -12,21 +13,26 @@
 }
 
 .header__title{
-    color:$off-white;
+    color:white;
     text-decoration: none;
     flex-grow:1px;
-    padding:$s-size;
-    h1 {
-        margin : 0;
-
+    padding : 0 30px;
+    margin: 0 $s-size;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: $font-size-xlarge;
+    img {
+        width:50px;
+        height:50px;
+        margin:0 $m-size;
+        
     }
-    font-size : $font-size-large;
-    
-    transition : background .3s ease;
-    
-    &:hover {
-        background:darken($dark-blue,5%);
+    h3 {
+        
+        padding:$s-size;
     }
+    
 }
 
 .header__profile{
@@ -37,7 +43,8 @@
 }
 .header__content{
     align-items: center;
-    padding : 0 0 0 64px;
+    padding : 0;
+    margin:0;
     display: flex;
     width:100%;
     justify-content: space-between;
@@ -62,6 +69,7 @@
         height:45px;
     }
     margin : 0 $m-size;
+    padding : 0px;
 }
 
 .header__user{
@@ -76,10 +84,10 @@
     transition : background .3s ease;
     
     &:hover {
-        background:darken($dark-blue,5%);
+        background:darken($dark-green,5%);
     }
     &:active {
-        background:darken($dark-blue,10%);
+        background:darken($dark-green,10%);
     }
 
 }
@@ -88,8 +96,8 @@
     display : flex;
     position:fixed;
     flex-direction: column;
-    margin-top:20px;
-    background : $dark-blue;
+    margin-top:35px;
+    background : $dark-green;
     right : 0px;
     h3{
         color:white;
@@ -111,7 +119,7 @@
     border:none;
     font-weight: 300;
     color:white;
-    background-color: $dark-blue;
+    background-color: $dark-green;
     display:inline-block;
     font-size:3.2rem;
     padding : $s-size;
@@ -120,10 +128,10 @@
     transition : background .3s ease;
     
     &:hover {
-        background:darken($dark-blue,5%);
+        background:darken($dark-green,5%);
     }
     &:active {
-        background:darken($dark-blue,10%);
+        background:darken($dark-green,10%);
     }
 
 }
@@ -137,7 +145,7 @@
     justify-content: space-between;
     transition : background .3s ease;
     &:hover {
-        background:darken($dark-blue,5%);
+        background:darken($dark-green,5%);
     }
     
 }
