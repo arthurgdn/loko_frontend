@@ -14,13 +14,21 @@ const MiniatureOfferList = ({offers,startSetOffers})=>{
         setOffers(offers)
     },[startSetOffers,offers])
     return (
-        <div className="content-container">
-        <h3>Mes offres</h3>
-            {showingOffers.length===0?(
-                <p>Vous n'avez travaillé sur aucune offres pour le moment</p>):(
-                    showingOffers.map((offer)=><MiniatureOfferElement key={offer._id} {...offer} />)
-                )}
+        <div>
+            <div className="banner__title">
+                <h3>Vos annonces</h3>
+            </div>
+            
+            <div className="content-container">
+                <div className="manager__miniature-list">
+                    {showingOffers.length===0?(
+                        <p className="manager__no-offer">Vous n'avez travaillé sur aucune annonces pour le moment</p>):(
+                            showingOffers.map((offer)=><MiniatureOfferElement key={offer._id} {...offer} />)
+                        )}
+                </div>
+            </div>
         </div>
+        
 
     )
 }

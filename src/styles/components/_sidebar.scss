@@ -1,6 +1,7 @@
 .sidebar{
     background : $lighter-green;
     flex: 0 0 256px;
+    border-right: 1px solid $dark-green;
     order: 0;
 }
 

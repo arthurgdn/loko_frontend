@@ -38,7 +38,6 @@ button:disabled {
     
     display: flex;
     height: 90vh;
-    
     background : lighten($beige, 9%);
     
     
@@ -46,7 +45,8 @@ button:disabled {
 .main-body{
     flex: 1;
     order: 1;
-    margin-bottom:5vh;
+    padding : 0;
+    margin-bottom:7vh;
     overflow-y:auto;
     background : lighten($beige, 10%);
     
