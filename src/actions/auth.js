@@ -26,6 +26,7 @@ export const startRegister = (registration_form)=>{
         dispatch(register(res.data.token))
         dispatch(loadUser(res.data.user));
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + res.data.token;
+        const res2 = await axios.post('/analytics/connect')
     }catch(e){
       console.log(e)
       dispatch({
@@ -50,7 +51,7 @@ export const startLogin = (email,password)=>{
             //We then set the user's data
             
             const user = await axios.get('/users/me')
-            
+            const res2 = await axios.post('/analytics/connect')
             dispatch(loadUser(user.data));
             
           } catch (e) {
@@ -68,7 +69,7 @@ export const startLoadUser =()=>{
         try {
             
             const res = await axios.get('/users/me')
-        
+            const res2 = await axios.post('/analytics/connect')
             dispatch({
               type: 'USER_LOADED'
             })
