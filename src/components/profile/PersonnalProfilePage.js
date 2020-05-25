@@ -10,7 +10,7 @@ const PersonnalProfilePage = ({user,profile,startSetProfile})=>{
 }
 const mapStateToProps = (state)=>({
     user: state.user,
-    profile : state.profile
+    profile : state.profile,
 })
 const mapDispatchToProps = (dispatch)=>({
     startSetProfile : (id)=>dispatch(startSetProfile(id))

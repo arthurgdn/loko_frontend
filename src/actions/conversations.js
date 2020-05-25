@@ -19,8 +19,7 @@ export const startSetConversations = () =>{
         }catch(e){
             console.log(e)
             dispatch({
-                type : 'ERROR',
-                e
+                type : 'SET_CONVERSATIONS_ERROR'
         })
         }
     }
@@ -38,17 +37,17 @@ export const startNewConversation = (conv_data)=>{
             dispatch(newConversation(res.data))
         }catch(e){
             dispatch({
-                type : 'ERROR',
+                type : 'NEW_CONVERSATION_ERROR',
                 e
             })
         }
     }
 }
 
-export const removeConversation = (id)=>{
+export const removeConversation = (id)=>({
     type : 'REMOVE_CONVERSATION',
     id
-}
+})
 
 export const startRemoveConversation = (id)=>{
     return async (dispatch)=>{
@@ -57,8 +56,7 @@ export const startRemoveConversation = (id)=>{
             dispatch(removeConversation(id))
         }catch(e){
             dispatch({
-                type : 'ERROR',
-                e
+                type : 'REMOVE_CONVERSATION_ERROR'
             })
         }
     }
@@ -92,8 +90,7 @@ export const startEditConversation = (id,updates,image={})=>{
         }catch(e){
             console.log(e)
             dispatch({
-                type:'ERROR',
-                e
+                type:'EDIT_SPECIFIC_CONVERSATION_ERROR'
             })
         }
     }

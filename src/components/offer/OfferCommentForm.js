@@ -6,11 +6,12 @@ export default ({onNewComment})=>{
         onNewComment({content})
         setContent('')
     }
+    const disabled = content.length===0
     return (
         <form onSubmit={onSubmit}>
             <p>Mon commentaire : </p>
             <textarea value={content} onChange={(e)=>setContent(e.target.value)}></textarea>
-            <button>Envoyer</button>
+            <button disabled={disabled}>Envoyer</button>
         </form>
     )
 }

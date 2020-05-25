@@ -2,7 +2,7 @@ import React,{useState,useEffect} from 'react'
 import {connect} from 'react-redux'
 
 import { startNewConversation,startSetConversations } from '../../actions/conversations'
-const LoadConversation = ({startNewConversation,startSetConversations,conversations,history,match})=>{
+const LoadConversation = ({startNewConversation,startSetConversations,conversations,history,match,setConversationsError,newConversationError})=>{
     
     const [displayedConversations,setDisplayedConversations] = useState({})
     const [error,setError] = useState('')
@@ -10,6 +10,12 @@ const LoadConversation = ({startNewConversation,startSetConversations,conversati
     useEffect(()=>{
         startSetConversations()
     },[])
+    useEffect(()=>{
+        setError(newConversationError)
+    },[newConversationError])
+    useEffect(()=>{
+        setError(setConversationsError)
+    },[setConversationsError])
     useEffect(()=>{
         setDisplayedConversations(conversations)
         if(Array.isArray(displayedConversations)){
@@ -33,12 +39,20 @@ const LoadConversation = ({startNewConversation,startSetConversations,conversati
         
         
     return (
-        <div></div>
+        <div>
+            <button onClick = {()=>{
+                history.goBack()
+            }} value="<-" ></button>
+            <div>{error && (<p>{error}</p>)}</div>
+        </div>
+        
     )
 }
 const mapStateToProps = (state)=>({
 
-    conversations : state.conversations
+    conversations : state.conversations.conversations,
+    newConversationError : state.conversations.newConversationError,
+    setConversationsError : state.conversations.setConversationsError
 })
 const mapDispatchToProps = (dispatch)=>({
     startNewConversation : (conversation)=>dispatch(startNewConversation(conversation)),

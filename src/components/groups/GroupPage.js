@@ -11,13 +11,21 @@ import ManageGroup from './ManageGroup'
 import GroupOffers from './GroupOffers'
 import OfferForm from '../offers/OfferForm'
 import { startAddOffer } from '../../actions/offers'
-const GroupPage = ({match,stateGroup,startSetGroup,user,startAddOffer})=>{
+const GroupPage = ({match,stateGroup,startSetGroup,user,startAddOffer,addGroupOfferError,setGroupError})=>{
     const [group,setGroup] = useState({})
    
     const [isRequested,setIsRequested] = useState(false)
     const [isMember,setIsMember] = useState(false)
     const [displayOfferForm,setDisplayOfferForm] = useState(false)
-    const [error,setError] = useState('')
+    const [frontAddGroupOfferError,setFrontAddGroupOfferError] = useState('')
+    const [frontSetGroupError,setFrontSetGroupError] = useState('')
+    const [requestError,setRequestError] = useState('')
+    useEffect(()=>{
+        setFrontSetGroupError(setGroupError)
+    },[setGroupError])
+    useEffect(()=>{
+        setFrontAddGroupOfferError(addGroupOfferError)
+    },[addGroupOfferError])
     useEffect(()=>{
         if(!stateGroup._id || stateGroup._id!==match.params.id){
             startSetGroup(match.params.id)
@@ -42,7 +50,7 @@ const GroupPage = ({match,stateGroup,startSetGroup,user,startAddOffer})=>{
                 setIsRequested(true)
             }
         })
-        .catch((e)=>setError(e))
+        .catch((e)=>setRequestError("Erreur lors de l'envoi de la demande"))
     }
 
     const onSubmit=(offer,image)=>{
@@ -52,6 +60,7 @@ const GroupPage = ({match,stateGroup,startSetGroup,user,startAddOffer})=>{
 
     return (
         <div>
+            {frontSetGroupError && (<p>{frontSetGroupError}</p>)}
             {group._id===match.params.id ? (
                 <div>
                     {group.hasImage && (<img className="header__picture" src={process.env.DEV_URL+"/group/"+group._id+"/image"}/>)}
@@ -63,8 +72,15 @@ const GroupPage = ({match,stateGroup,startSetGroup,user,startAddOffer})=>{
                     {isMember?(
                         <div>
                             <button onClick={()=>{setDisplayOfferForm(!displayOfferForm)}}>Publier dans le groupe</button>
-                            {displayOfferForm &&(<OfferForm onSubmit={onSubmit} inGroup={true} group={group}/>)}
+                            {displayOfferForm &&(
+                                <div>
+                                    <OfferForm onSubmit={onSubmit} inGroup={true} group={group}/>
+                                    {frontAddGroupOfferError && (<p>{frontAddGroupOfferError}</p>)}
+                                </div>
+                                    )}
+                            
                             <GroupOffers group_id={group._id}/>
+                            
                             <ManageGroup/>
                         </div>
                     ):(<div>
@@ -72,7 +88,7 @@ const GroupPage = ({match,stateGroup,startSetGroup,user,startAddOffer})=>{
                         (isRequested?(<p>Demande pour rejoindre le groupe envoyée</p>):(
                             <button onClick={sendMembershipRequest}>Rejoindre le groupe</button>
                         )):(<p>Groupe privé, vous devez être invité au groupe</p>)}  
-                        
+                        {requestError && (<p>{requestError}</p>)}
                     </div>)}
                 </div>
             ):(<p>Erreur, pas de groupe correspondant</p>)}
@@ -82,7 +98,9 @@ const GroupPage = ({match,stateGroup,startSetGroup,user,startAddOffer})=>{
 
 const mapStateToProps = (state)=>({
     stateGroup : state.group,
-    user : state.user
+    user : state.user,
+    addGroupOfferError : state.groupOffers.addGroupOfferError,
+    setGroupError : state.group.setGroupError
 })
 
 const mapDispatchToProps = (dispatch)=>({

@@ -1,11 +1,9 @@
-import React,{useState,useEffect} from 'react'
-import {connect} from 'react-redux'
+import React from 'react'
 import {Link} from 'react-router-dom'
 import GroupsList from './GroupsList'
 import SuggestedGroupsList from './SuggestedGroupsList'
 
-const GroupsPage = ()=>{
-    return (
+export default ()=> (
         <div>
         <Link to='/nouveau_groupe'>Créer un groupe</Link>
         <h3>Mes groupes : </h3>
@@ -14,11 +12,3 @@ const GroupsPage = ()=>{
         <SuggestedGroupsList/>
         </div>
     )
-}
-const mapStateToProps = (state)=>({
-
-})
-const mapDispatchToProps = (dispatch)=>({
-
-})
-export default connect(mapStateToProps,mapDispatchToProps)(GroupsPage)

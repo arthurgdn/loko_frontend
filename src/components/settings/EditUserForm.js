@@ -4,7 +4,7 @@ import ImageUploader from 'react-images-upload'
 import axios from 'axios'
 import {startEditUserInfo} from '../../actions/user'
 import getLocationFormatted from '../../actions/getLocationFormatted'
-const EditUserForm = ({user,startEditUserInfo})=>{
+const EditUserForm = ({user,startEditUserInfo,editUserInfoError})=>{
     const [firstName,setFirstName] = useState(user.firstName?user.firstName:'')
     const [lastName,setLastName] = useState(user.lastName?user.lastName:'')
     
@@ -16,7 +16,9 @@ const EditUserForm = ({user,startEditUserInfo})=>{
    
     
     const [error,setError]= useState('')
-    
+    useEffect(()=>{
+        setError(editUserInfoError)
+    },[editUserInfoError])
     const onUseBrowserLocationChange = (e)=>{
         const useBrowser = e.target.checked
         if(useBrowser){
@@ -33,7 +35,7 @@ const EditUserForm = ({user,startEditUserInfo})=>{
                         setLocation({type : "Point",coordinates:[longitude,latitude]})
                         
                     }
-                ).catch((e)=>setError(e))
+                ).catch((e)=>setError("Impossible de déterminer la position"))
                 
                
                 setUseBrowserLocation(useBrowser)
@@ -133,7 +135,8 @@ const EditUserForm = ({user,startEditUserInfo})=>{
 }
 const mapStateToProps = (state)=>({
     
-    user : state.user
+    user : state.user,
+    editUserInfoError : state.user.editUserInfoError
 })
 const mapDispatchToProps = (dispatch)=>({
     startEditUserInfo : (updates,profilePicture)=>dispatch(startEditUserInfo(updates,profilePicture))

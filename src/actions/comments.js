@@ -24,8 +24,7 @@ export const startSetComments = (id) =>{
         }catch(e){
             
             dispatch({
-                type : 'ERROR',
-                e
+                type : 'SET_COMMENTS_ERROR'
         })
         }
     }
@@ -45,8 +44,7 @@ export const startNewComment = (id,comment)=>{
         }catch(e){
             
             dispatch({
-                type : 'ERROR',
-                e
+                type : 'NEW_COMMENT_ERROR'
         })
         }
     }

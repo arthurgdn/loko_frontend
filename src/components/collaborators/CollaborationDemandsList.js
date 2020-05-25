@@ -2,11 +2,19 @@ import React, {useState,useEffect} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {startSetCollaborationDemands,startNewCollaboration} from '../../actions/user'
-const CollaborationDemandsList = ({collaborationDemands,startSetCollaborationDemands,startNewCollaboration})=>{
+const CollaborationDemandsList = ({collaborationDemands,startSetCollaborationDemands,startNewCollaboration,setCollaborationDemandsError,newCollabError})=>{
     const [displayedDemands,setDisplayedDemands] = useState([])
+    const [error,setError]=useState('')
     useEffect(()=>{
         startSetCollaborationDemands()
     },[])
+    useEffect(()=>{
+        setError(setCollaborationDemandsError)
+    },[setCollaborationDemandsError])
+
+    useEffect(()=>{
+        setError(newCollabError)
+    },[newCollabError])
     useEffect(()=>{
         //On vérifie qu'on a le bon format pour la liste des demandes
         if((collaborationDemands.length>0 && Object.keys(collaborationDemands[0]).length===3)||collaborationDemands.length===0){
@@ -37,12 +45,15 @@ const CollaborationDemandsList = ({collaborationDemands,startSetCollaborationDem
                 </div>
             )})
         }
+        {error && (<p>{error}</p>)}
         </div>
         
     )
 }
 const mapStateToProps = (state)=>({
-    collaborationDemands : state.user.collaborationDemands
+    collaborationDemands : state.user.collaborationDemands,
+    setCollaborationDemandsError: state.user.setCollaborationDemandsError,
+    newCollabError:state.user.newCollabError
 })
 const mapDispatchToProps = (dispatch)=>({
     startSetCollaborationDemands : ()=>dispatch(startSetCollaborationDemands()),

@@ -10,6 +10,7 @@ const ManageOffer = ({offers,match,history})=>{
     const [offer,setOffer]= useState({})
     
     
+    
     useEffect(()=>{
         const foundOffer = offers.find((offer)=>String(offer._id)===match.params.id)
         setOffer(foundOffer?foundOffer:{})
@@ -26,9 +27,7 @@ const ManageOffer = ({offers,match,history})=>{
     )
 }
 const mapStateToProps = (state)=>({
-    offers : state.offers
+    offers : state.offers.offers
 })
-const mapDispatchToProps = (dispatch)=>({
-    
-})
-export default connect(mapStateToProps,mapDispatchToProps)(ManageOffer)
+
+export default connect(mapStateToProps)(ManageOffer)

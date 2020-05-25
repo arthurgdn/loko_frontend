@@ -3,8 +3,12 @@ import {connect} from 'react-redux'
 import {startSetOffers} from '../../actions/offers'
 import OfferElement from "./OfferElement"
 
-const OfferList = ({offers,startSetOffers})=>{
+const OfferList = ({offers,startSetOffers,setOffersError})=>{
     const [showingOffers,setOffers]= useState([])
+    const [error, setError] = useState('')
+    useEffect(()=>{
+        setError(setOffersError)
+    },[setOffersError])
     useEffect(()=>{
         
         startSetOffers()
@@ -15,6 +19,7 @@ const OfferList = ({offers,startSetOffers})=>{
     },[startSetOffers,offers])
     return (
         <div className="content-container">
+            {error && (<p>{error}</p>)}
             {showingOffers.length===0?(
                 <p>Vous n'avez pas encore publié d'offres</p>):(
                     showingOffers.map((offer)=><OfferElement displayCollaborationDemandForm={true} displayComments={true} displayAllComments={false} key={offer._id} {...offer} />)
@@ -25,7 +30,8 @@ const OfferList = ({offers,startSetOffers})=>{
 }
     
 const mapStateToProps = (state)=>({
-    offers: state.offers
+    offers: state.offers.offers,
+    setOffersError : state.offers.setOffersError
 })
 const mapDispatchToProps = (dispatch)=>({
     startSetOffers : ()=>dispatch(startSetOffers())

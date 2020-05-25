@@ -14,13 +14,14 @@ export default ({sendRecommendation})=>{
         }
         
     }
+    const disabled = content.length===0
     return (
         <div>
             {error && (<p>{error}</p>)}
             <form onSubmit={onSubmit}>
                 <textarea value={content} onChange={(e)=>setContent(e.target.value)} placeholder="Veuillez raconter comment s'est passé votre travail avec cette personne">
                 </textarea>
-                <button>Publier</button>
+                <button disabled={disabled}>Publier</button>
             </form>
         </div>
         

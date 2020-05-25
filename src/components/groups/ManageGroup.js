@@ -20,7 +20,7 @@ const ManageGroup = ({collaborators,startSetCollaborators,group}) =>{
         if(group.membership==='admin' && group.securityStatus ==='onRequest'){
             axios.get('/group/'+group._id+'/members?status=requested').
             then((res)=>{setMembershipRequests(res.data)})
-            .catch((e)=>{setError(e)})
+            .catch((e)=>{setError("Erreur serveur")})
         }
         axios.get('/group/'+group._id+'/members?status=member')
         .then((res)=>{
@@ -28,13 +28,13 @@ const ManageGroup = ({collaborators,startSetCollaborators,group}) =>{
             setMembers(res.data)})
         .catch((e)=>{
             console.log(e)
-            setError(e)})
+            setError("Erreur serveur")})
 
         axios.get('/group/'+group._id+'/members?status=admin')
         .then((res)=>{setAdmins(res.data)})
         .catch((e)=>{
             console.log(e)
-            setError(e)})
+            setError("Erreur serveur")})
 
         startSetCollaborators()
     },[])
@@ -59,7 +59,7 @@ const ManageGroup = ({collaborators,startSetCollaborators,group}) =>{
         .then((res)=>{setMembers([...members,res.data])})
         .catch((e)=>{
             console.log(e)
-            setError(e)})
+            setError("Erreur serveur")})
     }
     const acceptRequest = (e)=>{
         const userId = e.currentTarget.id.substr(6,e.currentTarget.id.length)
@@ -70,13 +70,13 @@ const ManageGroup = ({collaborators,startSetCollaborators,group}) =>{
         })
         .catch((e)=>{
             console.log(e)
-            setError(e)})
+            setError("Erreur serveur")})
     }
     const rejectRequest = (e)=>{
         const userId = e.currentTarget.id.substr(6,e.currentTarget.id.length)
         axios.post('/group/'+group._id+'/member/delete',JSON.stringify({_id:userId}))
         .then((res)=>{setMembershipRequests(membershipRequests.filter((request)=>request.user!==userId))})
-        .catch((e)=>{setError(e)})
+        .catch((e)=>{setError("Erreur serveur")})
     }
     const removeMember = (e)=>{
         const userId = e.currentTarget.id.substr(6,e.currentTarget.id.length)
@@ -84,7 +84,7 @@ const ManageGroup = ({collaborators,startSetCollaborators,group}) =>{
         .then((res)=>{setMembers(members.filter((member)=>member.user!==userId))})
         .catch((e)=>{
             console.log(e)
-            setError(e)})
+            setError("Erreur serveur")})
     }
     const promoteAdmin = (e)=>{
         const userId = e.currentTarget.id.substr(7,e.currentTarget.id.length)
@@ -93,7 +93,7 @@ const ManageGroup = ({collaborators,startSetCollaborators,group}) =>{
             setMembers(members.filter((member)=>member.user!==userId))
             setAdmins([...admins,res.data])
         })
-        .catch((e)=>{setError(e)})
+        .catch((e)=>{setError("Erreur serveur")})
     }
     return (
         <div>
@@ -153,6 +153,7 @@ const ManageGroup = ({collaborators,startSetCollaborators,group}) =>{
                             </li>
                         </div>))}
                     </ul>
+                    {error && (<p>{error}</p>)}
             </div>
             
             )  }
@@ -163,7 +164,8 @@ const ManageGroup = ({collaborators,startSetCollaborators,group}) =>{
 }
 const mapStateToProps = (state)=>({
     group : state.group,
-    collaborators : state.user.collaborators
+    collaborators : state.user.collaborators,
+    
 })
 const mapDispatchToProps = (dispatch)=>({
     startSetCollaborators : ()=>dispatch(startSetCollaborators())

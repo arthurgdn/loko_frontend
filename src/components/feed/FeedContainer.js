@@ -4,8 +4,12 @@ import {startSetFeed} from '../../actions/feed'
 import OfferElement from "../offer/OfferElement"
 import getFilteredFeed from '../../selectors/getFilteredFeed'
 
-const FeedContainer = ({feed,startSetFeed})=>{
+const FeedContainer = ({feed,startSetFeed,setFeedError})=>{
     const [showingOffers,setOffers]= useState([])
+    const [error,setError] = useState('')
+    useEffect(()=>{
+        setError(setFeedError)
+    },[setFeedError])
     useEffect(()=>{
         
         startSetFeed()
@@ -26,7 +30,8 @@ const FeedContainer = ({feed,startSetFeed})=>{
 }
     
 const mapStateToProps = (state)=>({
-    feed : getFilteredFeed(state.feed,state.feedFilters)
+    feed : getFilteredFeed(state.feed.feed,state.feedFilters),
+    setFeedError : state.feed.setFeedError
 })
 const mapDispatchToProps = (dispatch)=>({
     startSetFeed : ()=>dispatch(startSetFeed())

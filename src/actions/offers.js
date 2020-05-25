@@ -28,8 +28,7 @@ export const startEditOffer = (id,updates,image={})=>{
         }catch(e){
             
             dispatch({
-                type:'ERROR',
-                e
+                type:'SET_EDIT_OFFER_ERROR'
             })
         }
     }
@@ -52,8 +51,7 @@ export const startSetOffers = () =>{
         }catch(e){
             
             dispatch({
-                type : 'ERROR',
-                e
+                type : 'SET_OFFERS_ERROR'
         })
         }
     }
@@ -87,8 +85,7 @@ export const startAddOffer = (offer,image)=>{
         }catch(e){
             
             dispatch({
-                type : 'ERROR',
-                e
+                type : 'ADD_OFFER_ERROR'
         })
         }
     }
@@ -107,7 +104,7 @@ export const startRemoveOffer = (id)=>{
         }catch(e){
             
             dispatch({
-                type : 'ERROR',
+                type : 'REMOVE_OFFER_ERROR',
                 e
             })
         }

@@ -9,10 +9,15 @@ axios.defaults.headers.post['Accept'] = 'application/json'
 axios.defaults.baseURL = process.env.DEV_URL
 import {startEditOffer,startRemoveOffer} from '../../actions/offers' 
 
-const ManageOffer = ({_id,publisherId,collaborators,completedStatus,user,startEditOffer,startRemoveOffer,history})=>{
+const ManageOffer = ({_id,publisherId,collaborators,completedStatus,user,startEditOffer,startRemoveOffer,history,editOfferError,removeOfferError})=>{
     const [collaborationDemands,setCollaborationDemands] = useState([])
     const [error,setError] = useState('')
-
+    useEffect(()=>{
+        setError(editOfferError)
+    },[editOfferError])
+    useEffect(()=>{
+        setError(removeOfferError)
+    },[removeOfferError])
     //On charge les demandes de collaboration
     useEffect( ()=>{
         
@@ -23,7 +28,7 @@ const ManageOffer = ({_id,publisherId,collaborators,completedStatus,user,startEd
                     setCollaborationDemands(res.data)
                  }).catch((e)=>{
                      console.log(e)
-                    setError(e)
+                    setError("Impossible de récupérer les reponses à l'annonce")
                  })
                 
             
@@ -44,13 +49,13 @@ const ManageOffer = ({_id,publisherId,collaborators,completedStatus,user,startEd
         const userId = e.currentTarget.id.substr(6,e.currentTarget.id.length)
         axios.post('/offer/'+_id+'/demand/sort',JSON.stringify({_id:userId,status:'rejected'})).then((res)=>{
             setCollaborationDemands(collaborationDemands.filter((demand)=>String(demand.from._id)!==String(res.data.from)))
-        }).catch((e)=>setError(e))
+        }).catch((e)=>setError("Erreur serveur"))
     }
     const acceptDemand = (e)=>{
         const userId = e.currentTarget.id.substr(6,e.currentTarget.id.length)
         axios.post('/offer/'+_id+'/demand/sort',JSON.stringify({_id:userId,status:'accepted'})).then((res)=>{
             setCollaborationDemands(collaborationDemands.filter((demand)=>String(demand.from._id)!==String(res.data.from)))
-        }).catch((e)=>setError(e))
+        }).catch((e)=>setError("Erreur serveur"))
     }
     const deleteOffer = ()=>{
         startRemoveOffer(_id)
@@ -87,12 +92,14 @@ const ManageOffer = ({_id,publisherId,collaborators,completedStatus,user,startEd
                 </div>
             )}
             </h3>
-    
+        {error && (<p>{error}</p>)}
         </div>
     )
 }
 const mapStateToProps = (state)=>({
-    user : state.user
+    user : state.user,
+    editOfferError : state.offers.editOfferError,
+    removeOfferError : state.offers.removeOfferError
 })
 const mapDispatchToProps = (dispatch)=>({
     startEditOffer : (id,updates)=>dispatch(startEditOffer(id,updates)),

@@ -13,7 +13,7 @@ export default ()=>{
         })
         .catch((e)=>{
              console.log(e)
-            setError(e)})
+            setError("Erreur lors du chargement des groupes suggérés")})
     },[])
     return (
         <div>

@@ -18,8 +18,7 @@ export const startSetConversation = (id) =>{
         }catch(e){
             console.log(e)
             dispatch({
-                type : 'ERROR',
-                e
+                type : 'SET_CONVERSATION_ERROR'
         })
         }
     }
@@ -36,8 +35,7 @@ export const startPatchMembers = (id,member,action)=>{
             
         }catch(e){
             dispatch({
-                type:'ERROR',
-                e
+                type:'EDIT_SPECIFIC_CONVERSATION_ERROR'
             })
         }
     }
@@ -49,8 +47,7 @@ export const startAddAdmin = (id,user_id,newStatus)=>{
             dispatch({type: 'EDIT_SPECIFIC_CONVERSATION',updates : {...res.data}})
         }catch(e){
             dispatch({
-            type:'ERROR',
-            e
+            type:'EDIT_SPECIFIC_CONVERSATION_ERROR'
         })
         }
     }

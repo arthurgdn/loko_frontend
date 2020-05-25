@@ -62,5 +62,5 @@ const mapDispatchToProps = (dispatch)=>({
     sortByPoints : ()=>dispatch(sortByPoints()),
     sortByDate : ()=>dispatch(sortByDate()),
     setDistanceRadius : (radius)=>dispatch(setDistanceRadius(radius))
-})
+}) 
 export default connect(mapStateToProps,mapDispatchToProps)(FeedFiltering)

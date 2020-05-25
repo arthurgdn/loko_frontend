@@ -39,8 +39,7 @@ export const startSetMessages = (id,token) =>{
             
         }catch(e){
             dispatch({
-                type : 'ERROR',
-                e
+                type : 'SET_MESSAGES_ERROR'
         })
         }
     }
@@ -56,8 +55,8 @@ export const startSendMessage = (socket,conv_id,message)=>{
         console.log(message)
         socket.emit('messageSent',{conv_id,message},(error)=>{
             if(error){
-                dispatch({type:'ERROR',e:error})
-                console.log(error)
+                dispatch({type:'ADD_MESSAGE_ERROR'})
+                
             }
 
             

@@ -18,7 +18,7 @@ export const startSetAllKeywords = () =>{
         }catch(e){
             
             dispatch({
-                type : 'ERROR',
+                type : 'SET_ALL_KEYWORDS_ERROR',
                 e
         })
         }

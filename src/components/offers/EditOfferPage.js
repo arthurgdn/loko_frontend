@@ -3,7 +3,12 @@ import {connect} from 'react-redux'
 import OfferForm from './OfferForm'
 import {startEditOffer} from '../../actions/offers'
 class  EditOfferPage extends React.Component{
-    
+    constructor(props){
+        super(props)
+        this.state = {
+            editOfferError: props.editOfferError
+        }
+    }
     onSubmit=(offer,image)=>{
         console.log('submitted:',offer,image)
         this.props.startEditOffer(this.props.offer._id,offer,image)
@@ -21,6 +26,7 @@ class  EditOfferPage extends React.Component{
                 inGroup={false}
                 {...this.props.offer}
                 /></div>
+                {this.state.editOfferError && (<p>{this.state.editOfferError}</p>)}
             </div></div>
         
     </div>
@@ -28,7 +34,8 @@ class  EditOfferPage extends React.Component{
     }
 }
 const mapStateToProps = (state,props)=>({
-    offer : state.offers.find((offer)=>offer._id===props.match.params.id)
+    offer : state.offers.offers.find((offer)=>offer._id===props.match.params.id),
+    editOfferError : state.offers.editOfferError
 })
 const mapDispatchToProps=(dispatch)=>({
     startEditOffer: (offer,image)=>dispatch(startEditOffer(offer,image))

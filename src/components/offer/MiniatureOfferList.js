@@ -3,12 +3,16 @@ import {connect} from 'react-redux'
 import {startSetOffers} from '../../actions/offers'
 import MiniatureOfferElement from "./MiniatureOfferElement"
 
-const MiniatureOfferList = ({offers,startSetOffers})=>{
+const MiniatureOfferList = ({offers,startSetOffers,setOffersError})=>{
     const [showingOffers,setOffers]= useState([])
+    const [error,setError] = useState('')
     useEffect(()=>{
         
         startSetOffers()
     },[])
+    useEffect(()=>{
+        setError(setOffersError)
+    },[setOffersError])
     useEffect(()=>{
         
         setOffers(offers)
@@ -20,6 +24,7 @@ const MiniatureOfferList = ({offers,startSetOffers})=>{
             </div>
             
             <div className="content-container">
+                {error && (<p>{error}</p>)}
                 <div className="manager__miniature-list">
                     {showingOffers.length===0?(
                         <p className="manager__no-offer">Vous n'avez travaillé sur aucune annonces pour le moment</p>):(
@@ -34,7 +39,8 @@ const MiniatureOfferList = ({offers,startSetOffers})=>{
 }
     
 const mapStateToProps = (state)=>({
-    offers: state.offers
+    offers: state.offers.offers,
+    setOffersError : state.offers.setOffersError
 })
 const mapDispatchToProps = (dispatch)=>({
     startSetOffers : ()=>dispatch(startSetOffers())

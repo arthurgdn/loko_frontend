@@ -35,8 +35,7 @@ export const startCreateGroup = (group,image)=>{
         }catch(e){
             
             dispatch({
-                type: 'ERROR',
-                e
+                type: 'USER_GROUP_CREATED_ERROR'
             })
         }
         
@@ -58,8 +57,7 @@ export const startEditGroup = (id,updates,image)=>{
             }
         }catch(e){
             disaptch({
-                type : 'ERROR',
-                e
+                type : 'SET_GROUP_ERROR'
             })
         }
     }
@@ -71,8 +69,7 @@ export const startSetGroup = (id)=>{
             dispatch(setGroup(res.data))
         }catch(e){
             dispatch({
-                type: 'ERROR',
-                e
+                type: 'SET_GROUP_ERROR'
             })
         }
     }

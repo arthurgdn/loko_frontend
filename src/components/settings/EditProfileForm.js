@@ -4,7 +4,7 @@ import CreatableSelect from 'react-select/creatable'
 import Select from 'react-select'
 import {startEditProfile,startSetProfile,startEditCompletedOffers} from '../../actions/profile'
 import {startSetOffers} from '../../actions/offers'
-const EditProfileForm = ({profile={},stateOffers,startEditCompletedOffers,startSetOffers,user,startSetProfile,startEditProfile,allKeywords})=>{
+const EditProfileForm = ({profile={},stateOffers,startEditCompletedOffers,startSetOffers,user,startSetProfile,startEditProfile,allKeywords,editProfileError,addCompletedOfferError,setProfileError})=>{
     
     
      
@@ -14,6 +14,16 @@ const EditProfileForm = ({profile={},stateOffers,startEditCompletedOffers,startS
     const [keywords,setKeywords] = useState(profile.keywords?profile.keywords:[])
     const [completedOffers,setCompletedOffers] = useState(profile.completedOffers?profile.completedOffers:[])
     const [offers,setOffers] = useState(stateOffers?stateOffers:[])
+    const [error,setError] = useState('')
+    useEffect(()=>{
+        setError(setProfileError)
+    },[setProfileError])
+    useEffect(()=>{
+        setError(editProfileError)
+    },[editProfileError])
+    useEffect(()=>{
+        setError(addCompletedOfferError)
+    },[addCompletedOfferError])
     useEffect(()=>{
         startSetProfile(user._id)
         startSetOffers()
@@ -93,6 +103,7 @@ const EditProfileForm = ({profile={},stateOffers,startEditCompletedOffers,startS
     }
     return (
         <div>
+            {error && (<p>{error}</p>)}
             <form onSubmit={onSubmit}>
                 <textarea value={description} onChange={(e)=>setDescription(e.target.value)} placeholder="Decrivez vous rapidement ici"/>
                 <textarea value={summary} onChange={(e)=>setSummary(e.target.value)} placeholder="Expliquez ici ce que vous recherchez sur la plateforme..."></textarea>
@@ -126,7 +137,10 @@ const mapStateToProps = (state)=>({
     profile : state.profile,
     allKeywords : state.keywords,
     user : state.user,
-    stateOffers : state.offers
+    stateOffers : state.offers.offers,
+    editProfileError: state.profile.editProfileError,
+    setProfileError : state.profile.setProfileError,
+    addCompletedOfferError : state.profile.addCompletedOfferError
 })
 const mapDispatchToProps = (dispatch)=>({
     startEditProfile : (updates)=>dispatch(startEditProfile(updates)),

@@ -17,8 +17,7 @@ export const startSetKeywordFeed = (keyword_id) =>{
         }catch(e){
             console.log(e)
             dispatch({
-                type : 'ERROR',
-                e
+                type : 'SET_KEYWORD_FEED_ERROR'
         })
         }
     }

@@ -16,8 +16,7 @@ export const startSetGroupOffers = (id)=>{
         }catch(e){
             console.log(e)
             dispatch({
-                type: 'ERROR',
-                e
+                type: 'SET_GROUP_OFFERS_ERROR'
             })
         }
     }

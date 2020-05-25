@@ -4,16 +4,25 @@ import Select from 'react-select'
 import ConversationsList from './ConversationsList'
 import {startSetCollaborators, startNewCollaboration} from '../../actions/user'
 import { startNewConversation,startSetConversations } from '../../actions/conversations'
-const ConversationsPage = ({collaborators,startSetCollaborators,startNewConversation,startSetConversations,conversations,history})=>{
+const ConversationsPage = ({setConversationsError,newConversationError,collaborators,startSetCollaborators,startNewConversation,startSetConversations,conversations,history})=>{
     const [displayNewConvForm,setDisplayNewConvForm] = useState(false)
     const [members,setMembers] = useState([])
     const [displayedCollaborators,setDisplayedCollaborators] = useState([])
     const [displayedConversations,setDisplayedConversations] = useState([])
-    const [error,setError] = useState('')
-    
+    const [frontSetConvError,setFrontSetConvError] = useState('')
+    const [frontNewConvError,setFrontNewConvError] = useState('')
     useEffect(()=>{
         startSetConversations()
     },[])
+    //On regarde si jamais des erreurs viennent du serveur 
+    useEffect(()=>{
+        setFrontSetConvError(setConversationsError)
+    },[setConversationsError])
+
+    useEffect(()=>{
+        setFrontNewConvError(newConversationError)
+    },[newConversationError])
+
     useEffect(()=>{
         setDisplayedConversations(conversations)
     },[conversations,startSetConversations])
@@ -77,15 +86,19 @@ const ConversationsPage = ({collaborators,startSetCollaborators,startNewConversa
                         onChange={onSelectedMembersChange}
                     />
                     <button onClick={createConversation} active={(members.length>0).toString()}>Démarrer</button>
+                    {frontNewConvError && (<p>{frontNewConvError}</p>)}
                 </div>
                 )}
+            {frontSetConvError && (<p>{frontSetConvError}</p>)}
             <ConversationsList displayedConversations={displayedConversations}/>
         </div>
     )
 }
 const mapStateToProps = (state)=>({
     collaborators : state.user.collaborators,
-    conversations : state.conversations
+    conversations : state.conversations.conversations,
+    setConversationsError:state.conversations.setConversationsError,
+    newConversationError:state.conversations.newConversationError
 })
 const mapDispatchToProps = (dispatch)=>({
     startSetCollaborators : ()=>dispatch(startSetCollaborators()),

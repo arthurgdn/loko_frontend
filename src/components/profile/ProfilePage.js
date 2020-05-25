@@ -6,12 +6,27 @@ import {startSendCollaboration,startNewCollaboration} from '../../actions/user'
 import { startSetProfile, startSendRecommendation } from '../../actions/profile';
 import RecommendationForm from './RecommendationForm'
 
-const ProfilePage = ({ startSendCollaboration,startSetProfile,startSendRecommendation,match,stateProfile,user_id,collaborators,collaborationDemands,startNewCollaboration,history }) => {
+const ProfilePage = ({ startSendCollaboration,startSetProfile,startSendRecommendation,match,stateProfile,user_id,collaborators,collaborationDemands,startNewCollaboration,history,setProfileError,sendCollaborationError,sendRecommendationError,newCollaborationError }) => {
     
     
     const isCollaborator = collaborators.find((collaborator)=>String(collaborator.collaborator)===match.params.id)
     const isInCollaborationDemands = collaborationDemands.find((demand)=>String(demand.demand)===match.params.id)
-    
+    const [frontSetProfileError,setFrontSetProfileError] = useState('')
+    const [frontSendCollabError,setFrontSendCollabError] = useState('')
+    const [frontSendReccError,setFrontSendReccError] = useState('')
+    const [frontNewCollabError,setFrontNewCollabError] = useState('')
+    useEffect(()=>{
+        setFrontSetProfileError(setProfileError)
+    },[setProfileError])
+    useEffect(()=>{
+        setFrontSendCollabError(sendCollaborationError)
+    },[sendCollaborationError])
+    useEffect(()=>{
+        setFrontSendReccError(sendRecommendationError)
+    },[sendRecommendationError])
+    useEffect(()=>{
+        setFrontNewCollabError(newCollaborationError)
+    },[newCollaborationError])
     const [profile,setProfile] = useState({
         firstName:'',
         lastName:'',
@@ -60,14 +75,17 @@ const ProfilePage = ({ startSendCollaboration,startSetProfile,startSendRecommend
                 {(!isCollaborator && !isInCollaborationDemands) && <button onClick={(e)=>{
                 
                 startSendCollaboration({_id : match.params.id})
-            }}>Collaborer </button>}
+            {frontSendCollabError && (<p>{frontSendCollabError}</p>)}
+            }}>Suivre </button>}
 
             {isInCollaborationDemands && (
                 <div>
                     <button id={"accept"+match.params.id} onClick={accept}>Accepter</button>
                     <button id={"reject"+match.params.id} onClick={reject}>Rejeter</button>
                 </div>)}
+            {frontNewCollabError && (<p>{frontNewCollabError}</p>)}
             <button onClick={sendMessage}>Message</button></div>) : (<Link to='/settings/profile'>Modifier</Link>)}
+            {frontSetProfileError && (<p>{frontSetProfileError}</p>)}
             <h3>{profile.firstName} {profile.lastName}</h3>
             <img src={process.env.DEV_URL+"/users/"+match.params.id+"/avatar"}/>
             <p>Localisation : {profile.locationText}</p>
@@ -94,7 +112,13 @@ const ProfilePage = ({ startSendCollaboration,startSetProfile,startSendRecommend
                     </Link>
                     <p>{recommendation.content}</p>
                 </div>))}
-                {match.params.id!==user_id && ( <RecommendationForm sendRecommendation={sendRecommendation}/>) }
+                {match.params.id!==user_id && (
+                    <div>
+                        <RecommendationForm sendRecommendation={sendRecommendation}/>
+                        {frontSendReccError && (<p>{frontSendReccError}</p>)}
+                    </div>
+                    ) }
+
                
       </div>
   )
@@ -105,7 +129,11 @@ const mapStateToProps = (state)=>({
     stateProfile : state.profile,
     user_id : state.user._id,
     collaborators : state.user.collaborators,
-    collaborationDemands : state.user.collaborationDemands
+    collaborationDemands : state.user.collaborationDemands,
+    setProfileError : state.profile.setProfileError,
+    sendCollaborationError : state.user.sendCollaborationError,
+    sendRecommendationError : state.user.sendRecommendationError,
+    newCollaborationError : state.user.newCollaborationError
 })
 const mapDispatchToProps = (dispatch)=>({
     startSetProfile : (profile_id)=>dispatch(startSetProfile(profile_id)),

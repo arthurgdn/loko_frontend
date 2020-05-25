@@ -29,7 +29,7 @@ export const startEditUserInfo = (updates,profilePicture)=>{
         }catch(e){
             console.log(e)
             dispatch({
-                type:'ERROR',
+                type:'EDIT_USER_INFO_ERROR',
                 e
             })
         }
@@ -46,7 +46,7 @@ export const startSetCollaborators = ()=>{
             dispatch(setCollaborators(res.data))
         }catch(e){
             dispatch({
-                type: 'ERROR',
+                type: 'SET_COLLABORATORS_ERROR',
                 e
             })
         }
@@ -63,7 +63,7 @@ export const startSetCollaborationDemands = ()=>{
             dispatch(setCollaborationDemands(res.data))
         }catch(e){
             dispatch({
-                type: 'ERROR',
+                type: 'SET_COLLABORATION_DEMANDS_ERROR',
                 e
             })
         }
@@ -92,7 +92,7 @@ export const startNewCollaboration = (collaborator,status)=>{
         }catch(e){
             console.log(e)
             dispatch({
-                type:'ERROR',
+                type:'NEW_COLLAB_ERROR',
                 e
             })
         }
@@ -133,7 +133,7 @@ export const deleteAccount = (password)=>{
             dispatch({type:'LOGOUT'})
             dispatch({type : 'CLEAR_USER'})
         }catch(e){
-            dispatch({type : 'ERROR',
+            dispatch({type : 'LOGOUT_ERROR',
             e
         })
         }
@@ -150,7 +150,7 @@ export const startAddPhoneNUmber = (phoneNumber)=>{
             })
         }catch(e){
             dispatch({
-                type:'ERROR',
+                type:'ADD_PHONE_ERROR',
                 e
             })
         }

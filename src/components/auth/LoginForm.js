@@ -6,14 +6,20 @@ import {RiLockPasswordLine} from 'react-icons/ri'
 import { startLogin } from '../../actions/auth';
 
 
-const LoginForm = ({ startLogin, isAuthenticated }) => {
+const LoginForm = ({ startLogin, isAuthenticated,loginError }) => {
   const [formData, setFormData] = useState({
     email: '',
     password: ''
   })
-  const emailRef = useRef(null)
-  useEffect(()=>{emailRef.current.focus()},[])
   const [error,setError] = useState('')
+  useEffect(()=>{setError(loginError)},[loginError])
+  const emailRef = useRef(null)
+  useEffect(()=>{
+    emailRef.current.focus()
+    
+  },[])
+  
+
   const { email, password } = formData;
 
   const onChange = e =>
@@ -44,7 +50,7 @@ const LoginForm = ({ startLogin, isAuthenticated }) => {
           value={email}
           onChange={e => onChange(e)}
           required
-          focus={true}
+          focus="true"
         />
       
         <RiLockPasswordLine/>
@@ -79,7 +85,8 @@ const LoginForm = ({ startLogin, isAuthenticated }) => {
 
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated
+    isAuthenticated: state.auth.isAuthenticated,
+    loginError:state.auth.loginError
 });
 const mapDispatchToProps = (dispatch)=>({
     startLogin : (email,password)=>dispatch(startLogin(email,password))

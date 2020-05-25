@@ -2,11 +2,15 @@ import React, {useState,useEffect} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {startSetCollaborators} from '../../actions/user'
-const CollaboratorsList = ({collaborators,startSetCollaborators})=>{
+const CollaboratorsList = ({collaborators,startSetCollaborators,setCollaboratorsError})=>{
     const [displayedCollaborators,setDisplayedCollaborators] = useState([])
+    const [error,setError]=useState([])
     useEffect(()=>{
         startSetCollaborators()
     },[])
+    useEffect(()=>{
+        setError(setCollaboratorsError)
+    },[setCollaboratorsError])
     useEffect(()=>{
         //On vérifie qu'on a le bon format pour la liste des collaborateurs
         if((collaborators.length>0 && Object.keys(collaborators[0]).length===3)||collaborators.length===0){
@@ -26,12 +30,14 @@ const CollaboratorsList = ({collaborators,startSetCollaborators})=>{
                 </div>
             )})
         }
+        {error && (<p>{error}</p>)}
         </div>
         
     )
 }
 const mapStateToProps = (state)=>({
-    collaborators : state.user.collaborators
+    collaborators : state.user.collaborators,
+    setCollaboratorsError:state.user.setCollaboratorsError
 })
 const mapDispatchToProps = (dispatch)=>({
     startSetCollaborators : ()=>dispatch(startSetCollaborators())

@@ -16,8 +16,7 @@ export const startSetFeed = () =>{
             dispatch(setFeed(res.data))
         }catch(e){
             dispatch({
-                type : 'ERROR',
-                e
+                type : 'SET_FEED_ERROR'
         })
         }
     }

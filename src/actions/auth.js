@@ -28,10 +28,9 @@ export const startRegister = (registration_form)=>{
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + res.data.token;
         const res2 = await axios.post('/analytics/connect')
     }catch(e){
-      console.log(e)
+      
       dispatch({
-        type: 'ERROR',
-        e
+        type: 'REGISTER_ERROR'
       })
     }
   }
@@ -55,10 +54,9 @@ export const startLogin = (email,password)=>{
             dispatch(loadUser(user.data));
             
           } catch (e) {
-            console.log(e)
+            console.log(e.response.data)
             dispatch({
-              type: 'ERROR',
-              e
+              type: 'AUTH_ERROR'
             });
           }
     }
@@ -74,10 +72,10 @@ export const startLoadUser =()=>{
               type: 'USER_LOADED'
             })
             dispatch(loadUser(res.data))
-          } catch (err) {
-            console.log(err)
+          } catch (e) {
+            console.log(e)
             dispatch({
-              type: 'AUTH_ERROR'
+              type: 'SET_USER_ERROR'
             });
           }
     }

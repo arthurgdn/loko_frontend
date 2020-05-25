@@ -1,11 +1,15 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {connect} from 'react-redux'
 import ImageUploader from 'react-images-upload'
 import {startEditConversation} from '../../actions/conversations'
-const EditConversationInfoForm = ({_id,name,description,startEditConversation,setDisplayEditConvInfoForm})=>{
+const EditConversationInfoForm = ({_id,name,description,startEditConversation,setDisplayEditConvInfoForm,editSpecificConversationError})=>{
     const [nameInput,setNameInput]=useState(name?name:'')
     const [descriptionInput,setDescriptionInput] = useState(description?description:'')
     const [image,setImage]=useState({})
+    const [frontEditConvError,setFrontEditConvError] = useState('')
+    useEffect(()=>{
+        setFrontEditConvError(editSpecificConversationError)
+    },[editSpecificConversationError])
     const onSubmit = (e)=>{
         e.preventDefault()
         startEditConversation(_id,{name:nameInput,description:descriptionInput},image)
@@ -37,10 +41,14 @@ const EditConversationInfoForm = ({_id,name,description,startEditConversation,se
                     singleImage={true}
                     />
             <button>Enregistrer</button>
+            {frontEditConvError && (<p>{frontEditConvError}</p>)}
         </form>
     )
 }
+const mapStateToProps = (state)=>({
+    editSpecificConversationError : state.conversation.editSpecificConversationError
+})
 const mapDispatchToProps = (dispatch)=>({
     startEditConversation : (id,updates,image)=>dispatch(startEditConversation(id,updates,image))
 })
-export default connect(undefined,mapDispatchToProps)(EditConversationInfoForm)
+export default connect(mapStateToProps,mapDispatchToProps)(EditConversationInfoForm)

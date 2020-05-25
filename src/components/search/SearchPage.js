@@ -22,13 +22,14 @@ const SearchPage = ()=>{
                 setSearchResults(res.data)
                 setSubmittedResearch(true)
             })
-            .catch((e)=>{setError(e)})
+            .catch((e)=>{setError("Erreur lors de la recherche")})
         }else{
             setError('Veuillez entrer une recherche')
         }
         
         
     }
+    const enabled = searchText.length>0
     return (
         <div>
             <h3>Rechercher</h3>
@@ -39,7 +40,7 @@ const SearchPage = ()=>{
                     value={searchText}
                     onChange={(e)=>setSearchText(e.target.value)}
                 />
-                <button>Rechercher</button>
+                <button disabled={!enabled}>Rechercher</button>
             </form>
             {error && (<p>{error}</p>)}
             <button onClick={()=>{setCategory('offers')}}>Annonces</button>

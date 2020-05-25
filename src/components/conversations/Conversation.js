@@ -12,20 +12,29 @@ import {startSetCollaborators } from '../../actions/user'
 import EditConversationInfoForm from './EditConversationInfoForm'
 
 
-const Conversation =  ({match,user_id,stateConversation,startSetConversation,collaborators,startSetCollaborators,startPatchMembers,startAddAdmin})=>{
+const Conversation =  ({setConversationError,editSpecificConversationError,match,user_id,stateConversation,startSetConversation,collaborators,startSetCollaborators,startPatchMembers,startAddAdmin})=>{
     
     
     const [member,setMember] = useState({})
     const [conversation,setConversation]= useState({})
     const [displayEditConvInfoForm,setDisplayEditConvInfoForm] = useState(false)
     const [displayInfo,setDisplayInfo] = useState(false)
-    const [error,setError]=useState('')
+    const [frontSetConvError,setFrontSetConvError]=useState('')
+    const [editConvError,setEditConvError]=useState('')
     const [displayedCollaborators,setDisplayedCollaborators] = useState([])
-    const isAdmin = (Object.keys(conversation).length>0 && !!conversation.admins.find((admin)=>admin.admin===user_id))
+    const isAdmin = (Object.keys(conversation).length>2 && !!conversation.admins.find((admin)=>admin.admin===user_id))
+    //On regarde lorsqu'une erreur intervient côté serveur
     useEffect(()=>{
-        if(Object.keys(stateConversation).length>0 && stateConversation._id!==match.params.id){
+        setFrontSetConvError(setConversationError)
+    },[setConversationError])
+
+    useEffect(()=>{
+        setEditConvError(editSpecificConversationError)
+    },[editSpecificConversationError])
+    useEffect(()=>{
+        if(Object.keys(stateConversation).length>2 && stateConversation._id!==match.params.id){
             startSetConversation(match.params.id)
-        }else if(Object.keys(stateConversation).length===0){
+        }else{
             
             startSetConversation(match.params.id)
         }
@@ -71,8 +80,8 @@ const Conversation =  ({match,user_id,stateConversation,startSetConversation,col
 
     return (
         <div>
-            {error &&(<p>{error}</p>)}
-            {Object.keys(conversation).length===0?(<p>Aucune conversation ne correspond</p>):
+            {frontSetConvError &&(<p>{frontSetConvError}</p>)}
+            {Object.keys(conversation).length<=2?(<p>Aucune conversation ne correspond</p>):
                 (
                 <div>
                     {conversation.name?(<h3>{conversation.name}</h3>):
@@ -114,6 +123,7 @@ const Conversation =  ({match,user_id,stateConversation,startSetConversation,col
                                     <button onClick={addMember}>Ajouter</button>
                                 </div>
                             )}
+                            {editConvError && (<p>{editConvError}</p>)}
                             
                         </div>
                     )}        
@@ -128,7 +138,10 @@ const Conversation =  ({match,user_id,stateConversation,startSetConversation,col
 const mapStateToProps = (state)=>({
     user_id : state.user._id,
     stateConversation : state.conversation,
-    collaborators : state.user.collaborators
+    collaborators : state.user.collaborators,
+    setConversationError : state.conversation.setConversationError,
+    editSpecificConversationError: state.conversation.editSpecificConversationError
+
 })
 const mapDispatchToProps = (dispatch)=>({
     startSetConversation : (id)=>dispatch(startSetConversation(id)),

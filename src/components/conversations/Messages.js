@@ -4,16 +4,21 @@ import {Link} from 'react-router-dom'
 import {startSetMessages} from '../../actions/messages'
 import MessageElement from './MessageElement'
 import MessageForm from './MessageForm'
-const Messages = ({messages,startSetMessages,conv_id,token})=>{
+const Messages = ({messages,startSetMessages,conv_id,token,setMessagesError})=>{
     const [displayedMessages,setDisplayedMessages] = useState([])
+    const [error,setError] = useState('')
     useEffect(()=>{
         startSetMessages(conv_id,token)
     },[])
+    useEffect(()=>{
+        setError(setMessagesError)
+    },[setMessagesError])
     useEffect(()=>{
         setDisplayedMessages(messages)
     },[messages,startSetMessages])
     return (
         <div>
+        {error && (<p>{error}</p>)}
         {!displayedMessages.length>0? (<p>Aucuns messages pour l'instant</p>) : 
             displayedMessages.map((message)=>(<MessageElement key={message._id} {...message}/>))
         }
@@ -24,8 +29,9 @@ const Messages = ({messages,startSetMessages,conv_id,token})=>{
     )
 }
 const mapStateToProps = (state)=>({
-    messages : state.messages,
-    token : state.auth.token
+    messages : state.messages.messages,
+    token : state.auth.token,
+    setMessagesError : state.messages.setMessagesError
 })
 const mapDispatchToProps = (dispatch)=>({
     startSetMessages : (id,token)=>dispatch(startSetMessages(id,token))

@@ -6,7 +6,7 @@ import CreatableSelect from 'react-select/creatable'
 import ImageUploader from 'react-images-upload'
 import { startEditGroup } from '../../actions/groups'
 
-const EditGroupForm = ({startEditGroup,group,allKeywords})=>{
+const EditGroupForm = ({startEditGroup,group,allKeywords,setGroupError})=>{
     const [name,setName] = useState(group.name)
     const [description,setDescription] = useState(group.description)
     const [securityStatus,setSecurityStatus] = useState(group.securityStatus)
@@ -17,11 +17,13 @@ const EditGroupForm = ({startEditGroup,group,allKeywords})=>{
     const [locationText,setLocationText] = useState(group.locationText)
     const [image,setImage] = useState({})
     const [error,setError] = useState('')
-
+    
     const securityStatusIndex = [{value:"open",label:"Ouvert"},
     {value:"onRequest",label:"Sur demande"},
     {value:"private",label:"Privé"}]
-    
+    useEffect(()=>{
+        setError(setGroupError)
+    },[setGroupError])
     useEffect(()=>{
         for(const keyword of allKeywords){
             keyword.value = keyword.name
@@ -53,7 +55,7 @@ const EditGroupForm = ({startEditGroup,group,allKeywords})=>{
                         setLocation({type : "Point",coordinates:[longitude,latitude]})
                         
                     }
-                ).catch((e)=>setError(e))
+                ).catch((e)=>setError('Impossible de déterminer la position'))
                 
                
                 setUseBrowserLocation(useBrowser)
@@ -188,7 +190,8 @@ const EditGroupForm = ({startEditGroup,group,allKeywords})=>{
 }
 const mapStateToProps = (state)=>({
     group : state.group,
-    allKeywords: state.keywords
+    allKeywords: state.keywords,
+    setGroupError:state.group.setGroupError
 })
 const mapDispatchToProps = (dispatch)=>({
     startEditGroup : (id,updates,image)=>dispatch(startEditGroup(id,updates,image))

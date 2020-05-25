@@ -5,9 +5,16 @@ import {startSetComments,startNewComment} from '../../actions/comments'
 import OfferComment from './OfferComment'
 import OfferCommentForm from './OfferCommentForm'
 
-const OfferCommentSection = ({offer_id,startSetComments,startNewComment,comments,displayAllComments})=>{
+const OfferCommentSection = ({offer_id,startSetComments,startNewComment,comments,displayAllComments,setCommentsError,newCommentError})=>{
     const [showingComments,setComments]= useState([])
-    
+    const [frontSetCommentsError,setFrontSetCommentsError] = useState('')
+    const [frontNewCommentError,setFrontNewCommentError] = useState('')
+    useEffect(()=>{
+        setFrontSetCommentsError(setCommentsError)
+    },[setCommentsError])
+    useEffect(()=>{
+        setFrontNewCommentError(newCommentError)
+    },[newCommentError])
     useEffect(()=>{
         
         startSetComments(offer_id)
@@ -30,6 +37,7 @@ const OfferCommentSection = ({offer_id,startSetComments,startNewComment,comments
     return (
         <div className="content-container">
             <h2>Commentaires </h2>
+            {frontSetCommentsError && (<p>{frontSetCommentsError}</p>)}
             {showingComments.length===0?(
                 <p>Il n'y a pas encore de commentaires</p>):(
                     <div>
@@ -47,13 +55,16 @@ const OfferCommentSection = ({offer_id,startSetComments,startNewComment,comments
                     
                 }
             <OfferCommentForm onNewComment={onNewComment}/>
+            {frontNewCommentError && (<p>{frontNewCommentError}</p>)}
         </div>
 
     )
 }
     
 const mapStateToProps = (state)=>({
-    comments : state.comments
+    comments : state.comments.comments,
+    setCommentsError : state.comments.setCommentsError,
+    newCommentError : state.comments.newCommentError
 })
 const mapDispatchToProps = (dispatch)=>({
     startSetComments : (id)=>dispatch(startSetComments(id)),

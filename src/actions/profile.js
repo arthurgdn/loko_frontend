@@ -18,7 +18,7 @@ export const startSendRecommendation = (profile_id,content)=>{
             dispatch(sendRecommendation(res.data))
         }catch(e){
             console.log(e)
-            dispatch({type: 'ERROR',e})
+            dispatch({type: 'SEND_RECOMMENDATION_ERROR'})
         }
     }
 } 
@@ -35,8 +35,7 @@ export const startEditProfile = (updates)=>{
         }catch(e){
             console.log(e)
             dispatch({
-                type:'ERROR',
-                e
+                type:'EDIT_PROFILE_ERROR'
             })
         }
     }
@@ -58,8 +57,7 @@ export const startSetProfile = (profile_id) =>{
         }catch(e){
             
             dispatch({
-                type : 'ERROR',
-                e
+                type : 'SET_PROFILE_ERROR'
         })
         }
     }
@@ -78,8 +76,7 @@ export const startEditCompletedOffers = (completedOffers)=>{
         }catch(e){
             console.log(e)
             dispatch({
-                type : 'ERROR',
-                e
+                type : 'ADD_COMPLETED_OFFER_ERROR'
         })
         }
     }

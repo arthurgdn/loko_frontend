@@ -8,7 +8,7 @@ import ImageUploader from 'react-images-upload'
 import { startCreateGroup } from '../../actions/groups'
 
 
-const CreateGroupPage = ({allKeywords,startCreateGroup,history})=>{
+const CreateGroupPage = ({allKeywords,startCreateGroup,history,userGroupCreatedError})=>{
     const [name,setName] = useState('')
     const [description,setDescription] = useState('')
     const [securityStatus,setSecurityStatus] = useState('open')
@@ -26,6 +26,9 @@ const CreateGroupPage = ({allKeywords,startCreateGroup,history})=>{
             keyword.label= keyword.name
         }
     },[])
+    useEffect(()=>{
+        setError(userGroupCreatedError)
+    },[userGroupCreatedError])
 
     const securityStatusIndex = [{value:"open",label:"Ouvert"},
     {value:"onRequest",label:"Sur demande"},
@@ -48,7 +51,7 @@ const CreateGroupPage = ({allKeywords,startCreateGroup,history})=>{
                         setLocation({type : "Point",coordinates:[longitude,latitude]})
                         
                     }
-                ).catch((e)=>setError(e))
+                ).catch((e)=>setError('Impossible de déterminer la position'))
                 
                
                 setUseBrowserLocation(useBrowser)
@@ -179,7 +182,8 @@ const CreateGroupPage = ({allKeywords,startCreateGroup,history})=>{
     )
 }
 const mapStateToProps =(state)=> ({
-    allKeywords : state.keywords
+    allKeywords : state.keywords,
+    userGroupCreatedError : state.user.userGroupCreatedError
 })
 const mapDispatchToProps = (dispatch)=>({
     startCreateGroup : (group,image)=>dispatch(startCreateGroup(group,image))

@@ -17,7 +17,7 @@ export default ({onCollaborationDemandSent})=>{
                         value={message}
                         onChange={(e)=>setMessage(e.target.value)}
                     ></textarea>
-                    <button>Envoyer</button>
+                    <button disabled={message.length===0?"true":"false"}>Envoyer</button>
                 </form>
             )}
         </div>

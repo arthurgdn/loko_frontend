@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 
 import { startRegister } from '../../actions/auth';
 
 
-const RegisterForm = ({ startRegister, isAuthenticated }) => {
+const RegisterForm = ({ startRegister, isAuthenticated,registerError }) => {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName : '',
@@ -14,7 +14,9 @@ const RegisterForm = ({ startRegister, isAuthenticated }) => {
     password2: ''
   });
   const [error,setError] = useState('')
-
+  useEffect(()=>{
+    setError(registerError)
+  },[registerError])
   const { firstName,lastName, email, password, password2 } = formData;
 
   const onChange = e =>
@@ -23,8 +25,7 @@ const RegisterForm = ({ startRegister, isAuthenticated }) => {
   const onSubmit = async e => {
     e.preventDefault();
     if (password !== password2) {
-        //We will figure out how to deal with errors later
-        //setAlert('Passwords do not match', 'danger');
+       setError('Les mots de passes ne se correspondent pas ')
     } else {
         
       startRegister({ firstName,lastName, email, password });
@@ -91,10 +92,11 @@ const RegisterForm = ({ startRegister, isAuthenticated }) => {
             onChange={e => onChange(e)}
           />
         </div>
+        {error && (<p>{error}</p>)}
         <div className="signup__form-group">
           <input type='submit' className="signup__button"  value="Inscription" />
         </div>
-        {error && (<p>{error}</p>)}
+        
       </form>
       
       </div>
@@ -106,7 +108,8 @@ const RegisterForm = ({ startRegister, isAuthenticated }) => {
 
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated
+  isAuthenticated: state.auth.isAuthenticated,
+  registerError: state.auth.registerError
 });
 const mapDispatchToProps = (dispatch)=>({
     startRegister : (formData)=>dispatch(startRegister(formData))
