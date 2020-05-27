@@ -19,7 +19,10 @@ const ManageGroup = ({collaborators,startSetCollaborators,group}) =>{
     useEffect(()=>{
         if(group.membership==='admin' && group.securityStatus ==='onRequest'){
             axios.get('/group/'+group._id+'/members?status=requested').
-            then((res)=>{setMembershipRequests(res.data)})
+            then((res)=>{setMembershipRequests(res.data)
+                console.log('requests',res.data)
+                
+            })
             .catch((e)=>{setError("Erreur serveur")})
         }
         axios.get('/group/'+group._id+'/members?status=member')
@@ -74,6 +77,7 @@ const ManageGroup = ({collaborators,startSetCollaborators,group}) =>{
     }
     const rejectRequest = (e)=>{
         const userId = e.currentTarget.id.substr(6,e.currentTarget.id.length)
+        console.log('reject',userId)
         axios.post('/group/'+group._id+'/member/delete',JSON.stringify({_id:userId}))
         .then((res)=>{setMembershipRequests(membershipRequests.filter((request)=>request.user!==userId))})
         .catch((e)=>{setError("Erreur serveur")})
