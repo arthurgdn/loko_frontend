@@ -85,7 +85,7 @@ const CreateGroupPage = ({allKeywords,startCreateGroup,history,userGroupCreatedE
     const onSubmit =  (e)=>{
         e.preventDefault()
         if(name.length===0 || description.length===0 || locationText.length===0){
-            setError('Veuillez renseigner les champs requis')
+            setError('Veuillez renseigner toutes les informations')
         }else{
             const formattedKeywords = []
             for(const keyword of keywords){
@@ -106,7 +106,7 @@ const CreateGroupPage = ({allKeywords,startCreateGroup,history,userGroupCreatedE
     return (
         
         <form onSubmit={onSubmit}>
-        {error &&(<p>{error}</p>)}
+        
             <input
                 type="text"
                 value={name}
@@ -177,6 +177,7 @@ const CreateGroupPage = ({allKeywords,startCreateGroup,history,userGroupCreatedE
                 withPreview={true}
                 singleImage={true}
             />
+        {error &&(<p>{error}</p>)}
         <button>Créer</button>
         </form>
     )

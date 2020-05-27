@@ -12,7 +12,7 @@ class  EditOfferPage extends React.Component{
     onSubmit=(offer,image)=>{
         console.log('submitted:',offer,image)
         this.props.startEditOffer(this.props.offer._id,offer,image)
-        this.props.history.push('/home')
+        this.props.history.push('/offers/gestion')
     }
     render(){
         return (

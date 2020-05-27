@@ -47,6 +47,7 @@ const RegisterForm = ({ startRegister, isAuthenticated,registerError }) => {
             type='text'
             placeholder='Prénom'
             name='firstName'
+            required
             value={firstName}
             onChange={e => onChange(e)}
           />
@@ -57,6 +58,7 @@ const RegisterForm = ({ startRegister, isAuthenticated,registerError }) => {
             className='signup__input'
             placeholder='Nom'
             name='lastName'
+            required
             value={lastName}
             onChange={e => onChange(e)}
           />
@@ -67,6 +69,7 @@ const RegisterForm = ({ startRegister, isAuthenticated,registerError }) => {
             className='signup__input'
             placeholder='Addresse Email'
             name='email'
+            required
             value={email}
             onChange={e => onChange(e)}
           />
@@ -78,6 +81,7 @@ const RegisterForm = ({ startRegister, isAuthenticated,registerError }) => {
             className='signup__input'
             placeholder='Mot de passe'
             name='password'
+            required
             value={password}
             onChange={e => onChange(e)}
           />
@@ -89,6 +93,7 @@ const RegisterForm = ({ startRegister, isAuthenticated,registerError }) => {
             placeholder='Confirmer mot de passe'
             name='password2'
             value={password2}
+            required
             onChange={e => onChange(e)}
           />
         </div>

@@ -158,13 +158,13 @@ import getLocationFormatted from '../../actions/getLocationFormatted'
     onSubmit = (e)=> {
         e.preventDefault()
         if(!this.state.description || !this.state.title || this.state.location.coordinates.length===0 || !this.state.scope){
-            this.setState(()=>({error:'Veuillez renseigner les informations obligatoires'}))
+            this.setState(()=>({error:'Veuillez renseigner toutes les informations'}))
         }else{
             const formattedKeywords = []
             for(const keyword of this.state.keywords){
                 formattedKeywords.push(keyword.value)
             }
-            console.log(this.state.image)
+        
             this.setState(()=>({error:''}))
             this.props.onSubmit({
                 title: this.state.title,
@@ -184,7 +184,7 @@ import getLocationFormatted from '../../actions/getLocationFormatted'
             
                 
                 <form className="form" onSubmit={this.onSubmit}>
-                {this.state.error && <p className="form__error">{this.state.error}</p>}
+                
                 <input type="text" placeholder="Titre"  
                         value={this.state.title}
                         className="text-input"
@@ -274,7 +274,7 @@ import getLocationFormatted from '../../actions/getLocationFormatted'
                     
                     
                     
-                    
+                    {this.state.error && <p className="form__error">{this.state.error}</p>}
                     <div>
                         <button className="button">Publier l'annonce</button>
                     </div>
