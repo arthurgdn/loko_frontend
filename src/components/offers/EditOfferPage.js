@@ -38,6 +38,6 @@ const mapStateToProps = (state,props)=>({
     editOfferError : state.offers.editOfferError
 })
 const mapDispatchToProps=(dispatch)=>({
-    startEditOffer: (offer,image)=>dispatch(startEditOffer(offer,image))
+    startEditOffer: (id,offer,image)=>dispatch(startEditOffer(id,offer,image))
 }) 
 export default connect(mapStateToProps,mapDispatchToProps)(EditOfferPage)

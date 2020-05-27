@@ -34,7 +34,7 @@ class  CreateOfferPage extends React.Component{
     }
 }
 const mapStateToProps = (state)=>({
-    addOfferError : state.offer.addOfferError
+    addOfferError : state.offers.addOfferError
 })
 const mapDispatchToProps=(dispatch)=>({
     startAddOffer: (offer,image)=>dispatch(startAddOffer(offer,image))

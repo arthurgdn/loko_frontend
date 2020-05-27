@@ -13,13 +13,13 @@ export const editOffer =  (id,updates) =>({
 export const startEditOffer = (id,updates,image={})=>{
     return async (dispatch)=>{
         try{
-        
+            
             const res = await axios.patch('/offer/'+id,JSON.stringify(updates))
-            if(Object.keys(image).length>0){
+            if(image.name){
                 const imageBody = new FormData()
             
                 imageBody.append('image',image)
-            
+                
                 const buffer = await axios.post('/offer/'+id+'/image',imageBody)
                 dispatch(editOffer(id,res.data))
             }else{
@@ -63,9 +63,10 @@ export const addOffer = (offer)=>({
 export const startAddOffer = (offer,image)=>{
     return async (dispatch)=>{
         try {
-            console.log('offre publiée',offer)
+            
             const res = await axios.post('/offer/create',JSON.stringify(offer))
-            if(Object.keys(image).length!==0){
+            
+            if(image.name){
                 const imageBody = new FormData()
             
                 imageBody.append('image',image)
