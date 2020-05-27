@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
-
+import {MdArrowBack} from 'react-icons/md'
 import {startSendCollaboration,startNewCollaboration} from '../../actions/user'
 import { startSetProfile, startSendRecommendation } from '../../actions/profile';
 import RecommendationForm from './RecommendationForm'
@@ -72,6 +72,7 @@ const ProfilePage = ({ startSendCollaboration,startSetProfile,startSendRecommend
             
             
             {match.params.id!==user_id ?(<div>
+                <button onClick={()=>{history.goBack()}}><MdArrowBack/></button>
                 {(!isCollaborator && !isInCollaborationDemands) && <button onClick={(e)=>{
                 
                 startSendCollaboration({_id : match.params.id})

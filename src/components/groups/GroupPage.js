@@ -1,6 +1,7 @@
 import React, {useState,useEffect} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
+import {MdArrowBack} from 'react-icons/md'
 import axios from 'axios'
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 axios.defaults.headers.patch['Content-Type'] = 'application/json';
@@ -11,7 +12,7 @@ import ManageGroup from './ManageGroup'
 import GroupOffers from './GroupOffers'
 import OfferForm from '../offers/OfferForm'
 import { startAddOffer } from '../../actions/offers'
-const GroupPage = ({match,stateGroup,startSetGroup,user,startAddOffer,addGroupOfferError,setGroupError})=>{
+const GroupPage = ({history,match,stateGroup,startSetGroup,user,startAddOffer,addGroupOfferError,setGroupError})=>{
     const [group,setGroup] = useState({})
    
     const [isRequested,setIsRequested] = useState(false)
@@ -63,6 +64,7 @@ const GroupPage = ({match,stateGroup,startSetGroup,user,startAddOffer,addGroupOf
             {frontSetGroupError && (<p>{frontSetGroupError}</p>)}
             {group._id===match.params.id ? (
                 <div>
+                    <button onClick={()=>{history.goBack()}}><MdArrowBack/></button>
                     {group.hasImage && (<img className="header__picture" src={process.env.DEV_URL+"/group/"+group._id+"/image"}/>)}
                     <h3>{group.name}</h3>
                     <p>{group.description}</p>

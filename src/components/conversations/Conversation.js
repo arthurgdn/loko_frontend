@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import axios from 'axios'
 import {Link} from 'react-router-dom'
 import Select from 'react-select'
+import {MdArrowBack} from 'react-icons/md'
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 axios.defaults.headers.post['Accept'] = 'application/json'
 axios.defaults.baseURL = process.env.DEV_URL
@@ -12,7 +13,7 @@ import {startSetCollaborators } from '../../actions/user'
 import EditConversationInfoForm from './EditConversationInfoForm'
 
 
-const Conversation =  ({setConversationError,editSpecificConversationError,match,user_id,stateConversation,startSetConversation,collaborators,startSetCollaborators,startPatchMembers,startAddAdmin})=>{
+const Conversation =  ({setConversationError,editSpecificConversationError,match,user_id,stateConversation,startSetConversation,collaborators,startSetCollaborators,startPatchMembers,startAddAdmin,history})=>{
     
     
     const [member,setMember] = useState({})
@@ -80,7 +81,8 @@ const Conversation =  ({setConversationError,editSpecificConversationError,match
 
     return (
         <div>
-            {frontSetConvError &&(<p>{frontSetConvError}</p>)}
+        <button onClick={()=>{history.goBack()}} ><MdArrowBack/></button>    
+        {frontSetConvError &&(<p>{frontSetConvError}</p>)}
             {Object.keys(conversation).length<=2?(<p>Aucune conversation ne correspond</p>):
                 (
                 <div>
