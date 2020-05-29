@@ -18,7 +18,6 @@ const SearchPage = ()=>{
         if(searchText.length>0){
             axios.get('/search/'+searchText)
             .then((res)=>{
-                console.log(res.data)
                 setSearchResults(res.data)
                 setSubmittedResearch(true)
             })

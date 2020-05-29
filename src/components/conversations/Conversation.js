@@ -43,8 +43,10 @@ const Conversation =  ({setConversationError,editSpecificConversationError,match
              
     },[])
     useEffect(()=>{
+        if(stateConversation._id===match.params.id){
+            setConversation(stateConversation)
+        }
         
-        setConversation(stateConversation)
 
     },[stateConversation,startSetConversation])
     useEffect(()=>{

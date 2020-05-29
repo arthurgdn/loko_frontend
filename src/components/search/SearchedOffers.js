@@ -6,9 +6,10 @@ export default ({offers})=>{
         <div>
         {offers.length>0?offers.map((offer)=>(
             <Link to={'/offer/'+offer._id} key={offer._id}>
+
                 <h3>{offer.title}</h3>
                 <p>{offer.description}</p>
-                <span>{moment(offer.createdAt).format('MMMM Do, YYYY')}</span>
+                <span>{moment(offer.createdAt).locale('fr').fromNow()}</span>
             </Link>
         )):(<p>Aucune offre ne correspond à votre recherche</p>)}
         

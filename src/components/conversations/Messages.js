@@ -14,7 +14,11 @@ const Messages = ({messages,startSetMessages,conv_id,token,setMessagesError})=>{
         setError(setMessagesError)
     },[setMessagesError])
     useEffect(()=>{
-        setDisplayedMessages(messages)
+        if(messages.length>0 && messages[0].conversation===conv_id){
+            console.log('messages',messages)
+            setDisplayedMessages(messages)
+        }
+        
     },[messages,startSetMessages])
     return (
         <div>

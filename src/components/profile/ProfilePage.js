@@ -46,7 +46,10 @@ const ProfilePage = ({ startSendCollaboration,startSetProfile,startSendRecommend
     },[])
     
     useEffect(()=>{
-        setProfile(stateProfile)
+        if(stateProfile.user===match.params.id){
+            setProfile(stateProfile)
+        }
+        
         
         
     },[stateProfile,startSetProfile])
