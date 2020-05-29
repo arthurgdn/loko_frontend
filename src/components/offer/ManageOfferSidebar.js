@@ -8,9 +8,11 @@ axios.defaults.headers.post['Content-Type'] = 'application/json';
 axios.defaults.headers.post['Accept'] = 'application/json'
 axios.defaults.baseURL = process.env.DEV_URL
 import {startEditOffer,startRemoveOffer} from '../../actions/offers' 
+import { setCollaborators } from '../../actions/user'
 
 const ManageOffer = ({_id,publisherId,collaborators,completedStatus,user,startEditOffer,startRemoveOffer,history,editOfferError,removeOfferError})=>{
     const [collaborationDemands,setCollaborationDemands] = useState([])
+    const [displayedCollaborators,setDisplayedCollaborators] = useState(collaborators)
     const [error,setError] = useState('')
     useEffect(()=>{
         setError(editOfferError)
@@ -54,7 +56,10 @@ const ManageOffer = ({_id,publisherId,collaborators,completedStatus,user,startEd
     const acceptDemand = (e)=>{
         const userId = e.currentTarget.id.substr(6,e.currentTarget.id.length)
         axios.post('/offer/'+_id+'/demand/sort',JSON.stringify({_id:userId,status:'accepted'})).then((res)=>{
+            const {from} = collaborationDemands.find((demand)=>demand.from._id===res.data.from)
+            setDisplayedCollaborators([...displayedCollaborators,{_id:userId,firstName:from.firstName,lastName:from.lastName}])
             setCollaborationDemands(collaborationDemands.filter((demand)=>String(demand.from._id)!==String(res.data.from)))
+            
         }).catch((e)=>setError("Erreur serveur"))
     }
     const deleteOffer = ()=>{
@@ -65,7 +70,7 @@ const ManageOffer = ({_id,publisherId,collaborators,completedStatus,user,startEd
     return (
         <div>
             <h3>Membres : </h3>
-            <ul>{collaborators.map((collaborator)=><Link to={'/profile/'+collaborator._id}><li>{collaborator.firstName} {collaborator.lastName}</li></Link>)}</ul>
+            <ul>{displayedCollaborators.map((collaborator)=><Link to={'/profile/'+collaborator._id}><li>{collaborator.firstName} {collaborator.lastName}</li></Link>)}</ul>
             <h3>Status de l'annonce : 
             {offerStatus==='created' &&(<p>En recherche de collaborateur(s)</p>)}
             {offerStatus==='inProgress' &&(<p>Travail en cours</p>)}

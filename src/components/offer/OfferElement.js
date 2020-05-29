@@ -30,7 +30,7 @@ const OfferElement =  ({user,title,description,createdAt,locationRadius,location
             
             <ul>{keywords.map((keyword)=>(<li key={keyword.name}><Link to={'/keyword/'+keyword._id}>{keyword.name}</Link></li>))}</ul>
             <span>{moment(createdAt).locale('fr').fromNow()}</span>
-            {displayCollaborationDemandForm && <div>
+            {(displayCollaborationDemandForm && publisherId!==user._id) && <div>
                     {isCollaborator?(<p>Vous travaillez sur cette annonce</p>):(
                         <CollaborationDemandForm onCollaborationDemandSent={onCollaborationDemandSent}/>
                     )}

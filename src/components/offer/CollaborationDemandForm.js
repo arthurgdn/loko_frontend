@@ -6,7 +6,9 @@ export default ({onCollaborationDemandSent})=>{
     const onSubmit = (e)=>{
         e.preventDefault()
         onCollaborationDemandSent(message)
+        setMessage('')
     }
+    const disabled = message.length===0
     return (
         <div>
             <button onClick={()=>setDisplayForm(!displayForm)}>Répondre à cette annonce</button>
@@ -17,7 +19,7 @@ export default ({onCollaborationDemandSent})=>{
                         value={message}
                         onChange={(e)=>setMessage(e.target.value)}
                     ></textarea>
-                    <button disabled={message.length===0?"true":"false"}>Envoyer</button>
+                    <button disabled={disabled}>Envoyer</button>
                 </form>
             )}
         </div>
