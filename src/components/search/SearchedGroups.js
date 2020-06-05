@@ -11,7 +11,7 @@ export default ({groups})=>{
                         <h3>{group.name}</h3>
                     </Link>
                     <p>{group.description.length>60?group.description.slice(0,60)+'...':group.description}</p>
-                </div>)):(<p>Aucun groupe ne correspond à votre recherche</p>)}
+                </div>)):(<p className="search__infotext">Aucun groupe ne correspond à votre recherche</p>)}
         </div>
         )
 }

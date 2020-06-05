@@ -11,16 +11,16 @@
     text-decoration: none;
     margin : $xs-size;
     padding:$xs-size;
-    color:black;
-    border:1px solid $dark-green;
+    color:darken($dark-green,15%);
+    border:1px solid darken($dark-green,15%);
     border-radius:10px;
     overflow: hidden;
     background:white;
     transition : background .3s ease;
-    
+    transition : color .3s ease;
     &:hover {
-        background:$off-white;
-        border: 1px solid $grey;
+        background:darken($dark-green,15%);
+        color:white;
 
     }
 }

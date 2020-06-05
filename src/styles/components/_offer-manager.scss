@@ -1,13 +1,13 @@
 .manager__miniature-wrapper{
-    background:lighten($off-white,2%);
-    box-shadow: 3px 5px 6px $off-white;;
+    background:$off-white;
+    box-shadow: 6px 6px 6px $off-white;;
     overflow:hidden;
     border-radius:10px;
-    margin: $s-size;
+    margin: $m-size;
     padding: 0 $s-size;
     transition: background .3s ease;
     &:hover {
-        background:$off-white;
+        background:darken($off-white,2%);
     }
     p,span{
         color:black;

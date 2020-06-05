@@ -31,27 +31,36 @@ const SearchPage = ()=>{
     const enabled = searchText.length>0
     return (
         <div>
-            <h3>Rechercher</h3>
-            <form onSubmit={onSubmit}>
-                <input
-                    type="text"
-                    placeholder="Rechercher"
-                    value={searchText}
-                    autoFocus
-                    onChange={(e)=>setSearchText(e.target.value)}
-                />
-                <button disabled={!enabled}>Rechercher</button>
-            </form>
-            {error && (<p>{error}</p>)}
-            <button onClick={()=>{setCategory('offers')}}>Annonces</button>
-            <button onClick={()=>{setCategory('groups')}}>Groupes</button>
-            <button onClick={()=>{setCategory('users')}}>Membres</button>
-            {submittedResearch?(
-                <div>
-                    {category==='offers' && (<SearchedOffers offers={searchResults.offers}/>)}
-                    {category==='groups' && (<SearchedGroups groups={searchResults.groups}/>)}
-                    {category==='users' && (<SearchedUsers users={searchResults.users}/>)}
-                </div>):(<p>Recherchez des annonces, des groupes et d'autres utilisateurs</p>)}
+            <div className="banner__title">
+                <h3>Rechercher</h3>
+            </div>
+            <div className="search__wrapper">
+                <form onSubmit={onSubmit} className="search__form">
+                    <input
+                        type="text"
+                        placeholder="Rechercher..."
+                        value={searchText}
+                        autoFocus
+                        onChange={(e)=>setSearchText(e.target.value)}
+                        className="search__input"
+                    />
+                    <button disabled={!enabled} className="search__button">Rechercher</button>
+                </form>
+                <div className="search__nav">
+                    <button disabled={category==='offers'} onClick={()=>{setCategory('offers')}}>Annonces</button>
+                    <button disabled={category==='groups'} onClick={()=>{setCategory('groups')}}>Groupes</button>
+                    <button disabled={category==='users'} onClick={()=>{setCategory('users')}}>Membres</button>
+                </div>
+                
+                {error && (<p className="search__infotext">{error}</p>)}
+                {submittedResearch?(
+                    <div className="search__results-container">
+                        {category==='offers' && (<SearchedOffers offers={searchResults.offers}/>)}
+                        {category==='groups' && (<SearchedGroups groups={searchResults.groups}/>)}
+                        {category==='users' && (<SearchedUsers users={searchResults.users}/>)}
+                    </div>):(<p className="search__infotext">Recherchez des annonces, des groupes et d'autres membres</p>)}
+            </div>
+            
             
         </div>
     )

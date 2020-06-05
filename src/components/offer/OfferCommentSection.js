@@ -46,7 +46,7 @@ const OfferCommentSection = ({offer_id,startSetComments,startNewComment,comments
                                 showingComments.map((comment)=><OfferComment key={comment._id} {...comment} />)
                             ):( <div>
                                     {showingComments.slice(0,4).map((comment)=><OfferComment key={comment._id} {...comment} />)}
-                                    <Link to={'/offer/'+offer_id}>...</Link>
+                                    <Link to={'/offer/'+offer_id} className="offer-element__allcomments"><p>Afficher plus de commentaires</p></Link>
                                 </div>
                                 )
                         }

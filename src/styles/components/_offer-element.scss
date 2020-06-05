@@ -89,11 +89,13 @@
     align-items: center;
     justify-content: space-between;
     flex-direction: row;
+    
 
     span{
         font-weight:200;
         font-size: $font-size-xsmall;
         color:$grey;
+        margin-top:0;
         margin-right:$l-size;
     }
     
@@ -102,9 +104,14 @@
 .offer-element__comment-subheader{
     display:flex;
     flex-direction: row;
-    align-items: center;
+    
     text-decoration: none;
+    
+    img{
+        margin-top:0;
+    }
     p{
+        
         margin-left: $m-size;
         font-weight: 400;
         font-size:$font-size-medium;
@@ -166,4 +173,59 @@
 .offer-element__comment-form{
     
     padding-right:$m-size;
+}
+
+.offer-element__allcomments{
+    margin:0;
+    text-decoration: none;
+    p{
+        text-align: center;
+        font-size:$font-size-medium;
+        color: $dark-grey;
+        font-weight: 500;
+        &:hover{
+            color:$dark-green;
+        }
+    }
+    
+    
+    
+
+}
+.offer-element__collaborate-container{
+    margin:$m-size;
+    display:flex;
+    
+    flex-direction: column;
+}
+.offer-element__collaborate-button{
+    
+    align-self: flex-end;
+    display:inline-block;
+    padding:$m-size;
+    font-size:$font-size-large;
+    width: 40%;
+    color:darken($dark-green,15%);
+    border:1px solid darken($dark-green,15%);
+    border-radius:10px;
+    overflow: hidden;
+    background:white;
+    transition : background .3s ease;
+    
+    &:hover {
+        background:$off-white;
+        border: 1px solid $grey;
+
+    }
+
+
+
+    
+}
+
+.offer-element__collaboration-form{
+    
+    border-radius:10px;
+    border: 1px solid darken($dark-green,15%);
+    
 }

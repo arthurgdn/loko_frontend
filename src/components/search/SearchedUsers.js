@@ -12,7 +12,7 @@ export default ({users})=>{
                     </Link>
                     
                 ))
-            ):(<p>Aucun utilisateur ne correspond à votre recherche</p>)}
+            ):(<p className="search__infotext" >Aucun utilisateur ne correspond à votre recherche</p>)}
         </div>
         )
 }
