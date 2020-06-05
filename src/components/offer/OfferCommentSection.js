@@ -35,11 +35,11 @@ const OfferCommentSection = ({offer_id,startSetComments,startNewComment,comments
         startNewComment(offer_id,comment)
     }
     return (
-        <div className="content-container">
-            <h2>Commentaires </h2>
+        <div className="offer-element__comment-section">
+            <h2>{showingComments.length} commentaire{showingComments.length>1 && 's'} </h2>
             {frontSetCommentsError && (<p>{frontSetCommentsError}</p>)}
             {showingComments.length===0?(
-                <p>Il n'y a pas encore de commentaires</p>):(
+                <p>Il n'y a pas encore de commentaires, écrivez le premier!</p>):(
                     <div>
                         {displayAllComments || showingComments.length<5?
                             (

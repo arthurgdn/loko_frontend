@@ -1,0 +1,26 @@
+.keyword__list{
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-wrap:wrap;
+    
+}
+
+.keyword__link{
+    text-decoration: none;
+    margin : $xs-size;
+    padding:$xs-size;
+    color:black;
+    border:1px solid $dark-green;
+    border-radius:10px;
+    overflow: hidden;
+    background:white;
+    transition : background .3s ease;
+    
+    &:hover {
+        background:$off-white;
+        border: 1px solid $grey;
+
+    }
+}

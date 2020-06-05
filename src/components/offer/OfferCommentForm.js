@@ -8,10 +8,9 @@ export default ({onNewComment})=>{
     }
     const disabled = content.length===0
     return (
-        <form onSubmit={onSubmit}>
-            <p>Mon commentaire : </p>
-            <textarea value={content} onChange={(e)=>setContent(e.target.value)}></textarea>
-            <button disabled={disabled}>Envoyer</button>
+        <form onSubmit={onSubmit} className="offer-element__comment-form">
+            <textarea className="offer-element__comment-text" placeholder="Rédigez un commentaire à cette annonce" value={content} onChange={(e)=>setContent(e.target.value)}></textarea>
+            <button disabled={disabled} className="offer-element__comment-button">Envoyer</button>
         </form>
     )
 }

@@ -1,6 +1,6 @@
 .header{
     
-    background:$dark-green;
+    background:darken($dark-green,15%);
     z-index: 0;
     flex: 0 10vh;
     padding:0;
@@ -53,22 +53,10 @@
 }
 
 .header__picture{
-    width : 40px;
-    height : 40px;
-    @mixin transition($x...){
-        -webkit-transition: $x;
-        -moz-transition: $x;
-        -ms-transition: $x;
-        -o-transition: $x;
-        transition: $x;
-    }
-    @include transition(height .3s ease,width .3s ease);
-
-    &:hover{
-        width:45px;
-        height:45px;
-    }
+    width : 50px;
+    height : 50px;
     margin : 0 $m-size;
+    border-radius:30px;
     padding : 0px;
 }
 
@@ -84,10 +72,10 @@
     transition : background .3s ease;
     
     &:hover {
-        background:darken($dark-green,5%);
+        background:darken($dark-green,20%);
     }
     &:active {
-        background:darken($dark-green,10%);
+        background:darken($dark-green,25%);
     }
 
 }
@@ -97,7 +85,7 @@
     position:fixed;
     flex-direction: column;
     margin-top:35px;
-    background : $dark-green;
+    background :darken($dark-green,15%);
     right : 0px;
     h3{
         color:white;
@@ -119,7 +107,7 @@
     border:none;
     font-weight: 300;
     color:white;
-    background-color: $dark-green;
+    background:darken($dark-green,15%);
     display:inline-block;
     font-size:3.2rem;
     padding : $s-size;
@@ -128,10 +116,10 @@
     transition : background .3s ease;
     
     &:hover {
-        background:darken($dark-green,5%);
+        background:darken($dark-green,20%);
     }
     &:active {
-        background:darken($dark-green,10%);
+        background:darken($dark-green,25%);
     }
 
 }
@@ -145,7 +133,7 @@
     justify-content: space-between;
     transition : background .3s ease;
     &:hover {
-        background:darken($dark-green,5%);
+        background:darken($dark-green,20%);
     }
     
 }

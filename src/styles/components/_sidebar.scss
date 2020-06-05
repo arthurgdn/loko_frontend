@@ -1,5 +1,5 @@
 .sidebar{
-    background : $lighter-green;
+    background : lighten($off-white,2%);
     flex: 0 0 256px;
     border-right: 1px solid $dark-green;
     order: 0;
@@ -33,7 +33,7 @@
     padding:0 $l-size;
     transition: background .3s ease;
     &:hover {
-        background:darken($lighter-green,5%);
+        background:$lighter-green;
     }
     
 }

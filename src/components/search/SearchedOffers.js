@@ -8,7 +8,7 @@ export default ({offers})=>{
             <Link to={'/offer/'+offer._id} key={offer._id}>
 
                 <h3>{offer.title}</h3>
-                <p>{offer.description}</p>
+                <p>{offer.description.length>60?offer.description.slice(0,60)+'...':offer.description}</p>
                 <span>{moment(offer.createdAt).locale('fr').fromNow()}</span>
             </Link>
         )):(<p>Aucune offre ne correspond à votre recherche</p>)}

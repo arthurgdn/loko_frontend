@@ -18,7 +18,7 @@ const MiniatureOfferElement =  ({_id,title,description,createdAt,completedStatus
                         
                     </div>
                     <div className="manager__details-wrapper">
-                        <p>{description}</p>
+                        <p>{description.length>250?description.slice(0,250)+'...':description}</p>
                         <div className="manager__bottom-container">
                             <p>{status.label}</p>
                             <span>Publié {moment(createdAt).lang('fr').fromNow()}</span>

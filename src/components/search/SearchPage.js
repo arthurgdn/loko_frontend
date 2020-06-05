@@ -37,6 +37,7 @@ const SearchPage = ()=>{
                     type="text"
                     placeholder="Rechercher"
                     value={searchText}
+                    autoFocus
                     onChange={(e)=>setSearchText(e.target.value)}
                 />
                 <button disabled={!enabled}>Rechercher</button>

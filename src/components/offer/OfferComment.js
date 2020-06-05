@@ -3,12 +3,17 @@ import {Link} from 'react-router-dom'
 import moment from 'moment'
 
 export default ({publisherId,publisherName,content,createdAt})=>(
-    <div>
-        <Link to={'/profile/'+publisherId}>
-            <img className="header__picture" src={process.env.DEV_URL+"/users/"+publisherId+"/avatar"}/>
-            <h3>{publisherName}</h3>
-        </Link>
-        <span>{moment(createdAt).lang('fr').fromNow()}</span>
-        <p>{content}</p>
+    <div className="offer-element__comment-display">
+        <div className="offer-element__comment-header">
+            <Link to={'/profile/'+publisherId} className="offer-element__comment-subheader">
+                <img className="header__picture offer-element__comment-picture" src={process.env.DEV_URL+"/users/"+publisherId+"/avatar"}/>
+                <p>{publisherName} </p>
+            </Link>
+            
+            <span>{moment(createdAt).lang('fr').fromNow()}</span>
+            
+        </div>
+        
+        <p className="offer-element__comment-content">{content}</p>
     </div>
 )

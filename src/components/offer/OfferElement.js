@@ -16,25 +16,33 @@ const OfferElement =  ({user,title,description,createdAt,locationRadius,location
     const isCollaborator = collaborators.find((collaborator)=>String(collaborator._id)===String(user._id))
     
     return(
-        <div>
-            <Link to={'/profile/'+publisherId}>
-                <img className="header__picture" src={process.env.DEV_URL+"/users/"+publisherId+"/avatar"}/>
-                <h3>{publisherName}</h3>
-            </Link>
+        <div className="offer-element__container">
             
-            <h3>{title}</h3>
-            <p>{description}</p>
-            <p>Recherche à {locationText} </p>
-            <p>Dans un rayon de : {locationRadius} </p>
-            {hasImage&& (<img  src={process.env.DEV_URL+"/offer/"+_id+"/image"}/>)}
             
-            <ul>{keywords.map((keyword)=>(<li key={keyword.name}><Link to={'/keyword/'+keyword._id}>{keyword.name}</Link></li>))}</ul>
-            <span>{moment(createdAt).locale('fr').fromNow()}</span>
-            {(displayCollaborationDemandForm && publisherId!==user._id) && <div>
-                    {isCollaborator?(<p>Vous travaillez sur cette annonce</p>):(
+            <div className="offer-element__title"> <h3>{title}</h3> </div>
+            <div className="offer-element__subtitle">
+                <Link to={'/profile/'+publisherId} className="offer-element__author">
+                    <img className="header__picture" src={process.env.DEV_URL+"/users/"+publisherId+"/avatar"}/>
+                    <h3>{publisherName}</h3>
+                </Link>
+                <span>{moment(createdAt).locale('fr').fromNow()}</span>
+            </div>
+            <div className="offer-element__description-container">
+                <p>{description}</p>
+            </div>
+            
+            <p className="offer-element__location">Recherche à {locationText} dans un rayon de {locationRadius} km </p>
+            <div className="offer-element__bottom-container">
+                {hasImage&& (<img  src={process.env.DEV_URL+"/offer/"+_id+"/image"}/>)}
+            
+                <div className="keywords__list">{keywords.map((keyword)=>(<Link key={keyword.name} to={'/keyword/'+keyword._id} className="keyword__link">{keyword.name}</Link>))}</div>
+            
+            </div>
+            
+            {(displayCollaborationDemandForm && publisherId!==user._id && !isCollaborator) && 
+                    
                         <CollaborationDemandForm onCollaborationDemandSent={onCollaborationDemandSent}/>
-                    )}
-                </div>}
+                    }
             {displayComments && <OfferCommentSection displayAllComments={displayAllComments} offer_id={_id}/>}
 
         </div>
