@@ -41,7 +41,7 @@
     content: "Privée";
     text-transform: uppercase;
     padding-left: 10px;
-    background-color: #f90;
+    background-color: darken($dark-green,15%);
     color: #fff;
   }
   .toggle-switch-disabled {
@@ -125,7 +125,7 @@
     content: "Oui";
     text-transform: uppercase;
     padding-left: 10px;
-    background-color: #f90;
+    background-color: darken($dark-green,15%);
     color: #fff;
   }
   .toggle-switch-disabled-location {

@@ -47,9 +47,9 @@ const SearchPage = ()=>{
                     <button disabled={!enabled} className="search__button">Rechercher</button>
                 </form>
                 <div className="search__nav">
-                    <button disabled={category==='offers'} onClick={()=>{setCategory('offers')}}>Annonces</button>
+                    <button className="search__nav-left" disabled={category==='offers'} onClick={()=>{setCategory('offers')}}>Annonces</button>
                     <button disabled={category==='groups'} onClick={()=>{setCategory('groups')}}>Groupes</button>
-                    <button disabled={category==='users'} onClick={()=>{setCategory('users')}}>Membres</button>
+                    <button className="search__nav-right" disabled={category==='users'} onClick={()=>{setCategory('users')}}>Membres</button>
                 </div>
                 
                 {error && (<p className="search__infotext">{error}</p>)}

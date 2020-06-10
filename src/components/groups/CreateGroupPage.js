@@ -104,82 +104,89 @@ const CreateGroupPage = ({allKeywords,startCreateGroup,history,userGroupCreatedE
         
     }
     return (
+        <div>
+            <div className="banner__title">
+                <h3>Créer un groupe</h3>
+            </div>
+            <form onSubmit={onSubmit}>
         
-        <form onSubmit={onSubmit}>
-        
-            <input
-                type="text"
-                value={name}
-                required
-                onChange={(e)=>setName(e.target.value)}
-                placeholder="Nom du groupe"
-            />
-            <textarea
-                value={description}
-                required
-                onChange={(e)=>setDescription(e.target.value)}
-                placeholder="Description de ce groupe"
-            ></textarea>
-            <p>Localisation du groupe : </p>
-            <p>Ma position</p>
-            <p>Utiliser ma position</p>
-                <div className="toggle-switch-location">
-                    <input type="checkbox" checked={useBrowserLocation} 
-                    onChange={onUseBrowserLocationChange}
-                    className="toggle-switch-checkbox-location" name="useBrowserLocation"  id="useBrowserLocation" />
-                    <label className="toggle-switch-label-location" htmlFor="useBrowserLocation">
-                    <span className="toggle-switch-inner-location"></span>
-                    <span className="toggle-switch-switch-location"></span>
-                    </label>
-                </div>
-                {!useBrowserLocation&& (
-                    <input type="text"
-                    disabled={useBrowserLocation}
-                    value = {locationInput}
-                    placeholder="Localisation du groupe"
-                    className="text-input"
-                    onChange={onLocationInputChange}/>
+                <input
+                    type="text"
+                    value={name}
+                    required
+                    onChange={(e)=>setName(e.target.value)}
+                    placeholder="Nom du groupe"
+                />
+                <textarea
+                    value={description}
+                    required
+                    onChange={(e)=>setDescription(e.target.value)}
+                    placeholder="Description de ce groupe"
+                ></textarea>
+                <p>Localisation du groupe : </p>
+                <p>Ma position</p>
+                <p>Utiliser ma position</p>
+                    <div className="toggle-switch-location">
+                        <input type="checkbox" checked={useBrowserLocation} 
+                        onChange={onUseBrowserLocationChange}
+                        className="toggle-switch-checkbox-location" name="useBrowserLocation"  id="useBrowserLocation" />
+                        <label className="toggle-switch-label-location" htmlFor="useBrowserLocation">
+                        <span className="toggle-switch-inner-location"></span>
+                        <span className="toggle-switch-switch-location"></span>
+                        </label>
+                    </div>
+                    {!useBrowserLocation&& (
+                        <input type="text"
+                        disabled={useBrowserLocation}
+                        value = {locationInput}
+                        placeholder="Localisation du groupe"
+                        className="text-input"
+                        onChange={onLocationInputChange}/>
 
-                )} 
+                    )} 
 
-                {locationText&& <p>{locationText}</p>}
-            <p>Statut du groupe : </p>
-            <Select
-                        defaultValue={securityStatusIndex.find((index)=>index.value==='open')}
-                        options = {securityStatusIndex}
-                        onChange={(options)=>setSecurityStatus(options.value)}
+                    {locationText&& <p>{locationText}</p>}
+                    <p>Statut du groupe : </p>
+                    <Select
+                                defaultValue={securityStatusIndex.find((index)=>index.value==='open')}
+                                options = {securityStatusIndex}
+                                onChange={(options)=>setSecurityStatus(options.value)}
+                            />
+                    
+                    <p>Mots clés associés</p>
+                    <CreatableSelect
+                        options = {allKeywords}
+                        value={keywords}
+                        isMulti
+                        onChange = {(options)=>{
+                            if(options===null){
+                                setKeywords([])
+                            }else{
+                                const keywordsFormatted = []
+                                for (const keyword of options){
+                                    keywordsFormatted.push({value: keyword.value.toLowerCase(),label : keyword.value.toLowerCase()})
+                                }
+                                setKeywords(keywordsFormatted)
+                            }}}
                     />
-            
-            <p>Mots clés associés</p>
-            <CreatableSelect
-                options = {allKeywords}
-                value={keywords}
-                isMulti
-                onChange = {(options)=>{
-                    if(options===null){
-                        setKeywords([])
-                    }else{
-                        const keywordsFormatted = []
-                        for (const keyword of options){
-                            keywordsFormatted.push({value: keyword.value.toLowerCase(),label : keyword.value.toLowerCase()})
-                        }
-                        setKeywords(keywordsFormatted)
-                    }}}
-            />
-            <p>Ajouter une image</p>
-            <ImageUploader
-                label={'Taille maximale : 5mb'}
-                withIcon={false}
-                buttonText="Choisir une image"
-                onChange={(imageFile)=>setImage(imageFile[0])}
-                imgExtension={[".jpg", ".gif", ".png", ".gif"]}
-                maxFileSize={5242880}
-                withPreview={true}
-                singleImage={true}
-            />
-        {error &&(<p>{error}</p>)}
-        <button>Créer</button>
-        </form>
+                    <p>Ajouter une image</p>
+                    <ImageUploader
+                        label={'Taille maximale : 5mb'}
+                        withIcon={false}
+                        buttonText="Choisir une image"
+                        onChange={(imageFile)=>setImage(imageFile[0])}
+                        imgExtension={[".jpg", ".gif", ".png", ".gif"]}
+                        maxFileSize={5242880}
+                        withPreview={true}
+                        singleImage={true}
+                    />
+                {error &&(<p>{error}</p>)}
+                <button>Créer</button>
+            </form>
+
+        </div>
+        
+        
     )
 }
 const mapStateToProps =(state)=> ({

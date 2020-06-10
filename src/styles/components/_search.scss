@@ -13,7 +13,7 @@
 .search__input{
     border : 1px solid #cacccd;
     background: $off-white;
-    border-radius : 10px;
+    border-radius : 15px;
     height:50px;
     margin: 0 $s-size;
     padding : $s-size;
@@ -36,16 +36,16 @@
     padding: 0 $s-size;
     button{
         border:none;
+        padding:$xs-size;
         
-        border-radius:15px;
         color:white;
         font-size:$font-size-large;
         background:darken($dark-green,15%);
         width: 100%;
         &:enabled{
             color:darken($dark-green,15%);
-            background:white;
-            border:1px solid darken($dark-green,15%);
+            background:$off-white;
+            border:1px solid #cacccd;
             transition : background .3s ease;
             &:hover{
             
@@ -55,6 +55,16 @@
         }
         
     }
+}
+
+.search__nav-right{
+    border-bottom-right-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.search__nav-left{
+    border-bottom-left-radius:15px;
+    border-top-left-radius:15px;
 }
 
 .search__infotext{

@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
-import {FiSearch,FiMessageCircle,FiFileText} from 'react-icons/fi'
+import {FiSearch,FiMessageCircle,FiFileText, FiSettings,FiLogOut} from 'react-icons/fi'
 import {FaUserFriends,FaUsers} from 'react-icons/fa'
 import {MdCreate} from 'react-icons/md'
-const Sidebar = ({user }) => {
+import {startLogout} from '../../actions/auth'
+const Sidebar = ({user,startLogout }) => {
   
 
   return (
@@ -58,6 +59,26 @@ const Sidebar = ({user }) => {
             
             </Link>
           </div>
+
+          <div className="sidebar__link-container">
+            <Link style={{textDecoration:'none'}}  to='/settings'>
+              
+              <div className="sidebar__link">
+                <FiSettings /><p>Paramètres</p>
+              </div>
+            
+            </Link>
+          </div>
+
+          <div className="sidebar__link-container">
+            
+              
+              <div className="sidebar__link sidebar__logout" onClick={startLogout}  >
+                <FiLogOut  /><p >Se déconnecter</p>
+              </div>
+            
+            
+          </div>
         
         </div>
       </div>      
@@ -70,6 +91,8 @@ const mapStateToProps = (state)=>({
     user : state.user
 })
 
-export default connect(
-    mapStateToProps
-)(Sidebar);
+const mapDispatchToProps = (dispatch)=>({
+  startLogout : ()=>dispatch(startLogout())
+})
+
+export default connect(mapStateToProps,mapDispatchToProps)(Sidebar);

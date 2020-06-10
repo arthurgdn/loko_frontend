@@ -6,7 +6,7 @@ axios.defaults.headers.post['Accept'] = 'application/json'
 axios.defaults.baseURL = process.env.DEV_URL
 import {deleteAccount,changePassword } from '../../actions/user'
 const PersonnalSettings = ({user,startDeleteAccount,startChangePassword})=>{
-   
+   //{!user.validatedEmail&&(<button className="settings__button" onClick={checkEmail}>Envoyer l'email de vérification</button>)}
     const [displayPasswordChange,setDisplayPasswordChange] = useState(false)
     const [displayDeleteAccount,setDisplayDeleteAccount] = useState(false)
     const [oldPassword,setOldPassword] = useState('')
@@ -38,40 +38,43 @@ const PersonnalSettings = ({user,startDeleteAccount,startChangePassword})=>{
     }
     return (
         <div>
-        {error&&(<p>{error}</p>)}
-            {!user.validatedEmail&&(<button onClick={checkEmail}>Envoyer l'email de vérification</button>)}
-            <button onClick={()=>setDisplayPasswordChange(!displayPasswordChange)}>Changer de mot de passe</button>
-            {displayPasswordChange &&(
-                <form onSubmit={changePassword}>
+        
+            
+            <h4 className="settings__section-title">Modifier votre mot de passe : </h4>
+                <form onSubmit={changePassword} className="settings__password-form">
                     <input type="password"
                     value={oldPassword}
                     placeholder="Ancien mot de passe"
+                    className="settings__input settings__password-input"
                     onChange={(e)=>setOldPassword(e.target.value)}
                     />
                     <input type="password"
                     value={newPassword}
+                    className="settings__input settings__password-input"
                     placeholder="Nouveau mot de passe"
                     onChange={(e)=>setNewPassword(e.target.value)}
                     />
                     <input type="password"
                     value={newPasswordCheck}
+                    className="settings__input settings__password-input"
                     placeholder="Vérifier nouveau mot de passe"
                     onChange={(e)=>setNewPasswordCheck(e.target.value)}
                     />
-                    <button>Enregistrer</button>
+                    <button className="settings__button">Modifier</button>
                 </form>
-                )}
-                <button onClick={()=>setDisplayDeleteAccount(!displayDeleteAccount)}>Supprimer mon compte</button>
-            {displayDeleteAccount && (
+                <h4 className="settings__section-title">Supprimer votre compte </h4>
                 <form onSubmit={deleteAccount}>
                     <input type="password"
                     placeholder="Mot de passe"
+                    className="settings__input settings__password-input"
                     value={deleteAccountPassword}
                     onChange={(e)=>setDeleteAccountPassword(e.target.value)}
                     />
-                    <button>Supprimer définitivement mon compte</button>
+                    <button className="settings__button settings__delete-button">Supprimer définitivement votre compte</button>
                 </form>
-            )}
+            
+
+            {error&&(<p>{error}</p>)}
             
         </div>
     )

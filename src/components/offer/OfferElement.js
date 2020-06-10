@@ -35,7 +35,7 @@ const OfferElement =  ({user,title,description,createdAt,locationRadius,location
             <div className="offer-element__bottom-container">
                 {hasImage&& (<img  src={process.env.DEV_URL+"/offer/"+_id+"/image"}/>)}
             
-                <div className="keywords__list">{keywords.map((keyword)=>(<Link key={keyword.name} to={'/keyword/'+keyword._id} className="keyword__link">{keyword.name}</Link>))}</div>
+                <div className="keywords__list">{keywords.map((keyword)=>(<Link key={keyword.name} to={'/keyword/'+keyword._id} className="keyword__link"><button>{keyword.name}</button></Link>))}</div>
             
             </div>
             

@@ -17,6 +17,9 @@ class  CreateOfferPage extends React.Component{
     render(){
         return (
             <div>
+                <div className="banner__title">
+                    <h3>Créer une annonce</h3>
+                </div>
             <div className="page-header">
                 <div className="content-container">
                 <h1 className="page-header__title">Créer une annonce</h1>

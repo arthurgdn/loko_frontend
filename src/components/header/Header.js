@@ -22,7 +22,7 @@ const Header = ({user }) => {
         
                 <h3>{user.firstName}  {user.lastName}</h3>
             </Link>
-            <ToolButton/>
+            
         </div>
         
         </div>

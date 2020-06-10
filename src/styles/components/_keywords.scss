@@ -11,16 +11,28 @@
     text-decoration: none;
     margin : $xs-size;
     padding:$xs-size;
-    color:darken($dark-green,15%);
+    display:inline-block;
     border:1px solid darken($dark-green,15%);
     border-radius:10px;
     overflow: hidden;
     background:white;
     transition : background .3s ease;
-    transition : color .3s ease;
+    
+    button{
+        margin:0;
+        padding:0;
+        border:none;
+        outline:none;
+        background-color: transparent;
+        color:darken($dark-green,15%);
+        transition : color .3s ease;
+        
+    }
     &:hover {
         background:darken($dark-green,15%);
-        color:white;
+        button{
+            color:white;
+        }
 
     }
 }

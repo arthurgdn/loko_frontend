@@ -3,7 +3,6 @@ import {connect} from 'react-redux'
 import ImageUploader from 'react-images-upload'
 import axios from 'axios'
 import {startEditUserInfo} from '../../actions/user'
-import getLocationFormatted from '../../actions/getLocationFormatted'
 const EditUserForm = ({user,startEditUserInfo,editUserInfoError})=>{
     const [firstName,setFirstName] = useState(user.firstName?user.firstName:'')
     const [lastName,setLastName] = useState(user.lastName?user.lastName:'')
@@ -78,22 +77,28 @@ const EditUserForm = ({user,startEditUserInfo,editUserInfoError})=>{
     }
     return (
         <div>
-            <form onSubmit={onSubmit}>
+            <h4 className="settings__section-title">Informations personnelles : </h4>
+            <form onSubmit={onSubmit} className="settings__form">
             {error && (<p>{error}</p>)}
-                <input
-                    type="text"
-                    value={firstName}
-                    placeholder="Prénom"
-                    onChange={(e)=>setFirstName(e.target.value)}
-                />
-                <input
-                    type="text"
-                    value={lastName}
-                    placeholder="Nom"
-                    onChange={(e)=>setLastName(e.target.value)}
-                />
-                <p>Ma position</p>
-                <p>Utiliser ma position</p>
+                <div className="settings__horizontal-wrapper">
+                    <p>Prénom : </p><input
+                        type="text"
+                        value={firstName}
+                        className="settings__input"
+                        placeholder="Prénom"
+                        onChange={(e)=>setFirstName(e.target.value)}
+                    /><p>Nom : </p>
+                    <input
+                        type="text"
+                        className="settings__input"
+                        value={lastName}
+                        placeholder="Nom"
+                        onChange={(e)=>setLastName(e.target.value)}
+                    />
+                </div>
+                
+                <div className="settings__horizontal-lignup">
+                    <p>Utiliser votre position actuelle : </p>
                     <div className="toggle-switch-location">
                         <input type="checkbox" checked={useBrowserLocation} 
                         onChange={onUseBrowserLocationChange}
@@ -103,20 +108,27 @@ const EditUserForm = ({user,startEditUserInfo,editUserInfoError})=>{
                         <span className="toggle-switch-switch-location"></span>
                         </label>
                     </div>
+                </div>
+                    
                     {!useBrowserLocation&& (
                         <input type="text"
                         disabled={useBrowserLocation}
                         value = {locationInput}
-                        placeholder="Ma localisation"
-                        className="text-input"
+                        placeholder="Entrez ici votre localisation"
+                        className="settings__input settings__location-input"
                         onChange={onLocationInputChange}/>
 
                     )} 
-
-                    {locationText&& <p>{locationText}</p>}
-                    <p>Photo de profil</p>
-                    <img  src={process.env.DEV_URL+"/users/"+user._id+"/avatar"}/>
+                    
+                    {locationText&& <p>Votre position s'affiche : <span className="settings__location-text">{locationText}</span></p>}
+                    
+                    <img  src={process.env.DEV_URL+"/users/"+user._id+"/avatar"} className="settings__img"/>
                     <ImageUploader
+                    fileContainerStyle={
+                        {background: '#fafafa',
+                        boxShadow:'none'
+                    }
+                    }
                     label={'Taille maximale : 5mb'}
                     withIcon={false}
                     buttonText="Choisir une image"
@@ -127,7 +139,7 @@ const EditUserForm = ({user,startEditUserInfo,editUserInfoError})=>{
                     singleImage={true}
                     
                     />
-                <button>Enregistrer</button>
+                <button className="settings__button">Enregistrer</button>
             </form>
             
         </div>

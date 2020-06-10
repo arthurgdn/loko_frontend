@@ -103,31 +103,38 @@ const EditProfileForm = ({profile={},stateOffers,startEditCompletedOffers,startS
     }
     return (
         <div>
-            {error && (<p>{error}</p>)}
-            <form onSubmit={onSubmit}>
-                <textarea value={description} onChange={(e)=>setDescription(e.target.value)} placeholder="Decrivez vous rapidement ici"/>
-                <textarea value={summary} onChange={(e)=>setSummary(e.target.value)} placeholder="Expliquez ici ce que vous recherchez sur la plateforme..."></textarea>
-                <p>Mes centres d'intérêts</p>
+            <h4 className="settings__section-title">Informations du profil : </h4>
+            <form onSubmit={onSubmit} className="settings__form">
+                <p>Votre description : </p><textarea className="settings__multilign" value={description} onChange={(e)=>setDescription(e.target.value)} placeholder="Decrivez vous rapidement ici"/>
+                <p>Ce que vous recherchez :  </p><textarea className="settings__multilign" value={summary} onChange={(e)=>setSummary(e.target.value)} placeholder="Expliquez ici ce que vous recherchez sur la plateforme..."></textarea>
+                <p>Vos centres d'intérêts : </p>
                 <CreatableSelect
                     value = {keywords}
                     options = {allKeywords}
+                    className="settings__select"
                     isMulti
                     onChange = {(new_keywords)=>setKeywords(new_keywords?new_keywords:[])}
                     />
-                <p>Mes compétences</p>
+                <p>Vos compétences : </p>
                 <CreatableSelect
                     value = {skills}
                     isMulti
+                    className="settings__select"
                     onChange = {(new_skills)=>setSkills(new_skills?new_skills:[])}
                     />
-                <p>Offres auxquelles j'ai répondu </p>
+                <p>Offres auxquelles vous avez répondu : </p>
                 <Select
                     value= {completedOffers}
                     options = {offers}
                     isMulti
+                    className="settings__select"
                     onChange = {(new_offers)=>setCompletedOffers(new_offers?new_offers:[])}
                     />
-                <button>Enregistrer</button>
+                <div className="settings__section-footer">
+                    <button className="settings__button">Enregistrer</button>
+                    {error && (<p>{error}</p>)}
+                </div>
+                
             </form>
             
         </div>

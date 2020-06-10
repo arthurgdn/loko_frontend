@@ -193,7 +193,7 @@
 
 }
 .offer-element__collaborate-container{
-    margin:$m-size;
+    margin:$l-size;
     display:flex;
     
     flex-direction: column;
@@ -205,18 +205,14 @@
     padding:$m-size;
     font-size:$font-size-large;
     width: 40%;
-    color:darken($dark-green,15%);
-    border:1px solid darken($dark-green,15%);
+    color:white;
     border-radius:10px;
     overflow: hidden;
-    background:white;
+    border:none;
+    background:darken($dark-green,15%);
     transition : background .3s ease;
     
-    &:hover {
-        background:$off-white;
-        border: 1px solid $grey;
-
-    }
+    
 
 
 
@@ -224,7 +220,7 @@
 }
 
 .offer-element__collaboration-form{
-    
+    padding:$s-size $l-size $s-size $s-size;
     border-radius:10px;
     border: 1px solid darken($dark-green,15%);
     

@@ -1,0 +1,144 @@
+.settings__multilign{
+    resize:none;
+    vertical-align: middle;
+    border : 1px solid #cacccd;
+    width:80%;
+    height:10rem;
+    
+    padding : $m-size;
+    font-size: $font-size-small;
+    border-radius:20px;
+}
+
+.settings__container{
+    background:lighten($off-white,1%);
+    box-shadow: 6px 6px 6px darken($off-white,4%);
+    overflow:hidden;
+    border-radius:10px;
+    margin:$m-size;
+}
+
+.settings__section-title{
+    margin:0;
+    color:white;
+    background : darken($dark-green,15%);
+    text-align:center;
+}
+
+.settings__form{
+    margin:$m-size;
+    padding: 0 $m-size;
+    width:100%;
+    display:flex;
+    flex-direction: column;
+
+
+}
+
+.settings__select{
+    width:80%;
+}
+
+.settings__button{
+    width:20%;
+    margin: $m-size 0;
+    background: white;
+    border : 1px solid #cacccd;
+    border-radius : 10px;
+    height:35px;
+    padding : auto;
+    font-size: $font-size-large;
+    font-weight : 300;
+    transition : background .3s ease;
+    
+    &:hover {
+        background:lighen($off-white,2%);
+        border: 1px solid $dark-green;
+
+    }
+    &:active {
+        background:lighten($dark-green,10%);
+    }
+}
+
+.settings__section-footer{
+
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    p{
+        margin-right:$l-size;
+        font-style: italic;
+    }
+}
+
+.settings__horizontal-wrapper{
+    display:flex;
+    padding:0;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.settings__input{
+    margin : 0;
+    background: white;
+    border : 1px solid #cacccd;
+    border-radius : 10px;
+    height:35px;
+    width:33%;
+    padding : $s-size;
+    font-size: $font-size-large;
+    font-weight : 300;
+    &:focus {
+        border: 1px solid $dark-green;
+        
+        
+    }
+}
+.settings__horizontal-lignup{
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    
+    p{
+        margin-right:$m-size;
+    }
+
+}
+.settings__location-input{
+    width:70%;
+}
+
+.settings__location-text{
+    color: darken($dark-green,15%);
+}
+
+.settings__img{
+    width:400px;
+    height:400px;
+    margin:$l-size auto;
+    border-radius:15px;
+
+}
+
+.settings__uploader{
+    background:lighten($off-white, 1%)
+}
+
+.settings__password-form{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.settings__password-input{
+    margin:$s-size;
+    width:40%;
+}
+
+.settings__delete-button{
+    width:auto;
+}

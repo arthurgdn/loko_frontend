@@ -77,6 +77,9 @@ const ConversationsPage = ({setConversationsError,newConversationError,collabora
     }
     return (
         <div>
+            <div className="banner__title">
+                <h3>Conversations</h3>
+            </div>
             <button onClick={()=>setDisplayNewConvForm(!displayNewConvForm)}>+</button>
             {displayNewConvForm && (
                 <div>
