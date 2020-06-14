@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
-import {MdArrowBack} from 'react-icons/md'
+import moment from 'moment'
+import  {AiOutlineEdit,AiOutlineUserAdd,AiOutlineMessage} from 'react-icons/ai'
+import {GoLocation} from 'react-icons/go'
 import {startSendCollaboration,startNewCollaboration} from '../../actions/user'
 import { startSetProfile, startSendRecommendation } from '../../actions/profile';
 import RecommendationForm from './RecommendationForm'
+import MiniatureOfferElement from '../offer/MiniatureOfferElement'
 
-const ProfilePage = ({ startSendCollaboration,startSetProfile,startSendRecommendation,match,stateProfile,user_id,collaborators,collaborationDemands,startNewCollaboration,history,setProfileError,sendCollaborationError,sendRecommendationError,newCollaborationError }) => {
+const ProfilePage = ({ startSendCollaboration,startSetProfile,startSendRecommendation,match,stateProfile,user_id,collaborators,collaborationDemands,startNewCollaboration,history,setProfileError,sendCollaborationError,sendRecommendationError,newCollaborationError}) => {
     
     
     const isCollaborator = collaborators.find((collaborator)=>String(collaborator.collaborator)===match.params.id)
@@ -71,60 +74,120 @@ const ProfilePage = ({ startSendCollaboration,startSetProfile,startSendRecommend
     }
     
   return (
-      <div> 
-            
-            
-            {match.params.id!==user_id ?(<div>
-                <button onClick={()=>{history.goBack()}}><MdArrowBack/></button>
-                {(!isCollaborator && !isInCollaborationDemands) && <button onClick={(e)=>{
-                
-                startSendCollaboration({_id : match.params.id})
-            {frontSendCollabError && (<p>{frontSendCollabError}</p>)}
-            }}>Suivre </button>}
+      <div className="content-container"> 
+            <div className="profile__container">
+                <div className="profile__header">
+                    <img className="profile__picture" src={process.env.DEV_URL+"/users/"+match.params.id+"/avatar"}/>
+                    <h3>{profile.firstName} {profile.lastName}</h3>
 
-            {isInCollaborationDemands && (
-                <div>
-                    <button id={"accept"+match.params.id} onClick={accept}>Accepter</button>
-                    <button id={"reject"+match.params.id} onClick={reject}>Rejeter</button>
-                </div>)}
-            {frontNewCollabError && (<p>{frontNewCollabError}</p>)}
-            <button onClick={sendMessage}>Message</button></div>) : (<Link to='/settings/profile'>Modifier</Link>)}
-            {frontSetProfileError && (<p>{frontSetProfileError}</p>)}
-            <h3>{profile.firstName} {profile.lastName}</h3>
-            <img src={process.env.DEV_URL+"/users/"+match.params.id+"/avatar"}/>
-            <p>Localisation : {profile.locationText}</p>
-            <p>Description : {profile.description}</p>
-            <p>Ce que je recherche : {profile.summary}</p>
-            <h3>Mes compétences: </h3>
-            <ul>
-                {profile.skills.map((skill)=>(<li key={skill}>{skill}</li>))}
-            </ul>
-            <h3>Mes centres d'intérêt : </h3>
-            <ul>
-                {profile.keywords.map((keyword)=>(<li key={keyword._id}><Link to={'/keyword/'+keyword._id}>{
-                    keyword.name}</Link></li>))}
-            </ul>
-            <h3>J'ai répondu à ces annonces : </h3>
-                    {profile.completedOffers.map((offer)=>(<Link to={'/offer/'+offer.completedOffer} key={offer.completedOffer}><li>{offer.title}</li></Link>))}
-           
-            <h3>Recommendations reçues : </h3>
-            {profile.recommendations.map((recommendation)=>(
-                <div key={recommendation._id}>
-                    <Link to={'/profile/'+recommendation.publisher._id}>
-                        <img className="header__picture" src={process.env.DEV_URL+"/users/"+recommendation.publisher._id+"/avatar"}/>
-                        <p>{recommendation.publisher.firstName} {recommendation.publisher.lastName}</p>
-                    </Link>
-                    <p>{recommendation.content}</p>
-                </div>))}
+                    {match.params.id!==user_id ?(<div>
+                        
+                        {(!isCollaborator && !isInCollaborationDemands) && <button className="profile__button" onClick={(e)=>{
+                        
+                        startSendCollaboration({_id : match.params.id})
+                        
+                    }}><AiOutlineUserAdd />Suivre </button>}
+                    {frontSendCollabError && (<p>{frontSendCollabError}</p>)}
+    
+                    {isInCollaborationDemands && (
+                        <div>
+                            <button  id={"accept"+match.params.id} onClick={accept}>Accepter</button>
+                            <button id={"reject"+match.params.id} onClick={reject}>Rejeter</button>
+                        </div>)}
+                    {frontNewCollabError && (<p>{frontNewCollabError}</p>)}
+                    <button onClick={sendMessage} className="profile__button"><AiOutlineMessage/> Message</button></div>) : (<button className="profile__button" onClick={()=>{history.push('/settings')}}><AiOutlineEdit/> Modifier</button>)}
+                </div>
+                <div className="profile__body">
+                        
+                    {frontSetProfileError && (<p>{frontSetProfileError}</p>)}
+                    {profile.locationText && (<p className="profile__location"><GoLocation/> {profile.locationText}</p>)}
+                
+                    <div className="keyword__list">
+                        {profile.keywords.map((keyword)=>(
+                            <Link className="keyword__link" key={keyword._id} to={'/keyword/'+keyword._id}>
+                                <button>
+                                    {keyword.name}
+                                </button>
+                            </Link>))}
+                    </div>
+                    </div>
+                <div className="profile__body profile__block">
+                    <h3>Description : </h3>
+                    {profile.description.length>0?(
+                        <p> {profile.description}</p>
+                    ):(
+                        <p>L'utilisateur ne s'est pas encore décrit</p>
+                    )}
+                    
+                </div>    
+                <div className="profile__body profile__block">
+                    <h3>Recherche : </h3>
+                    {profile.summary.length>0?(
+                        <p>{profile.summary}</p>
+                    ):(
+                        <p>L'utilisateur n'a renseigné encore aucune information sur ce qu'il recherche sur Loko</p>
+                    )}
+                    
+                </div>
+                    
+                <div className="profile__body profile__block">
+                    <h3>Compétences: </h3>
+                    {profile.skills.length>0 ? (
+                        <div className="profile__horizontal-list">
+                            {profile.skills.map((skill)=>(<p
+                            className={profile.skills.findIndex((skillSearch)=>skillSearch===skill)===profile.skills.length -1 ? "profile__last-list-item":"profile__list-item"} key={skill}>
+                            {skill}
+                            </p>))}
+                        </div>):(
+                            <p>L'utilisateur n'a renseigné encore aucune information sur ses compétences</p>
+                            )}
+                    
+                </div>    
+                    
+                {profile.completedOffers.length>0 && (
+                    <div className="profile__body profile__block">
+                        <h3> {profile.firstName} a déjà répondu à ces annonces :</h3>
+                        {profile.completedOffers.map((offer)=>(<MiniatureOfferElement key={offer.completedOffer} privateLink={false} {...{...offer,_id:offer.completedOffer}} />))}
+            
+                    </div>
+                )} 
+                
+
+                {profile.recommendations.length>0 && (
+                    <div className="offer-element__comment-section profile__body profile__block ">
+                    
+                        <h3>{profile.recommendations.length} recommandation{profile.recommendations.length>1 && 's'} reçue{profile.recommendations.length>1 && 's'}</h3>
+                        {profile.recommendations.map((recommendation)=>(
+                        <div key={recommendation._id} className="offer-element__comment-display">
+                            <div className="offer-element__comment-header">
+                                <Link to={'/profile/'+recommendation.publisher._id} className="offer-element__comment-subheader">
+                                    <img className="header__picture offer-element__comment-picture" src={process.env.DEV_URL+"/users/"+recommendation.publisher._id+"/avatar"}/>
+                                    <p>{recommendation.publisher.firstName} {recommendation.publisher.lastName}</p>
+                                </Link>
+                                <span>{moment(recommendation.createdAt).lang('fr').fromNow()}</span>
+                            </div>
+                            <p className="offer-element__comment-content">{recommendation.content}</p>
+                        </div>))}     
+                </div>
+                )}
                 {match.params.id!==user_id && (
-                    <div>
+                    
+                    <div className="profile__block profile__body">
+                        <h3>Envoyer une recommandation</h3>
                         <RecommendationForm sendRecommendation={sendRecommendation}/>
                         {frontSendReccError && (<p>{frontSendReccError}</p>)}
                     </div>
                     ) }
+                   
+                    
+                        
+                </div>
+                
+            </div>
+            
 
                
-      </div>
+      
   )
 };
 

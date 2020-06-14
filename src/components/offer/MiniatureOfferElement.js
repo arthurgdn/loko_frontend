@@ -4,14 +4,14 @@ import {Link} from 'react-router-dom'
 import moment from 'moment'
 
 
-const MiniatureOfferElement =  ({_id,title,description,createdAt,completedStatus})=>{
+const MiniatureOfferElement =  ({_id,title,description,createdAt,completedStatus,privateLink})=>{
     const completedStatusMapper=[{value:"created",label:"En attente de réponse"},
     {value:"inProgress",label:"Travail en cours"},
     {value:"completed",label:"Annonce terminée"}]
     const status = completedStatusMapper.find((mapStatus)=>mapStatus.value===completedStatus)
     return (
             <div className="manager__miniature-wrapper">
-                <Link to={'/offer/gestion/'+_id} style={{textDecoration:'none'}}>
+                <Link to={privateLink?'/offer/gestion/'+_id:'/offer/'+_id} style={{textDecoration:'none'}}>
                     <div className="manager__title-wrapper">
                         
                         <h3>{title}</h3>
