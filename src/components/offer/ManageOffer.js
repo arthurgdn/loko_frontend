@@ -18,11 +18,13 @@ const ManageOffer = ({offers,match,history})=>{
     },[])
     
     return (
-        <div>
-            <button onClick={()=>{history.goBack()}}><MdArrowBack/></button>
-            {Object.keys(offer).length===0?(<p>Aucune offre ne correspond</p>):(<OfferElement displayCollaborationDemandForm={false} displayComments={false} key={offer._id} {...offer}/>)}
-            {Object.keys(offer).length!==0 && (<ManageOfferSidebar {...offer} history={history} />)}
-    
+        <div className="manager__container">
+            <div className="manager__offer-display content-container">
+                {Object.keys(offer).length===0?(<p>Aucune offre ne correspond</p>):(<OfferElement displayCollaborationDemandForm={false} displayComments={false} key={offer._id} {...offer}/>)}
+            </div>
+            <div className="manager__sidebar">
+                {Object.keys(offer).length!==0 && (<ManageOfferSidebar {...offer} history={history} />)}
+            </div>   
         </div>
     )
 }

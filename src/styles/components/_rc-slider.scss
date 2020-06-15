@@ -1,0 +1,28 @@
+
+.rc-slider .rc-slider-track{ 
+    
+    background: darken($dark-green,15%)
+}
+
+.rc-slider .rc-slider-handle{
+    border: 2px solid darken($off-white,5%);
+    &:hover{
+        border-color: $off-white;
+    }
+    &:active{
+        border-color: $off-white;
+    }
+}
+
+.rc-slider .rc-slider-handle-dragging.rc-slider-handle-dragging.rc-slider-handle-dragging{
+    border-color:$off-white;
+    box-shadow: 0 0 0 5px darken($off-white,5%);
+}
+
+.rc-slider .rc-slider-handle-click-focused:focus{
+    border-color:$off-white;
+}
+
+.rc-slider .rc-slider-dot-active{
+    border-color:darken($dark-green,25%);
+}

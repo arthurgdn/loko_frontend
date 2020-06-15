@@ -4,6 +4,9 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import Select from 'react-select'
 import axios from 'axios'
+import {AiOutlineCheckCircle,AiOutlineEdit} from 'react-icons/ai'
+import {MdDeleteForever} from 'react-icons/md'
+import {TiDeleteOutline} from 'react-icons/ti'
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 axios.defaults.headers.post['Accept'] = 'application/json'
 axios.defaults.baseURL = process.env.DEV_URL
@@ -38,9 +41,9 @@ const ManageOffer = ({_id,publisherId,collaborators,completedStatus,user,startEd
     },[])
 
     //On définit le statut de la publication
-    const statusIndex = [{value:"created",label:"En recherche de collaborateurs"},
+    const statusIndex = [{value:"created",label:"En attente de réponse"},
     {value:"inProgress",label:"Travail en cours"},
-    {value:"completed",label:"Travail effectué"}]
+    {value:"completed",label:"Annonce terminée"}]
     const [offerStatus,setOfferStatus] = useState(completedStatus)
     const onCompletedStatusChange = (options)=>{
         
@@ -68,35 +71,61 @@ const ManageOffer = ({_id,publisherId,collaborators,completedStatus,user,startEd
     }
     
     return (
-        <div>
-            <h3>Membres : </h3>
-            <ul>{displayedCollaborators.map((collaborator)=><Link to={'/profile/'+collaborator._id}><li>{collaborator.firstName} {collaborator.lastName}</li></Link>)}</ul>
-            <h3>Status de l'annonce : 
-            {offerStatus==='created' &&(<p>En recherche de collaborateur(s)</p>)}
-            {offerStatus==='inProgress' &&(<p>Travail en cours</p>)}
-            {offerStatus==='completed' &&(<p>Travail effectué</p>)}
-            {String(user._id)===String(publisherId) && (
+        <div className="manager__sidebar-container">
+            <div className="manager__sidebar-body">
+                <h3>Travaillant sur l'annonce : </h3>
+                <div className="manager__sidebar-members">
+                    {displayedCollaborators.map((collaborator)=>(
+                        <Link to={'/profile/'+collaborator._id} className="offer-element__comment-subheader">
+                            <img className="header__picture offer-element__comment-picture" src={process.env.DEV_URL+"/users/"+collaborator._id+"/avatar"}/>
+                            <p>{collaborator.firstName} {collaborator.lastName}</p>
+                        </Link>
+                    ))}
+                </div>
+            </div>
+            
+            
+            
+            {String(user._id)===String(publisherId) ? (
                 <div>
+                    <div className="manager__sidebar-body">
+                    <h3>Statut de l'annonce : </h3>
                     <Select
                         defaultValue={statusIndex.find((index)=>index.value===offerStatus)}
                         options = {statusIndex}
                         onChange={onCompletedStatusChange}
                     />
-                    <h3>Demandes de collaboration : </h3>
-                    {collaborationDemands.length>0 &&(collaborationDemands.map((demand)=>
+                    </div>
+                    
+                    
+                    {collaborationDemands.length>0 &&(
+                        <div className="manager__sidebar-body">
+                        <h3>Réponses à l'annonce : </h3>
+                        {collaborationDemands.map((demand)=>
                         <div key={demand.from._id}>
-                            <Link to={'/profile/'+demand.from._id}>
+                            <Link to={'/profile/'+demand.from._id} className="offer-element__comment-subheader">
+                                <img className="header__picture offer-element__comment-picture" src={process.env.DEV_URL+"/users/"+demand.from._id+"/avatar"}/>
                                 <p>{demand.from.firstName} {demand.from.lastName}</p>
                             </Link>
                             <p>{demand.message}</p>
-                            <button id={"accept"+demand.from._id} onClick={acceptDemand}>Accepter</button>
-                            <button id={"reject"+demand.from._id} onClick={rejectDemand}>Rejeter</button>
-                        </div>))}
-                    <Link to={'/offer/edit/'+_id}>Modifier l'annonce</Link>
-                    <button onClick={deleteOffer}>Supprimer l'annonce définitivement</button>
+                            <button className="manager__button manager__button-margin" id={"accept"+demand.from._id} onClick={acceptDemand}><AiOutlineCheckCircle/> Accepter</button>
+                            <button className="manager__button" id={"reject"+demand.from._id} onClick={rejectDemand}><TiDeleteOutline/> Rejeter</button>
+                        </div>)}
+                        </div>
+                        )}
+                    <div className="manager__sidebar-bottom">
+                        <button className="manager__button" onClick={()=>{history.push('/offer/edit/'+_id)}}><AiOutlineEdit/> Modifier l'annonce</button>
+                        <button className="manager__button" onClick={deleteOffer}><MdDeleteForever/> Supprimer l'annonce définitivement</button>
+                    </div>
                 </div>
-            )}
-            </h3>
+            ):(
+                <div className="manager__sidebar-body">
+                    <h3>Statut de l'annonce : </h3>
+                    {offerStatus==='created' &&(<p>En recherche de collaborateur(s)</p>)}
+                    {offerStatus==='inProgress' &&(<p>Travail en cours</p>)}
+                    {offerStatus==='completed' &&(<p>Travail effectué</p>)}
+                </div>)}
+            
         {error && (<p>{error}</p>)}
         </div>
     )
