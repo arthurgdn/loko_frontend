@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import moment from 'moment'
-import  {AiOutlineEdit,AiOutlineUserAdd,AiOutlineMessage} from 'react-icons/ai'
+import  {AiOutlineEdit,AiOutlineUserAdd,AiOutlineMessage,AiOutlineCheckCircle} from 'react-icons/ai'
 import {GoLocation} from 'react-icons/go'
+import {FiUserCheck} from 'react-icons/fi'
+import {TiDeleteOutline} from 'react-icons/ti'
 import {startSendCollaboration,startNewCollaboration} from '../../actions/user'
 import { startSetProfile, startSendRecommendation } from '../../actions/profile';
 import RecommendationForm from './RecommendationForm'
@@ -78,7 +80,7 @@ const ProfilePage = ({ startSendCollaboration,startSetProfile,startSendRecommend
             <div className="profile__container">
                 <div className="profile__header">
                     <img className="profile__picture" src={process.env.DEV_URL+"/users/"+match.params.id+"/avatar"}/>
-                    <h3>{profile.firstName} {profile.lastName}</h3>
+                    <h3>{profile.firstName} {profile.lastName} {isCollaborator && (<FiUserCheck/>)}</h3>
 
                     {match.params.id!==user_id ?(<div>
                         
@@ -90,10 +92,11 @@ const ProfilePage = ({ startSendCollaboration,startSetProfile,startSendRecommend
                     {frontSendCollabError && (<p>{frontSendCollabError}</p>)}
     
                     {isInCollaborationDemands && (
-                        <div>
-                            <button  id={"accept"+match.params.id} onClick={accept}>Accepter</button>
-                            <button id={"reject"+match.params.id} onClick={reject}>Rejeter</button>
-                        </div>)}
+                        <button className="profile__button" id={"accept"+match.params.id} onClick={accept}><AiOutlineCheckCircle/> Accepter</button>
+                    )}
+                    {isInCollaborationDemands && (
+                        <button className="profile__button" id={"reject"+match.params.id} onClick={reject}><TiDeleteOutline/>Rejeter</button>
+                    )}
                     {frontNewCollabError && (<p>{frontNewCollabError}</p>)}
                     <button onClick={sendMessage} className="profile__button"><AiOutlineMessage/> Message</button></div>) : (<button className="profile__button" onClick={()=>{history.push('/settings')}}><AiOutlineEdit/> Modifier</button>)}
                 </div>

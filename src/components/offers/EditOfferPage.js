@@ -20,19 +20,16 @@ class  EditOfferPage extends React.Component{
                 <div className="banner__title">
                     <h3>Modifier l'annonce</h3>
                 </div>
-            <div className="page-header">
                 <div className="content-container">
-                <h1 className="page-header__title">Modifier l'annonce</h1>
-                <div className="content-container">
-                <OfferForm
-                onSubmit={this.onSubmit}
-                inGroup={false}
-                {...this.props.offer}
-                /></div>
-                {this.state.editOfferError && (<p>{this.state.editOfferError}</p>)}
-            </div></div>
+                    <OfferForm
+                        onSubmit={this.onSubmit}
+                        inGroup={false}
+                        {...this.props.offer}
+                    />
+                    {this.state.editOfferError && (<p>{this.state.editOfferError}</p>)}
+                </div>
         
-    </div>
+            </div>
         )
     }
 }

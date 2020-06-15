@@ -124,20 +124,19 @@ const EditUserForm = ({user,startEditUserInfo,editUserInfoError})=>{
                     
                     <img  src={process.env.DEV_URL+"/users/"+user._id+"/avatar"} className="settings__img"/>
                     <ImageUploader
-                    fileContainerStyle={
-                        {background: '#fafafa',
-                        boxShadow:'none'
-                    }
-                    }
-                    label={'Taille maximale : 5mb'}
-                    withIcon={false}
-                    buttonText="Choisir une image"
-                    onChange={(file)=>setProfilePicture(file[0])}
-                    imgExtension={[".jpg", ".gif", ".png", ".gif"]}
-                    maxFileSize={5242880}
-                    withPreview={true}
-                    singleImage={true}
-                    
+                        fileContainerStyle={
+                            {background: '#fafafa',
+                            boxShadow:'none'
+                        }
+                        }
+                        label={'Taille maximale : 5mb'}
+                        withIcon={false}
+                        buttonText="Choisir une image"
+                        onChange={(file)=>setProfilePicture(file[0])}
+                        imgExtension={[".jpg", ".gif", ".png", ".gif"]}
+                        maxFileSize={5242880}
+                        withPreview={true}
+                        singleImage={true}
                     />
                 <button className="settings__button">Enregistrer</button>
             </form>

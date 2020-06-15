@@ -183,11 +183,12 @@ import getLocationFormatted from '../../actions/getLocationFormatted'
         return (
             
                 
-                <form className="form" onSubmit={this.onSubmit}>
+                <form className="offer-form__form" onSubmit={this.onSubmit}>
                 
-                <input type="text" placeholder="Titre"  
+                    <input type="text" placeholder="Titre"  
+                        className="offer-form__input"
                         value={this.state.title}
-                        className="text-input"
+                        
                         autoFocus
                         required
                         onChange={this.onTitleChange}
@@ -195,12 +196,13 @@ import getLocationFormatted from '../../actions/getLocationFormatted'
                     <textarea placeholder="Description de l'annonce (...)"
                         value={this.state.description}
                         onChange={this.onDescriptionChange}
-                        className="textarea"
+                        className="offer-form__textarea"
                         required
                     ></textarea>
 
                     
-                    <p>Utiliser ma position</p>
+                    <div className="settings__horizontal-lignup">
+                    <p>Utiliser votre position actuelle : </p>
                     <div className="toggle-switch-location">
                         <input type="checkbox" checked={this.state.useBrowserLocation} 
                         onChange={this.onUseBrowserLocationChange}
@@ -210,27 +212,34 @@ import getLocationFormatted from '../../actions/getLocationFormatted'
                         <span className="toggle-switch-switch-location"></span>
                         </label>
                     </div>
+                </div>
+                    
                     {!this.state.useBrowserLocation&& (
                         <input type="text"
                         disabled={this.state.useBrowserLocation}
                         value = {this.state.locationInput}
-                        placeholder="Lieu de l'annonce"
-                        className="text-input"
+                        placeholder="Entrez ici la localisation de l'annonce"
+                        className="settings__input settings__location-input"
                         onChange={this.onLocationInputChange}/>
 
                     )} 
-
-                    {this.state.locationText&& <p>{this.state.locationText}</p>}
-                    <p>L'offre concerne un rayon de (km) :</p>
                     
-                    <TippedSlider
-                    min={0}
-                    max={4000}
-                    value = {this.state.locationRadius}
-                    onChange={this.onLocationRadiusChange}
-                    tipFormatter={(value)=>Math.round(10**(value/1000))/10}
-                    marks = {{1000:"1",2000:"10",3000:"100",4000:"1000"}}
-                    />
+                    {this.state.locationText&& <p>La position s'affiche : <span className="settings__location-text">{this.state.locationText}</span></p>}
+                    
+                    <p>L'offre concerne un rayon de (km) :</p>
+                    <div className="offer-form__slider">
+                        <TippedSlider
+                            
+                        
+                            min={0}
+                            max={4000}
+                            value = {this.state.locationRadius}
+                            onChange={this.onLocationRadiusChange}
+                            tipFormatter={(value)=>Math.round(10**(value/1000))/10}
+                            marks = {{1000:"1",2000:"10",3000:"100",4000:"1000"}}
+                        />
+                    </div>
+                    
                     {!this.props.inGroup && (
                     <div>
                         <p>Statut de la publication :</p>
@@ -253,30 +262,35 @@ import getLocationFormatted from '../../actions/getLocationFormatted'
                         
                     </div>)}
                     
-                    <p>Mots clés associés</p>
+                    <p>Mots clés associés : </p>
                     <CreatableSelect
                     options = {this.state.allKeywords}
                     value={this.state.keywords}
                     isMulti
                     onChange = {this.onKeywordsChange}
                     />
-                    <p>Ajouter une image</p>
+                    
                     <ImageUploader
-                    label={'Taille maximale : 5mb'}
-                    withIcon={false}
-                    buttonText="Choisir une image"
-                    onChange={this.onImageChange}
-                    imgExtension={[".jpg", ".gif", ".png", ".gif"]}
-                    maxFileSize={5242880}
-                    withPreview={true}
-                    singleImage={true}
+                        label={'Taille maximale : 5mb'}
+                        withIcon={false}
+                        buttonText="Choisir une image"
+                        onChange={this.onImageChange}
+                        imgExtension={[".jpg", ".gif", ".png", ".gif"]}
+                        maxFileSize={5242880}
+                        withPreview={true}
+                        singleImage={true}
+                        fileContainerStyle={
+                            {background: '#fafafa',
+                            boxShadow:'none'
+                        }
+                        }   
                     />
                     
                     
                     
                     {this.state.error && <p className="form__error">{this.state.error}</p>}
                     <div>
-                        <button className="button">Publier l'annonce</button>
+                        <button className="offer-form__button">Publier l'annonce</button>
                     </div>
                     
                 </form>

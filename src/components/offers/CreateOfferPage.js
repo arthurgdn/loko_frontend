@@ -20,19 +20,14 @@ class  CreateOfferPage extends React.Component{
                 <div className="banner__title">
                     <h3>Créer une annonce</h3>
                 </div>
-            <div className="page-header">
                 <div className="content-container">
-                <h1 className="page-header__title">Créer une annonce</h1>
-                <div className="content-container">
-                <OfferForm
-                inGroup = {false}
-                onSubmit={this.onSubmit}
-                />
-                {this.state.addOfferError && (<p>{this.state.addOfferError}</p>)}
+                    <OfferForm
+                        inGroup = {false}
+                        onSubmit={this.onSubmit}
+                    />
+                    {this.state.addOfferError && (<p>{this.state.addOfferError}</p>)}
                 </div>
-            </div></div>
-        
-    </div>
+            </div>
         )
     }
 }

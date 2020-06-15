@@ -1,0 +1,91 @@
+.offer-form__form{
+    display:flex;
+    flex-direction: column;
+    background:lighten($off-white,1%);
+    box-shadow: 6px 6px 6px darken($off-white,4%);
+    overflow:hidden;
+    border-radius:10px;
+    margin:$m-size;
+    padding: $l-size $l-size 0 $l-size;
+}
+
+.offer-form__input{
+    margin: $s-size 0;
+    background: white;
+    border : 1px solid #cacccd;
+    border-radius : 10px;
+    height:35px;
+    padding : $s-size;
+    font-size: $font-size-large;
+    font-weight : 300;
+    &:focus {
+        border: 1px solid $dark-green;
+        
+        
+    }
+}
+
+.offer-form__textarea{
+    resize:none;
+    vertical-align: middle;
+    border : 1px solid #cacccd;
+    height:10rem;
+    margin:$s-size 0 ;
+    padding : $m-size;
+    font-size: $font-size-medium;
+    border-radius:20px;
+    &:focus{
+        border: 1px solid $dark-green;
+    }
+}
+.offer-form__button{
+    width:20rem;
+    display:block;
+    margin: $m-size auto;
+    background: white;
+    border : 1px solid #cacccd;
+    border-radius : 10px;
+    height:35px;
+    padding : auto;
+    font-size: $font-size-large;
+    font-weight : 300;
+    transition : background .3s ease;
+    
+    &:hover {
+        background:lighen($off-white,2%);
+        border: 1px solid $dark-green;
+
+    }
+    &:active {
+        background:lighten($dark-green,10%);
+    }
+}
+
+
+.rc-slider .rc-slider-track{ 
+    
+    background: darken($dark-green,15%)
+}
+
+.rc-slider .rc-slider-handle{
+    border: 2px solid darken($off-white,5%);
+    &:hover{
+        border-color: $off-white;
+    }
+    &:active{
+        border-color: $off-white;
+    }
+}
+
+.rc-slider .rc-slider-handle-dragging.rc-slider-handle-dragging.rc-slider-handle-dragging{
+    border-color:$off-white;
+    box-shadow: 0 0 0 5px darken($off-white,5%);
+}
+
+.rc-slider .rc-slider-handle-click-focused:focus{
+    border-color:$off-white;
+}
+
+.rc-slider .rc-slider-dot-active{
+    border-color:darken($dark-green,25%);
+}
