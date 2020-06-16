@@ -1,10 +1,14 @@
 import React, {useState,useEffect} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
+import {AiOutlineSearch} from 'react-icons/ai'
 import {startSetCollaborators} from '../../actions/user'
 const CollaboratorsList = ({collaborators,startSetCollaborators,setCollaboratorsError})=>{
+    const [loadedCollaborators,setLoadedCollaborators] = useState([])
     const [displayedCollaborators,setDisplayedCollaborators] = useState([])
     const [error,setError]=useState([])
+    const [displayIcon,setDisplayIcon]=useState(true)
+    const [searchText,setSearchText] = useState('')
     useEffect(()=>{
         startSetCollaborators()
     },[])
@@ -14,23 +18,46 @@ const CollaboratorsList = ({collaborators,startSetCollaborators,setCollaborators
     useEffect(()=>{
         //On vérifie qu'on a le bon format pour la liste des collaborateurs
         if((collaborators.length>0 && Object.keys(collaborators[0]).length===3)||collaborators.length===0){
+            setLoadedCollaborators(collaborators)
             setDisplayedCollaborators(collaborators)
         }
     },[collaborators,startSetCollaborators])
+
     return (
-        <div>
-        {!displayedCollaborators.length>0? (<p>Aucuns collaborateurs pour l'instant</p>) : 
-            displayedCollaborators.map((collaborator)=>{return (
-                <div key={collaborator.collaborator}>
-                    <Link to={'/profile/'+collaborator.collaborator}>
-                        <img className="header__picture" src={process.env.DEV_URL+"/users/"+collaborator.collaborator+"/avatar"}/>
-                        <p>{collaborator.firstName} {collaborator.lastName}</p>
-                    </Link>
-                    
+        <div className="collaborator__container">
+            
+            {!loadedCollaborators.length>0? (<p>Vous ne suivez personne pour l'instant</p>) : (
+                <div>
+                    <h3>Vous suivez {loadedCollaborators.length} personne{loadedCollaborators.length>1&&'s'}</h3>
+                    <div className="feed__search">
+                        {displayIcon && (<i className="feed__icon"><AiOutlineSearch/></i>)} 
+                        <input
+                            type="text"
+                            onFocus={()=>setDisplayIcon(false)}
+                            onBlur={()=>setDisplayIcon(true)}
+                            value={searchText}
+                            className="feed__input"
+                            onChange={(e)=>{
+                                setSearchText(e.target.value)
+                                setDisplayedCollaborators(loadedCollaborators.filter((collab)=>(collab.firstName+' '+collab.lastName).toLowerCase().includes(e.target.value.toLowerCase())))
+                            }}
+                            placeholder="Rechercher une personne que vous suivez"
+                        />
+                    </div>
+                    {displayedCollaborators.map((collaborator)=> (
+                        <div key={collaborator.collaborator} className="collaborator__list">
+                            <Link to={'/profile/'+collaborator.collaborator} className="offer-element__comment-subheader">
+                                <img className="header__picture offer-element__comment-picture" src={process.env.DEV_URL+"/users/"+collaborator.collaborator+"/avatar"}/>
+                                <p>{collaborator.firstName} {collaborator.lastName}</p>
+                            </Link>
+                            
+                        </div>
+                    ))}
                 </div>
-            )})
-        }
-        {error && (<p>{error}</p>)}
+                )
+                
+            }
+            {error && (<p>{error}</p>)}
         </div>
         
     )

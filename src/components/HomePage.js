@@ -3,7 +3,7 @@ import FeedContainer from './feed/FeedContainer'
 import FeedFiltering from './filters/FeedFiltering'
 
 const HomePage = ()=>(
-    <div>
+    <div className="home__feed">
         <FeedFiltering/>
         <FeedContainer/>
         

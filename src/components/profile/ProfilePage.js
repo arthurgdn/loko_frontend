@@ -116,7 +116,7 @@ const ProfilePage = ({ startSendCollaboration,startSetProfile,startSendRecommend
                     </div>
                 <div className="profile__body profile__block">
                     <h3>Description : </h3>
-                    {profile.description.length>0?(
+                    {(profile.description && profile.description.length>0 )?(
                         <p> {profile.description}</p>
                     ):(
                         <p>L'utilisateur ne s'est pas encore décrit</p>
@@ -125,7 +125,7 @@ const ProfilePage = ({ startSendCollaboration,startSetProfile,startSendRecommend
                 </div>    
                 <div className="profile__body profile__block">
                     <h3>Recherche : </h3>
-                    {profile.summary.length>0?(
+                    {(profile.summary && profile.summary.length>0)?(
                         <p>{profile.summary}</p>
                     ):(
                         <p>L'utilisateur n'a renseigné encore aucune information sur ce qu'il recherche sur Loko</p>

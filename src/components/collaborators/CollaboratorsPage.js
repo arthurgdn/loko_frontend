@@ -6,9 +6,9 @@ export default ()=>(
         <div className="banner__title">
             <h3>Personnes suivies</h3>
         </div>
-        <h3>Demandes de collaboration : </h3>
+        
         <CollaborationDemandsList/>
-        <h3>Mes Collaborateurs : </h3>
+        
         <CollaboratorsList/>
     </div>
 )

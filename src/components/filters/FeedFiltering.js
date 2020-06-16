@@ -2,6 +2,7 @@ import React,{useState} from 'react'
 import {connect} from 'react-redux'
 import Slider from 'rc-slider'
 import 'rc-slider/assets/index.css';
+import {AiOutlineSearch} from 'react-icons/ai'
 import { sortByPoints, sortByDate,setDistanceRadius,setTextFilter } from '../../actions/feedFilters'
 
 const createSliderWithTooltip = Slider.createSliderWithTooltip;
@@ -9,48 +10,43 @@ const TippedSlider = createSliderWithTooltip(Slider)
 
 const FeedFiltering = ({filters,setDistanceRadius,sortByDate,sortByPoints,setTextFilter})=>{
     const [text,setText] = useState(filters.text)
+    const [displayIcon,setDisplayIcon] = useState(true)
     const [distanceRadius,setStateDistanceRadius] = useState(Math.round(1000*Math.log10(10*filters.distanceRadius)))
     
     return (
-        <div>
-        <p>Afficher les annonces suivantes</p>
-            <select
-                className="select"
-                value={filters.sortBy}
-                onChange={(e) => {
-                    if (e.target.value === 'date') {
-                        sortByDate()
-                    } else if (e.target.value === 'points') {
-                        sortByPoints
-                    }
-                }}
-            >
-              <option value="date">Plus récentes</option>
-              <option value="points">Plus pertinentes</option>
-          </select>
-          <input
-                type="text"
-                value={text}
-                onChange={(e)=>{
-                    setText(e.target.value)
-                    setTextFilter(e.target.value)
-                }}
-                placeholder="Rechercher une annonce"
-          />
-        <p>Afficher les annonces dans un rayon de : </p>
-          <TippedSlider
-          style={{width:400}}
-          min={0}
-          max={4000}
-          
-          value = {distanceRadius}
-          onChange={(value)=>{
-              setStateDistanceRadius(value)
-              setDistanceRadius(Math.round(10**(value/1000)/10))
-          }}
-          tipFormatter={(value)=>Math.round(10**(value/1000))/10}
-          marks = {{1000:"1",2000:"10",3000:"100",4000:"1000"}}
-          />
+        <div className="feed__filter-container">
+            <div className="feed__search">
+                {displayIcon && (<i className="feed__icon"><AiOutlineSearch/></i>)} 
+                <input
+                    type="text"
+                    onFocus={()=>setDisplayIcon(false)}
+                    onBlur={()=>setDisplayIcon(true)}
+                    value={text}
+                    className="feed__input"
+                    onChange={(e)=>{
+                        setText(e.target.value)
+                        setTextFilter(e.target.value)
+                    }}
+                    placeholder="Rechercher une annonce"
+                />
+            </div>
+            <div className="feed__slider">
+                <p>Afficher les annonces dans un rayon de (km): </p>
+                <TippedSlider
+                    style={{width:400}}
+                    min={0}
+                    className="feed__tippedslider"
+                    max={4000}
+                    value = {distanceRadius}
+                    onChange={(value)=>{
+                        setStateDistanceRadius(value)
+                        setDistanceRadius(Math.round(10**(value/1000)/10))
+                    }}
+                    tipFormatter={(value)=>Math.round(10**(value/1000))/10}
+                    marks = {{1000:"1",2000:"10",3000:"100",4000:"1000"}}
+                />
+            </div>
+            
         </div>
     )
 }

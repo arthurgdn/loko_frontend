@@ -1,0 +1,63 @@
+.feed__container{
+    display:flex;
+    flex-direction: column;
+
+}
+
+.feed__filter-container{
+    margin: $l-size 0;
+    width:100%;
+    
+    display:flex;
+    flex-direction: column;
+}
+
+.home__feed{
+    display:flex;
+    flex-direction: column;
+    
+}
+@mixin transition($x...){
+    -webkit-transition: $x;
+    -moz-transition: $x;
+    -ms-transition: $x;
+    -o-transition: $x;
+    transition: $x;
+  }
+.feed__input{
+    border : 1px solid #cacccd;
+    background: $off-white;
+    border-radius : 15px;
+    height:50px;
+    margin: 0 $s-size;
+    padding : $s-size $l-size;
+    font-size: $font-size-medium;
+    font-weight : 300;
+    width:30%;
+    @include transition(width .3s ease 0s, padding .3s ease);
+    
+    &:focus {
+        border: 1px solid $dark-green;
+        background: lighten($off-white,2%);
+        width:90%;
+        padding:$s-size;
+    }
+}
+
+.feed__icon{
+    padding: $s-size; 
+    margin: 0 $s-size;
+    min-width: 40px; 
+}
+
+.feed__slider{
+    margin:$m-size;
+    
+}
+
+
+
+.feed__search i{
+    position: absolute;
+}
+

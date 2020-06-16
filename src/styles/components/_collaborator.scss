@@ -1,0 +1,16 @@
+.collaborator__container{
+    margin: $m-size;
+}
+
+.collaborator__list{
+    margin:$m-size;
+    display:flex;
+    flex-direction:row;
+    align-items: center;
+}
+
+.collaborator__button-container{
+    display:flex;
+    flex-direction:row;
+    margin-left:$m-size;
+}
