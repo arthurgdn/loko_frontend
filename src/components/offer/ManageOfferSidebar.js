@@ -73,10 +73,10 @@ const ManageOffer = ({_id,publisherId,collaborators,completedStatus,user,startEd
     return (
         <div className="manager__sidebar-container">
             <div className="manager__sidebar-body">
-                <h3>Travaillant sur l'annonce : </h3>
+                <h3>Membres : </h3>
                 <div className="manager__sidebar-members">
                     {displayedCollaborators.map((collaborator)=>(
-                        <Link to={'/profile/'+collaborator._id} className="offer-element__comment-subheader">
+                        <Link to={'/profile/'+collaborator._id} key={collaborator._id} className="offer-element__comment-subheader">
                             <img className="header__picture offer-element__comment-picture" src={process.env.DEV_URL+"/users/"+collaborator._id+"/avatar"}/>
                             <p>{collaborator.firstName} {collaborator.lastName}</p>
                         </Link>

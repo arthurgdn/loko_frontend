@@ -54,17 +54,21 @@
 .manager__container{
     display:flex;
     flex-direction: row;
+    
 }
 
 .manager__offer-display{
-    flex-grow:2;
-    flex-basis:0;
-    padding: $l-size;
+    flex-basis:2;
+    width:50%;
+    padding: $l-size 0;
+
+    margin: 0 auto $l-size auto;
+    
 }
 
 .manager__sidebar{
-    flex-grow:1;
-    flex-basis:0;
+    flex-basis:1;
+    
 }
 
 .manager__sidebar-body{
@@ -99,6 +103,7 @@
     border-radius : 10px;
     height:35px;
     padding : auto;
+    display:inline-block;
     font-size: $font-size-large;
     font-weight : 300;
     transition : background .3s ease;

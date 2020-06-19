@@ -17,28 +17,21 @@ const ManageGroup = ({collaborators,startSetCollaborators,group}) =>{
     const [admins,setAdmins] = useState([])
     const [error,setError] = useState('')
     useEffect(()=>{
-        if(group.membership==='admin' && group.securityStatus ==='onRequest'){
-            axios.get('/group/'+group._id+'/members?status=requested').
-            then((res)=>{setMembershipRequests(res.data)
-                console.log('requests',res.data)
-                
-            })
-            .catch((e)=>{setError("Erreur serveur")})
+        
+        async function getMembers(){
+            try{
+                if(group.membership==='admin' && group.securityStatus ==='onRequest'){
+                    const requestsResponse = awaitaxios.get('/group/'+group._id+'/members?status=requested')
+                    setMembershipRequests(requestsResponse.data)
+                }
+                const memberResponse = await axios.get('/group/'+group._id+'/members?status=member')
+                setMembers(memberResponse.data)
+                const adminResponse = await axios.get('/group/'+group._id+'/members?status=admin')
+                setAdmins(adminResponse.data)
+            }catch(e){setError("Erreur serveur")}
+
         }
-        axios.get('/group/'+group._id+'/members?status=member')
-        .then((res)=>{
-            console.log('members',res.data)
-            setMembers(res.data)})
-        .catch((e)=>{
-            console.log(e)
-            setError("Erreur serveur")})
-
-        axios.get('/group/'+group._id+'/members?status=admin')
-        .then((res)=>{setAdmins(res.data)})
-        .catch((e)=>{
-            console.log(e)
-            setError("Erreur serveur")})
-
+        getMembers()
         startSetCollaborators()
     },[])
 
@@ -100,23 +93,35 @@ const ManageGroup = ({collaborators,startSetCollaborators,group}) =>{
         .catch((e)=>{setError("Erreur serveur")})
     }
     return (
-        <div>
-        <h3>Administrateurs : </h3>
-        <ul>
-        {admins.map((admin)=>(
-            <div key={admin.user}>
-                <Link to={'/profile/'+admin.user}><li>
-                <p>{admin.firstName} {admin.lastName}</p>
-            </li></Link></div>))}
-        </ul>
-        <h3>Membres : </h3>
-            <ul>
-            {members.map((member)=>(
-                <div key={member.user}>
-                <Link to={'/profile/'+member.user}><li>
-                        <p>{member.firstName} {member.lastName}</p>
-                    </li></Link></div>))}
-            </ul>
+        <div className="manager__sidebar-container">
+            
+            <div className="manager__sidebar-body">
+                <h3>Administrateur{admins.length>1 &&'s'} : </h3>
+                <div className="manager__sidebar-members">
+                    {admins.map((admin)=>(
+                        <Link to={'/profile/'+admin.user} key={admin.user} className="offer-element__comment-subheader">
+                            <img className="header__picture offer-element__comment-picture" src={process.env.DEV_URL+"/users/"+admin.user+"/avatar"}/>
+                            <p>{admin.firstName} {admin.lastName}</p>
+                        </Link>
+                    ))}
+                </div>
+            </div>
+
+            {members.length>0 && (
+                <div className="manager__sidebar-body">
+                    <h3>Membre{members.length>1 &&'s'} : </h3>
+                    <div className="manager__sidebar-members">
+                        {console.log('membeeers',members)}
+                        {members.map((member)=>(
+                            <Link to={'/profile/'+member.user} key={member.user} className="offer-element__comment-subheader">
+                                <img className="header__picture offer-element__comment-picture" src={process.env.DEV_URL+"/users/"+member.user+"/avatar"}/>
+                                <p>{member.firstName} {member.lastName}</p>
+                            </Link>
+                        ))}
+                    </div>
+                </div>
+            )}
+        
         
         {group.membership==='admin' &&(
             <div>

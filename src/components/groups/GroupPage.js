@@ -2,6 +2,12 @@ import React, {useState,useEffect} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {MdArrowBack} from 'react-icons/md'
+import {FaUserClock} from 'react-icons/fa'
+import {FiUserCheck} from 'react-icons/fi'
+import {GoLocation} from 'react-icons/go'
+import {GrUserAdd} from 'react-icons/gr'
+import {AiFillLock} from 'react-icons/ai'
+import {RiAddCircleLine} from 'react-icons/ri'
 import axios from 'axios'
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 axios.defaults.headers.patch['Content-Type'] = 'application/json';
@@ -63,35 +69,57 @@ const GroupPage = ({history,match,stateGroup,startSetGroup,user,startAddOffer,ad
         <div>
             {frontSetGroupError && (<p>{frontSetGroupError}</p>)}
             {group._id===match.params.id ? (
-                <div>
-                    <button onClick={()=>{history.goBack()}}><MdArrowBack/></button>
-                    {group.hasImage && (<img className="header__picture" src={process.env.DEV_URL+"/group/"+group._id+"/image"}/>)}
-                    <h3>{group.name}</h3>
-                    <p>{group.description}</p>
-                    <p>{group.locationText}</p>
-                    <ul>{group.keywords.map((keyword)=>(<li key={keyword.name}><Link to={'/keyword/'+keyword._id}>{keyword.name}</Link></li>))}</ul>
-                    
-                    {isMember?(
-                        <div>
-                            <button onClick={()=>{setDisplayOfferForm(!displayOfferForm)}}>Publier dans le groupe</button>
-                            {displayOfferForm &&(
-                                <div>
-                                    <OfferForm onSubmit={onSubmit} inGroup={true} group={group}/>
-                                    {frontAddGroupOfferError && (<p>{frontAddGroupOfferError}</p>)}
-                                </div>
-                                    )}
-                            
-                            <GroupOffers group_id={group._id}/>
-                            
-                            <ManageGroup/>
+                <div className="manager__container">
+                    <div className="group__content-display">
+                        <div className="profile__header">
+                            <img className="profile__picture" src={process.env.DEV_URL+"/group/"+group._id+"/image"}/>
+                            <h3>{group.name} {isMember && (<FiUserCheck/>)}</h3>
+                            {!isMember &&(<div>
+                                {(group.securityStatus==='onRequest' || group.securityStatus==='open')?
+                                (isRequested?(<p><FaUserClock/> Demande envoyée</p>):(
+                                    <button className="profile__button" onClick={sendMembershipRequest}><GrUserAdd/> Rejoindre</button>
+                                )):(<p> <AiFillLock/> Groupe privé</p>)}  
+                                {requestError && (<p>{requestError}</p>)}
+                            </div>)}
                         </div>
-                    ):(<div>
-                        {(group.securityStatus==='onRequest' || group.securityStatus==='open')?
-                        (isRequested?(<p>Demande pour rejoindre le groupe envoyée</p>):(
-                            <button onClick={sendMembershipRequest}>Rejoindre le groupe</button>
-                        )):(<p>Groupe privé, vous devez être invité au groupe</p>)}  
-                        {requestError && (<p>{requestError}</p>)}
-                    </div>)}
+                    <div className="group__body">
+                        
+                    
+                    {group.locationText && (<p className="profile__location"><GoLocation/> {group.locationText}</p>)}
+                    
+                    <div className="keyword__list">
+                        {group.keywords.map((keyword)=>(
+                            <Link className="keyword__link" key={keyword._id} to={'/keyword/'+keyword._id}>
+                                <button>
+                                    {keyword.name}
+                                </button>
+                            </Link>))}
+                    </div>
+                    <p>{group.description}</p>
+                    <button  className="group__big-button" onClick={()=>{setDisplayOfferForm(!displayOfferForm)}}><RiAddCircleLine/> Publier dans le groupe</button>
+                                
+                    </div>
+                 
+                        {isMember &&(
+                            <div>
+                                {displayOfferForm &&(
+                                    <div className="content-container">
+                                        <OfferForm onSubmit={onSubmit} inGroup={true} group={group}/>
+                                        {frontAddGroupOfferError && (<p>{frontAddGroupOfferError}</p>)}
+                                    </div>
+                                        )}  
+                            </div>
+                            
+                            
+                        )}
+                        {isMember &&(
+                                <GroupOffers group_id={group._id}/>
+                            
+                        )}
+                    </div>
+                    <div className="manager__sidebar">
+                    {isMember &&(<ManageGroup/>)}
+                    </div>
                 </div>
             ):(<p>Erreur, pas de groupe correspondant</p>)}
         </div>

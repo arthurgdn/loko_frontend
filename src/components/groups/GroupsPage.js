@@ -1,17 +1,22 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
+import {RiAddCircleLine} from 'react-icons/ri'
 import GroupsList from './GroupsList'
 import SuggestedGroupsList from './SuggestedGroupsList'
 
-export default ()=> (
+export default ({history})=> (
         <div>
             <div className="banner__title">
                 <h3>Groupes</h3>
             </div>
-            <Link to='/nouveau_groupe'>Créer un groupe</Link>
-            <h3>Mes groupes : </h3>
-            <GroupsList/>
-            <h3>Suggestion de groupes : </h3>
-            <SuggestedGroupsList/>
+            
+            <div className="content-container">
+                <div className="group__page-container">
+                    <button className="group__big-button" onClick={()=>history.push('/nouveau_groupe')}><RiAddCircleLine/> Créer un groupe</button>
+                    <GroupsList/>
+                    <SuggestedGroupsList/>
+                </div>
+               
+            </div>
+            
         </div>
     )

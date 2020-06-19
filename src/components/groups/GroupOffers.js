@@ -16,12 +16,13 @@ const GroupOffers = ({groupOffers,startSetGroupOffers,group_id,setGroupOffersErr
     useEffect(()=>{
         
         setOffers(groupOffers)
+        console.log(groupOffers)
     },[startSetGroupOffers,groupOffers])
     return (
         <div className="content-container">
             {error && (<p>{error}</p>)}
             {showingOffers.length===0?(
-                <p>Aucune offre n'a déjà été publiée dans le groupe</p>):(
+                <p className="group__text-info">Aucune annonce n'a encore été publiée dans le groupe</p>):(
                     showingOffers.map((offer)=><OfferElement displayCollaborationDemandForm={true} displayComments={true} displayAllComments={false} key={offer._id} {...offer} />)
                 )}
         </div>

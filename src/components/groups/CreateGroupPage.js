@@ -108,9 +108,11 @@ const CreateGroupPage = ({allKeywords,startCreateGroup,history,userGroupCreatedE
             <div className="banner__title">
                 <h3>Créer un groupe</h3>
             </div>
-            <form onSubmit={onSubmit}>
-        
+            <div className="content-container">
+                <form onSubmit={onSubmit} className="group__page-container">
+            
                 <input
+                    className="offer-form__input"
                     type="text"
                     value={name}
                     required
@@ -119,13 +121,13 @@ const CreateGroupPage = ({allKeywords,startCreateGroup,history,userGroupCreatedE
                 />
                 <textarea
                     value={description}
+                    className="offer-form__textarea"
                     required
                     onChange={(e)=>setDescription(e.target.value)}
                     placeholder="Description de ce groupe"
                 ></textarea>
-                <p>Localisation du groupe : </p>
-                <p>Ma position</p>
-                <p>Utiliser ma position</p>
+                <div className="settings__horizontal-lignup">
+                    <p>Utiliser votre position actuelle : </p>
                     <div className="toggle-switch-location">
                         <input type="checkbox" checked={useBrowserLocation} 
                         onChange={onUseBrowserLocationChange}
@@ -135,23 +137,27 @@ const CreateGroupPage = ({allKeywords,startCreateGroup,history,userGroupCreatedE
                         <span className="toggle-switch-switch-location"></span>
                         </label>
                     </div>
-                    {!useBrowserLocation&& (
-                        <input type="text"
+                </div>
+                    
+                {!useBrowserLocation&& (
+                    <input type="text"
                         disabled={useBrowserLocation}
                         value = {locationInput}
-                        placeholder="Localisation du groupe"
-                        className="text-input"
-                        onChange={onLocationInputChange}/>
+                        placeholder="Entrez ici la localisation du groupe"
+                        className="settings__input settings__location-input"
+                        onChange={onLocationInputChange}
+                    />
 
-                    )} 
-
-                    {locationText&& <p>{locationText}</p>}
+                )} 
+                    
+                {locationText&& <p>La position s'affiche : <span className="settings__location-text">{locationText}</span></p>}
+                    
                     <p>Statut du groupe : </p>
                     <Select
-                                defaultValue={securityStatusIndex.find((index)=>index.value==='open')}
-                                options = {securityStatusIndex}
-                                onChange={(options)=>setSecurityStatus(options.value)}
-                            />
+                        defaultValue={securityStatusIndex.find((index)=>index.value==='open')}
+                        options = {securityStatusIndex}
+                        onChange={(options)=>setSecurityStatus(options.value)}
+                    />
                     
                     <p>Mots clés associés</p>
                     <CreatableSelect
@@ -179,10 +185,16 @@ const CreateGroupPage = ({allKeywords,startCreateGroup,history,userGroupCreatedE
                         maxFileSize={5242880}
                         withPreview={true}
                         singleImage={true}
+                        fileContainerStyle={
+                            {background: '#fafafa',
+                            boxShadow:'none'
+                        }}
                     />
                 {error &&(<p>{error}</p>)}
-                <button>Créer</button>
+                <button className="offer-form__button">Créer</button>
             </form>
+            </div>
+            
 
         </div>
         
