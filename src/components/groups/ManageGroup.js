@@ -3,6 +3,9 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import Select from 'react-select'
 import axios from 'axios'
+import {AiOutlineEdit,AiOutlineCheckCircle} from 'react-icons/ai'
+import {TiDeleteOutline} from 'react-icons/ti'
+import {GiUpgrade} from 'react-icons/gi'
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 axios.defaults.headers.patch['Content-Type'] = 'application/json';
 axios.defaults.baseURL = process.env.DEV_URL
@@ -123,45 +126,62 @@ const ManageGroup = ({collaborators,startSetCollaborators,group}) =>{
             )}
         
         
-        {group.membership==='admin' &&(
-            <div>
-                {group.securityStatus ==='onRequest'&& membershipRequests.map((memberRequest)=>(
-                    <div key={memberRequest.user}>
-                        <Link to={'/profile/'+memberRequest.user}>
-                            <p>{memberRequest.firstName} {memberRequest.lastName}</p>
-                        </Link>
-                        <button id={"accept"+memberRequest.user} onClick={acceptRequest}>Accepter</button>
-                        <button id={"accept"+memberRequest.user} onClick={rejectRequest}>Rejeter</button>
-                    </div>))}
-                <button onClick={()=>setDisplayEditGroup(!displayEditGroup)}>Modifier</button>
-                {displayEditGroup && (<EditGroupForm/>)}
+            {group.membership==='admin' &&(
+                <div>
+                    {(group.securityStatus ==='onRequest'&& membershipRequests.length>0)&& (
+                        <div className="manager__sidebar-body">
+                            <h3>Demande{membershipRequests.length>1&&'s'} d'accès : </h3>
+                            {membershipRequests.map((memberRequest)=>(
+                                <div key={memberRequest.user}>
+                                    <Link to={'/profile/'+demand.from._id} className="offer-element__comment-subheader">
+                                        <img className="header__picture offer-element__comment-picture" src={process.env.DEV_URL+"/users/"+memberRequest.user+"/avatar"}/>
+                                        <p>{memberRequest.firstName} {memberRequest.lastName}</p>
+                                    </Link>
+                                    <button className="manager__button manager__button-margin" id={"accept"+memberRequest.user} onClick={acceptRequest}><AiOutlineCheckCircle/> Accepter</button>
+                                    <button className="manager__button" id={"reject"+memberRequest.user} onClick={rejectRequest}><TiDeleteOutline/> Rejeter</button>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+            
+                    {group.securityStatus ==='private' && (
+                        <div className="manager__sidebar-body">
+                            <h3>Inviter un membre</h3>
+                            <Select
+                                options={displayedCollaborators}
+                                isMulti={false}
+                                onChange={onInviteMemberChange}
+                            />
+                            <button className="manager__button" onClick={inviteMember}>Inviter</button>
+                        </div>
+                    )}
+                <div className="manager__sidebar-body">
+                    <button className="manager__button" onClick={()=>setDisplayEditGroup(!displayEditGroup)}><AiOutlineEdit/> Modifier</button>
+                    {displayEditGroup && (<EditGroupForm/>)}
+                </div>
                 
-                {group.securityStatus ==='private' && (
-                    <div>
-                        <h3>Inviter un membre</h3>
-                        <Select
-                            options={displayedCollaborators}
-                            isMulti={false}
-                            onChange={onInviteMemberChange}
-                        />
-                        <button onClick={inviteMember}>Inviter</button>
+                
+                
+                
+                {members.length>0 && (
+                    <div className="manager__sidebar-body">
+                        <h3>Gérer les membres : </h3>
+                        {members.map((member)=>(
+                            <div key={member.user}>
+                                <Link to={'/profile/'+member.user} className="offer-element__comment-subheader">
+                                    <img className="header__picture offer-element__comment-picture" src={process.env.DEV_URL+"/users/"+member.user+"/avatar"}/>
+                                    <p>{member.firstName} {member.lastName}</p>
+                                </Link>
+                                <button className="manager__button manager__button-margin" id={"promote"+member.user} onClick={promoteAdmin}><GiUpgrade/> Promouvoir</button>
+                                <button className="manager__button" id={"remove"+member.user} onClick={removeMember}><TiDeleteOutline/> Supprimer</button>
+                                
+                            </div>
+                        ))}
                     </div>
                 )}
                 
-                <h3>Gérer les membres : </h3>
-                <ul>
-                    {members.map((member)=>(
-                        <div key={member.user}>
-                            <li>
-                                <Link to={'/profile/'+member.user}>
-                                    <p>{member.firstName} {member.lastName}</p>
-                                </Link>
-                                <button id={"remove"+member.user} onClick={removeMember}>X</button>
-                                <button id={"promote"+member.user} onClick={promoteAdmin}>Promouvoir  administrateur</button>
-                                
-                            </li>
-                        </div>))}
-                    </ul>
+                
+                    
                     {error && (<p>{error}</p>)}
             </div>
             
