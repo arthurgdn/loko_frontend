@@ -27,6 +27,7 @@ import LoadConversation from '../components/conversations/LoadConversation'
 import KeywordFeed from '../components/feed/KeywordFeed'
 import GroupsPage from '../components/groups/GroupsPage'
 import CreateGroupPage from '../components/groups/CreateGroupPage'
+import EditGroupPage from '../components/groups/EditGroupPage.js'
 import SearchPage from '../components/search/SearchPage'
 export const history = createBrowserHistory()
 const AppRouter = ()=>(
@@ -48,6 +49,7 @@ const AppRouter = ()=>(
                 <PrivateRoute exact={true} path='/offer/edit/:id' component={EditOfferPage}/>
                 <PrivateRoute exact={true} path='/offer/:id' component={DisplayOfferPage}/>
                 <PrivateRoute exact={true} path='/group/:id' component={GroupPage}/>
+                <PrivateRoute exact={true} path='/group/edit/:id' component={EditGroupPage}/>
                 <PrivateRoute exact={true} path='/groups' component={GroupsPage}/>
                 <PrivateRoute exact={true} path='/nouveau_groupe' component={CreateGroupPage}/>
                 <PrivateRoute exact={true} path='/keyword/:id' component={KeywordFeed}/>

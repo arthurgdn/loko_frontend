@@ -6,7 +6,7 @@ import CreatableSelect from 'react-select/creatable'
 import ImageUploader from 'react-images-upload'
 import { startEditGroup } from '../../actions/groups'
 
-const EditGroupForm = ({startEditGroup,group,allKeywords,setGroupError})=>{
+const EditGroupPage = ({startEditGroup,group,allKeywords,setGroupError})=>{
     const [name,setName] = useState(group.name)
     const [description,setDescription] = useState(group.description)
     const [securityStatus,setSecurityStatus] = useState(group.securityStatus)
@@ -111,81 +111,99 @@ const EditGroupForm = ({startEditGroup,group,allKeywords,setGroupError})=>{
     
 
     return (
-        
-        <form onSubmit={onSubmit}>
-        {error &&(<p>{error}</p>)}
-            <input
-                type="text"
-                value={name}
-                required
-                onChange={(e)=>setName(e.target.value)}
-                placeholder="Nom du groupe"
-            />
-            <textarea
-                value={description}
-                required
-                onChange={(e)=>setDescription(e.target.value)}
-                placeholder="Description de ce groupe"
-            ></textarea>
-            <p>Localisation du groupe : </p>
-            <p>Ma position</p>
-            <p>Utiliser ma position</p>
-                <div className="toggle-switch-location">
-                    <input type="checkbox" checked={useBrowserLocation} 
-                    onChange={onUseBrowserLocationChange}
-                    className="toggle-switch-checkbox-location" name="useBrowserLocation"  id="useBrowserLocation" />
-                    <label className="toggle-switch-label-location" htmlFor="useBrowserLocation">
-                    <span className="toggle-switch-inner-location"></span>
-                    <span className="toggle-switch-switch-location"></span>
-                    </label>
-                </div>
-                {!useBrowserLocation&& (
-                    <input type="text"
-                    disabled={useBrowserLocation}
-                    value = {locationInput}
-                    placeholder="Localisation du groupe"
-                    className="text-input"
-                    onChange={onLocationInputChange}/>
+        <div>
+            <div className="banner__title">
+                <h3>Modifier les informations d'un groupe</h3>
+            </div>
+            <div className="content-container">
+                <form onSubmit={onSubmit} className="group__page-container">
+                    <input
+                        type="text"
+                        value={name}
+                        className="offer-form__input"
+                        required
+                        onChange={(e)=>setName(e.target.value)}
+                        placeholder="Nom du groupe"
+                    />
+                    <textarea
+                        value={description}
+                        required
+                        onChange={(e)=>setDescription(e.target.value)}
+                        className="offer-form__textarea"
+                        placeholder="Description de ce groupe"
+                    ></textarea>
 
-                )} 
+                    <div className="settings__horizontal-lignup">
+                        <p>Utiliser votre position actuelle : </p>
+                        <div className="toggle-switch-location">
+                            <input type="checkbox" checked={useBrowserLocation} 
+                                onChange={onUseBrowserLocationChange}
+                                className="toggle-switch-checkbox-location" name="useBrowserLocation"  id="useBrowserLocation" />
+                            <label className="toggle-switch-label-location" htmlFor="useBrowserLocation">
+                                <span className="toggle-switch-inner-location"></span>
+                                <span className="toggle-switch-switch-location"></span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    {!useBrowserLocation&& (
+                        <input type="text"
+                            disabled={useBrowserLocation}
+                            value = {locationInput}
+                            placeholder="Entrez ici la localisation du groupe"
+                            className="settings__input settings__location-input"
+                            onChange={onLocationInputChange}
+                        />
 
-                {locationText&& <p>{locationText}</p>}
-            <p>Statut du groupe : </p>
-            <Select
+                    )} 
+                    
+                    {locationText&& <p>La position s'affiche : <span className="settings__location-text">{locationText}</span></p>}
+                    
+                    <p>Statut du groupe : </p>
+                    <Select
                         defaultValue={securityStatusIndex.find((index)=>index.value===group.securityStatus)}
                         options = {securityStatusIndex}
                         onChange={(options)=>setSecurityStatus(options.value)}
                     />
-            
-            <p>Mots clés associés</p>
-            <CreatableSelect
-                options = {allKeywords}
-                value={keywords}
-                isMulti
-                onChange = {(options)=>{
-                    if(options===null){
-                        setKeywords([])
-                    }else{
-                        const keywordsFormatted = []
-                        for (const keyword of options){
-                            keywordsFormatted.push({value: keyword.value.toLowerCase(),label : keyword.value.toLowerCase()})
-                        }
-                        setKeywords(keywordsFormatted)
-                    }}}
-            />
-            <p>Ajouter une image</p>
-            <ImageUploader
-                label={'Taille maximale : 5mb'}
-                withIcon={false}
-                buttonText="Choisir une image"
-                onChange={(imageFile)=>setImage(imageFile[0])}
-                imgExtension={[".jpg", ".gif", ".png", ".gif"]}
-                maxFileSize={5242880}
-                withPreview={true}
-                singleImage={true}
-            />
-        <button>Mettre à jour</button>
-        </form>
+                
+                
+                
+                    <p>Mots clés associés</p>
+                    <CreatableSelect
+                        options = {allKeywords}
+                        value={keywords}
+                        isMulti
+                        onChange = {(options)=>{
+                            if(options===null){
+                                setKeywords([])
+                            }else{
+                                const keywordsFormatted = []
+                                for (const keyword of options){
+                                    keywordsFormatted.push({value: keyword.value.toLowerCase(),label : keyword.value.toLowerCase()})
+                                }
+                                setKeywords(keywordsFormatted)
+                            }}}
+                    />
+                    <p>Ajouter une image</p>
+                    <ImageUploader
+                        label={'Taille maximale : 5mb'}
+                        withIcon={false}
+                        buttonText="Choisir une image"
+                        onChange={(imageFile)=>setImage(imageFile[0])}
+                        imgExtension={[".jpg", ".gif", ".png", ".gif"]}
+                        maxFileSize={5242880}
+                        withPreview={true}
+                        singleImage={true}
+                        fileContainerStyle={
+                            {background: '#fafafa',
+                            boxShadow:'none'
+                        }}
+                    />
+                    <button className="offer-form__button">Modifier</button>
+                    {error &&(<p>{error}</p>)}
+                </form>
+            </div>
+        </div>
     )
 }
 const mapStateToProps = (state)=>({
@@ -196,4 +214,4 @@ const mapStateToProps = (state)=>({
 const mapDispatchToProps = (dispatch)=>({
     startEditGroup : (id,updates,image)=>dispatch(startEditGroup(id,updates,image))
 })
-export default connect(mapStateToProps,mapDispatchToProps)(EditGroupForm)
+export default connect(mapStateToProps,mapDispatchToProps)(EditGroupPage)

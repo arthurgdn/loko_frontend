@@ -118,7 +118,7 @@ const GroupPage = ({history,match,stateGroup,startSetGroup,user,startAddOffer,ad
                         )}
                     </div>
                     <div className="manager__sidebar">
-                    {isMember &&(<ManageGroup/>)}
+                    {isMember &&(<ManageGroup history={history}/>)}
                     </div>
                 </div>
             ):(<p>Erreur, pas de groupe correspondant</p>)}

@@ -9,10 +9,8 @@ import {GiUpgrade} from 'react-icons/gi'
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 axios.defaults.headers.patch['Content-Type'] = 'application/json';
 axios.defaults.baseURL = process.env.DEV_URL
-import EditGroupForm from './EditGroupForm'
 import {startSetCollaborators} from '../../actions/user'
-const ManageGroup = ({collaborators,startSetCollaborators,group}) =>{
-    const [displayEditGroup,setDisplayEditGroup] = useState(false)
+const ManageGroup = ({collaborators,startSetCollaborators,group,history}) =>{
     const [membershipRequests,setMembershipRequests] = useState([])
     const [displayedCollaborators,setDisplayedCollaborators] = useState([])
     const [invite,setInvite] = useState([])
@@ -156,8 +154,7 @@ const ManageGroup = ({collaborators,startSetCollaborators,group}) =>{
                         </div>
                     )}
                 <div className="manager__sidebar-body">
-                    <button className="manager__button" onClick={()=>setDisplayEditGroup(!displayEditGroup)}><AiOutlineEdit/> Modifier</button>
-                    {displayEditGroup && (<EditGroupForm/>)}
+                    <button className="manager__button" onClick={()=>history.push('/group/edit/'+group._id)}><AiOutlineEdit/> Modifier</button>
                 </div>
                 
                 
