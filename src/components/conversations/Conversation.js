@@ -6,6 +6,7 @@ import Select from 'react-select'
 import {AiOutlineMessage,AiOutlineEdit} from 'react-icons/ai'
 import {TiDeleteOutline} from 'react-icons/ti'
 import {GiUpgrade} from 'react-icons/gi'
+import {RiAdminLine} from 'react-icons/ri'
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 axios.defaults.headers.post['Accept'] = 'application/json'
 axios.defaults.baseURL = process.env.DEV_URL
@@ -100,7 +101,6 @@ const Conversation =  ({setConversationError,editSpecificConversationError,match
                     <div className="group__sidebar">
                         <div className="manager__sidebar-container">
             
-                            
                             {conversation.description && (
                                 <div className="manager__sidebar-body">
                                     <h3>Description : </h3>
@@ -114,7 +114,8 @@ const Conversation =  ({setConversationError,editSpecificConversationError,match
                                         {conversation.members.map((member)=>
                                             <Link to={'/profile/'+member.member} key={member.member} className="offer-element__comment-subheader">
                                                 <img className="header__picture offer-element__comment-picture" src={process.env.DEV_URL+"/users/"+member.member+"/avatar"}/>
-                                                <p>{member.firstName} {member.lastName}</p>
+                                                <p> {!!conversation.admins.find((admin)=>admin.admin===member.member) && (<RiAdminLine/>)} {member.firstName} {member.lastName}</p>
+                                                
                                             </Link>
                                         )}
                                     </div>
