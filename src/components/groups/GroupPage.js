@@ -86,15 +86,18 @@ const GroupPage = ({history,match,stateGroup,startSetGroup,user,startAddOffer,ad
                         
                     
                     {group.locationText && (<p className="profile__location"><GoLocation/> {group.locationText}</p>)}
-                    
-                    <div className="keyword__list">
-                        {group.keywords.map((keyword)=>(
-                            <Link className="keyword__link" key={keyword._id} to={'/keyword/'+keyword._id}>
-                                <button>
-                                    {keyword.name}
-                                </button>
-                            </Link>))}
+                    <div className="keyword__container">
+                        <div className="keyword__list">
+                            {group.keywords.map((keyword)=>(
+                                <Link className="keyword__link" key={keyword._id} to={'/keyword/'+keyword._id}>
+                                    <button>
+                                        {keyword.name}
+                                    </button>
+                                </Link>))
+                            }
+                        </div>
                     </div>
+                    
                     <p>{group.description}</p>
                     <button  className="group__big-button" onClick={()=>{setDisplayOfferForm(!displayOfferForm)}}><RiAddCircleLine/> Publier dans le groupe</button>
                                 
@@ -117,7 +120,7 @@ const GroupPage = ({history,match,stateGroup,startSetGroup,user,startAddOffer,ad
                             
                         )}
                     </div>
-                    <div className="manager__sidebar">
+                    <div className="group__sidebar">
                     {isMember &&(<ManageGroup history={history}/>)}
                     </div>
                 </div>

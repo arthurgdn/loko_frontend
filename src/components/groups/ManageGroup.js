@@ -41,13 +41,14 @@ const ManageGroup = ({collaborators,startSetCollaborators,group,history}) =>{
         if((collaborators.length>0 && Object.keys(collaborators[0]).length===3)||collaborators.length===0){
             const formattedCollaborators = []
             for (const collaborator of collaborators){
-                if (!members.find((member)=>member.user===collaborator.collaborator)){
+                //On ajoute seulement ceux qui ne sont pas encore membres ou admins du groupe
+                if (!members.find((member)=>member.user===collaborator.collaborator) && !admins.find((admin)=>admin.user===collaborator.collaborator)){
                     formattedCollaborators.push({collaborator : collaborator.collaborator,value:collaborator.collaborator,label:collaborator.firstName + ' '+collaborator.lastName})
                 }
             }
             setDisplayedCollaborators(formattedCollaborators)
         }
-    },[members,setMembers,collaborators,startSetCollaborators])
+    },[admins,setAdmins,members,setMembers,collaborators,startSetCollaborators])
     
     const onInviteMemberChange= (member)=>{
         setInvite(member)

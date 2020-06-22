@@ -2,9 +2,14 @@
     display:flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-around;
     flex-wrap:wrap;
     
+}
+
+.keyword__container{
+    margin:0 auto;
+    padding: 0 auto;
 }
 
 .keyword__link{

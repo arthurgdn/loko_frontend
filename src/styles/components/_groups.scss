@@ -66,7 +66,11 @@
 
     margin: 0 auto $l-size auto;
 }
-
+.group__sidebar{
+    flex-basis:1;
+    width:25%;
+        
+}
 .group__body{
     background:lighten($off-white,1%);
     margin: 0 0 0 6rem;
