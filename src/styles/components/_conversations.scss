@@ -1,0 +1,55 @@
+.conversation__new-form{
+    padding:$m-size;
+}
+
+.conversation__edit-form{
+    display:flex;
+    flex-direction:column;
+    padding: $s-size;
+}
+.conversation__edit-input{
+    margin : $s-size 0;
+    background: white;
+    border : 1px solid #cacccd;
+    border-radius : 10px;
+    height:35px;
+    padding : $s-size;
+    font-size: $font-size-large;
+    font-weight : 300;
+    &:focus {
+        border: 1px solid $dark-green;
+        background: lighten($off-white,2%);
+        
+    }
+}
+.conversation__edit-textarea{
+    resize:none;
+    vertical-align: middle;
+    border : 1px solid #cacccd;
+    height:10rem;
+    margin:$s-size 0 ;
+    padding : $m-size;
+    font-size: $font-size-medium;
+    border-radius:20px;
+    &:focus{
+        border: 1px solid $dark-green;
+    }
+}
+.conversation__edit-button{
+    background: white;
+    border : 1px solid #cacccd;
+    border-radius : 10px;
+    height:35px;
+    padding : auto;
+    font-size: $font-size-large;
+    font-weight : 300;
+    transition : background .3s ease;
+    
+    &:hover {
+        background:$off-white;
+        border: 1px solid $dark-green;
+    }
+    &:active {
+        background:lighten($dark-green,10%);
+    }
+}

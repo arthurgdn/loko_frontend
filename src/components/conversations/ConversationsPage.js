@@ -2,6 +2,7 @@ import React,{useState,useEffect} from 'react'
 import {connect} from 'react-redux'
 import Select from 'react-select'
 import ConversationsList from './ConversationsList'
+import {AiOutlineMessage} from 'react-icons/ai'
 import {startSetCollaborators, startNewCollaboration} from '../../actions/user'
 import { startNewConversation,startSetConversations } from '../../actions/conversations'
 const ConversationsPage = ({setConversationsError,newConversationError,collaborators,startSetCollaborators,startNewConversation,startSetConversations,conversations,history})=>{
@@ -49,20 +50,9 @@ const ConversationsPage = ({setConversationsError,newConversationError,collabora
         }else {
             
         if(members.length===1){
-            //On regarde si la conversation existe déjà et dans ce cas la on redirige vers celle-ci
-            const existingConversation = displayedConversations.find((conversation)=>!!conversation.members.find((member)=>member.member===members[0].value))
-            if(existingConversation){
-                
-                history.push('/conversation/'+existingConversation._id)
-            }else{
-                const formattedMembers = []
-                for (const member of members){
-                    formattedMembers.push({member:member.value})
-                }
-        
-                startNewConversation({members:formattedMembers})
-                
-            }
+            //On redirige vers le chargement des convs individuelles
+            history.push('/load/conversation/'+members[0].value)
+            
         }else{
             const formattedMembers = []
             for (const member of members){
@@ -80,20 +70,27 @@ const ConversationsPage = ({setConversationsError,newConversationError,collabora
             <div className="banner__title">
                 <h3>Conversations</h3>
             </div>
-            <button onClick={()=>setDisplayNewConvForm(!displayNewConvForm)}>+</button>
-            {displayNewConvForm && (
-                <div>
-                    <Select
-                        options={displayedCollaborators}
-                        isMulti
-                        onChange={onSelectedMembersChange}
-                    />
-                    <button onClick={createConversation} active={(members.length>0).toString()}>Démarrer</button>
-                    {frontNewConvError && (<p>{frontNewConvError}</p>)}
+            <div className="content-container">
+                <div className="group__page-container">
+                    <button className="group__big-button" onClick={()=>setDisplayNewConvForm(!displayNewConvForm)}><AiOutlineMessage/>Nouvelle conversation</button>
+                    {displayNewConvForm && (
+                        <div className="conversation__new-form">
+                            <Select
+                                options={displayedCollaborators}
+                                isMulti
+                                onChange={onSelectedMembersChange}
+                            />
+                            <button  className="settings__button" onClick={createConversation} active={(members.length>0).toString()}>Démarrer</button>
+                            {frontNewConvError && (<p>{frontNewConvError}</p>)}
+                        </div>
+                        )}
+                        <ConversationsList displayedConversations={displayedConversations}/>
+                        {frontSetConvError && (<p>{frontSetConvError}</p>)}
                 </div>
-                )}
-            {frontSetConvError && (<p>{frontSetConvError}</p>)}
-            <ConversationsList displayedConversations={displayedConversations}/>
+            </div>
+            
+            
+            
         </div>
     )
 }

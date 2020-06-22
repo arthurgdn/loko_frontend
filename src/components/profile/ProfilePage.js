@@ -70,6 +70,7 @@ const ProfilePage = ({ startSendCollaboration,startSetProfile,startSendRecommend
     }
     const sendMessage = (e)=>{
         history.push('/load/conversation/'+match.params.id)
+        
     }
     const sendRecommendation = (content)=>{
         startSendRecommendation(match.params.id,content)

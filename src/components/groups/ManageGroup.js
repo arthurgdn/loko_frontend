@@ -115,7 +115,6 @@ const ManageGroup = ({collaborators,startSetCollaborators,group,history}) =>{
                 <div className="manager__sidebar-body">
                     <h3>Membre{members.length>1 &&'s'} : </h3>
                     <div className="manager__sidebar-members">
-                        {console.log('membeeers',members)}
                         {members.map((member)=>(
                             <Link to={'/profile/'+member.user} key={member.user} className="offer-element__comment-subheader">
                                 <img className="header__picture offer-element__comment-picture" src={process.env.DEV_URL+"/users/"+member.user+"/avatar"}/>

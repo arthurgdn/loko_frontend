@@ -3,7 +3,9 @@ import {connect} from 'react-redux'
 import axios from 'axios'
 import {Link} from 'react-router-dom'
 import Select from 'react-select'
-import {MdArrowBack} from 'react-icons/md'
+import {AiOutlineMessage,AiOutlineEdit} from 'react-icons/ai'
+import {TiDeleteOutline} from 'react-icons/ti'
+import {GiUpgrade} from 'react-icons/gi'
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 axios.defaults.headers.post['Accept'] = 'application/json'
 axios.defaults.baseURL = process.env.DEV_URL
@@ -11,7 +13,7 @@ import Messages from './Messages'
 import { startSetConversation, startPatchMembers, startAddAdmin } from '../../actions/conversation';
 import {startSetCollaborators } from '../../actions/user'
 import EditConversationInfoForm from './EditConversationInfoForm'
-
+import formatConversationName from '../../utils/formatConversationName'
 
 const Conversation =  ({setConversationError,editSpecificConversationError,match,user_id,stateConversation,startSetConversation,collaborators,startSetCollaborators,startPatchMembers,startAddAdmin,history})=>{
     
@@ -59,7 +61,7 @@ const Conversation =  ({setConversationError,editSpecificConversationError,match
                     formattedCollaborators.push({collaborator : collaborator.collaborator,value:collaborator.collaborator,label:collaborator.firstName + ' '+collaborator.lastName})
             
                 }
-                }
+            }
             setDisplayedCollaborators(formattedCollaborators)
         }
     },[stateConversation,startSetConversation])
@@ -83,55 +85,100 @@ const Conversation =  ({setConversationError,editSpecificConversationError,match
 
     return (
         <div>
-        <button onClick={()=>{history.goBack()}} ><MdArrowBack/></button>    
-        {frontSetConvError &&(<p>{frontSetConvError}</p>)}
-            {Object.keys(conversation).length<=2?(<p>Aucune conversation ne correspond</p>):
+           
+            {frontSetConvError &&(<p>{frontSetConvError}</p>)}
+            {Object.keys(conversation).length<=2?(<p className="group__text-info">Aucune conversation ne correspond</p>):
                 (
-                <div>
-                    {conversation.name?(<h3>{conversation.name}</h3>):
-                        conversation.members.map((member)=>(<div key={member.member}>
-                            {member.member===user_id?(<h3></h3>):(<h3>{member.firstName + ' '+member.lastName + '-'}</h3>)}
-                            </div>)
-                            )
-                        
-                    }
-                    <Messages conv_id={match.params.id}/>
-                    <button onClick={()=>setDisplayInfo(!displayInfo)}>Informations</button>
-                    {displayInfo && (
-                        <div>
-                            {conversation.description && (<p>{conversation.description}</p>)}
-                            {conversation.hasImage && (<img className="header__picture" src={process.env.DEV_URL+"/conversation/"+conversation._id+"/image"}/>)}
-                            <h3>Membres : </h3>
-                            {conversation.members.map((member)=>
-                                <div key={member.member}>
-                                    <Link  to={'/profile/'+member.member}>
-                                        <p>{member.firstName} {member.lastName}</p>
-                                    </Link>
-                                    {(!conversation.admins.find((admin)=>admin.admin===member.member)&&conversation.admins.find((admin)=>admin.admin===user_id) && member.member!==user_id) && (<button id={member.member} onClick={removeMember}>X</button>)}
-                                    {(!conversation.admins.find((admin)=>admin.admin===member.member) && conversation.admins.find((admin)=>admin.admin===user_id))&& (<button id={"admin"+member.member} onClick={addAdmin}>Promouvoir administrateur</button>)}
-                                    
-                                </div>)}
-                                   
-                            {isAdmin && (<button onClick={()=>setDisplayEditConvInfoForm(!displayEditConvInfoForm)}>Modifier</button>)}
-                            {(isAdmin && displayEditConvInfoForm)&&(<EditConversationInfoForm {...conversation} setDisplayEditConvInfoForm={setDisplayEditConvInfoForm}/>)}
+                <div className="manager__container">
+                    <div className="group__content-display">
+                        <div className="profile__header">
+                            {conversation.hasImage ? (<img className="profile__picture" src={process.env.DEV_URL+"/conversation/"+conversation._id+"/image"}/>):(<AiOutlineMessage className="header__picture offer-element__comment-picture"/>)}
+                            <h3>{formatConversationName(conversation,user_id)}</h3>    
+                        </div>
+                        <Messages conv_id={match.params.id}/>
+                    </div>
+                    <div className="group__sidebar">
+                        <div className="manager__sidebar-container">
+            
                             
-                            {displayedCollaborators.length>0 &&(
-                                <div>
-
-                                    <p>Ajouter un membre</p>
+                            {conversation.description && (
+                                <div className="manager__sidebar-body">
+                                    <h3>Description : </h3>
+                                    <p>{conversation.description}</p>
+                                </div>
+                            )}
+                            {conversation.members.length>2 && (
+                                <div className="manager__sidebar-body">
+                                    <h3>Membres : </h3>
+                                    <div className="manager__sidebar-members">
+                                        {conversation.members.map((member)=>
+                                            <Link to={'/profile/'+member.member} key={member.member} className="offer-element__comment-subheader">
+                                                <img className="header__picture offer-element__comment-picture" src={process.env.DEV_URL+"/users/"+member.member+"/avatar"}/>
+                                                <p>{member.firstName} {member.lastName}</p>
+                                            </Link>
+                                        )}
+                                    </div>
+                                </div>
+                            )}
+                            {(isAdmin && displayedCollaborators.length>0 && conversation.members.length>2) && (
+                                <div className="manager__sidebar-body">
+                                    <h3>Inviter un membre</h3>
                                     <Select
                                         options={displayedCollaborators}
                                         isMulti={false}
                                         onChange={onSelectedMembersChange}
                                     />
-                                    <button onClick={addMember}>Ajouter</button>
+                                    <button className="manager__button" onClick={addMember}>Ajouter</button>
                                 </div>
                             )}
-                            {editConvError && (<p>{editConvError}</p>)}
+                            <div>
+
+                            {(isAdmin && conversation.members.length>2 && conversation.admins.length!==conversation.members.length) && (
+                                <div className="manager__sidebar-body">
+                                    <h3>Gérer les membres : </h3>
+                                                {conversation.members.filter((member)=>{
+                                                    return member.member !== user_id && !conversation.admins.find((admin)=>admin.admin===member.member)
+                                                }).map((member)=>(
+                                                    <div key={member.member}>
+                                                        <Link to={'/profile/'+member.member} className="offer-element__comment-subheader">
+                                                            <img className="header__picture offer-element__comment-picture" src={process.env.DEV_URL+"/users/"+member.member+"/avatar"}/>
+                                                            <p>{member.firstName} {member.lastName}</p>
+                                                        </Link>
+                                                        <button className="manager__button manager__button-margin" id={"admin"+member.member} onClick={addAdmin}><GiUpgrade/> Promouvoir</button>
+                                                        <button className="manager__button" id={member.member} onClick={removeMember}><TiDeleteOutline/> Supprimer</button>
+                                                
+                                                    </div>
+                                        ))}
+                                </div>
+                            )}
+
+                            {isAdmin && (
+                                <div className="manager__sidebar-body">
+                                    <button className="manager__button" onClick={()=>setDisplayEditConvInfoForm(!displayEditConvInfoForm)}><AiOutlineEdit/> Modifier</button>
+                                    {(isAdmin && displayEditConvInfoForm)&&(<EditConversationInfoForm {...conversation} setDisplayEditConvInfoForm={setDisplayEditConvInfoForm}/>)}
+                                    {editConvError && (<p>{editConvError}</p>)}
+                                </div>
+                            )}
+                            
+                                
+                                
+                                
+                                
+                            
+                            
                             
                         </div>
-                    )}        
+                        </div>
+
+                            
+                    </div>
                 </div>
+                              
+                            
+                    
+                    
+                           
+                
                 )
             }
             

@@ -43,22 +43,22 @@ const PersonnalSettings = ({user,startDeleteAccount,startChangePassword})=>{
             <h4 className="settings__section-title">Modifier votre mot de passe : </h4>
                 <form onSubmit={changePassword} className="settings__password-form">
                     <input type="password"
-                    value={oldPassword}
-                    placeholder="Ancien mot de passe"
-                    className="settings__input settings__password-input"
-                    onChange={(e)=>setOldPassword(e.target.value)}
+                        value={oldPassword}
+                        placeholder="Ancien mot de passe"
+                        className="settings__input settings__password-input"
+                        onChange={(e)=>setOldPassword(e.target.value)}
                     />
                     <input type="password"
-                    value={newPassword}
-                    className="settings__input settings__password-input"
-                    placeholder="Nouveau mot de passe"
-                    onChange={(e)=>setNewPassword(e.target.value)}
+                        value={newPassword}
+                        className="settings__input settings__password-input"
+                        placeholder="Nouveau mot de passe"
+                        onChange={(e)=>setNewPassword(e.target.value)}
                     />
                     <input type="password"
-                    value={newPasswordCheck}
-                    className="settings__input settings__password-input"
-                    placeholder="Vérifier nouveau mot de passe"
-                    onChange={(e)=>setNewPasswordCheck(e.target.value)}
+                        value={newPasswordCheck}
+                        className="settings__input settings__password-input"
+                        placeholder="Vérifier nouveau mot de passe"
+                        onChange={(e)=>setNewPasswordCheck(e.target.value)}
                     />
                     <button className="settings__button">Modifier</button>
                 </form>

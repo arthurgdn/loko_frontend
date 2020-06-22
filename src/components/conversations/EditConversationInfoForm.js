@@ -16,20 +16,21 @@ const EditConversationInfoForm = ({_id,name,description,startEditConversation,se
         setDisplayEditConvInfoForm(false)
     }
     return (
-        <form onSubmit={onSubmit}>
+        <form onSubmit={onSubmit} className="conversation__edit-form">
             <input 
                 type="text"
                 onChange={(e)=>setNameInput(e.target.value)}
                 value={nameInput}
                 placeholder = "Nom de la conversation"
+                className="conversation__edit-input"
             />
             <textarea 
                 type="text"
                 onChange={(e)=>setDescriptionInput(e.target.value)}
                 value={descriptionInput}
-                placeholder="Description"
+                placeholder="Description de la conversation"
+                className="conversation__edit-textarea"
             ></textarea>
-            <p>Image de la conversation</p>
                     <ImageUploader
                     label={'Taille maximale : 5mb'}
                     withIcon={false}
@@ -39,8 +40,12 @@ const EditConversationInfoForm = ({_id,name,description,startEditConversation,se
                     maxFileSize={5242880}
                     withPreview={true}
                     singleImage={true}
+                    fileContainerStyle={
+                        {background: '#fafafa',
+                        boxShadow:'none'
+                    }}
                     />
-            <button>Enregistrer</button>
+            <button className="conversation__edit-button">Enregistrer</button>
             {frontEditConvError && (<p>{frontEditConvError}</p>)}
         </form>
     )
