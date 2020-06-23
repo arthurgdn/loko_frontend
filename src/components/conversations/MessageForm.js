@@ -16,6 +16,7 @@ const MessageForm = ({conv_id,socket,startSendMessage,addMessageError})=>{
     const disabled = message.length===0
     return (
         <form onSubmit={onSubmit}>
+            
             <input type="text" placeholder="Message" value={message} onChange={(e)=>setMessage(e.target.value)} autoFocus required autoComplete="off"/>
             <input type="submit" value="Envoyer" disabled={disabled}/>
             {error && (<p>{error}</p>)}

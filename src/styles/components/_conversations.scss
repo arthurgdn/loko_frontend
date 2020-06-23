@@ -53,3 +53,30 @@
         background:lighten($dark-green,10%);
     }
 }
+.conversation__message{
+    display: flex;
+    flex-direction: column;
+    p{
+        overflow-wrap: break-word;
+    }
+}
+.conversation__messages-container{
+    margin-left:$l-size;
+    
+    
+}
+
+.conversation__messages-list{
+    height:50vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.conversation__content-display{
+    flex-basis:2;
+    width:70%;
+    padding: $l-size 0;
+
+    margin: 0 auto $l-size auto;
+    
+}

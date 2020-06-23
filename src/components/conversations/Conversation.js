@@ -91,7 +91,7 @@ const Conversation =  ({setConversationError,editSpecificConversationError,match
             {Object.keys(conversation).length<=2?(<p className="group__text-info">Aucune conversation ne correspond</p>):
                 (
                 <div className="manager__container">
-                    <div className="group__content-display">
+                    <div className="conversation__content-display">
                         <div className="profile__header">
                             {conversation.hasImage ? (<img className="profile__picture" src={process.env.DEV_URL+"/conversation/"+conversation._id+"/image"}/>):(<AiOutlineMessage className="header__picture offer-element__comment-picture"/>)}
                             <h3>{formatConversationName(conversation,user_id)}</h3>    
