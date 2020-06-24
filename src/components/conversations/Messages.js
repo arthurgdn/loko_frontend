@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom'
 import {startSetMessages} from '../../actions/messages'
 import MessageElement from './MessageElement'
 import MessageForm from './MessageForm'
-const Messages = ({messages,startSetMessages,conv_id,token,setMessagesError})=>{
+const Messages = ({messages,startSetMessages,conv_id,token,setMessagesError,user_id})=>{
     const [displayedMessages,setDisplayedMessages] = useState([])
     const [error,setError] = useState('')
     const messageContainer = React.createRef()
@@ -51,7 +51,7 @@ const Messages = ({messages,startSetMessages,conv_id,token,setMessagesError})=>{
         
         {!displayedMessages.length>0? (<p>Envoyez le premier message !</p>) : (
             <div ref={messageContainer} className="conversation__messages-list">
-                {displayedMessages.map((message)=>(<MessageElement key={message._id} {...message}/>))}
+                {displayedMessages.map((message)=>(<MessageElement key={message._id} {...message} user_id={user_id}/>))}
             </div>)
             
         }

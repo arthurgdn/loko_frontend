@@ -54,12 +54,38 @@
     }
 }
 .conversation__message{
-    display: flex;
-    flex-direction: column;
+    border-radius:25px;
+    margin:$m-size $s-size;
+    padding: 0 0 $s-size 0 ;
+    width:auto;
+    background:lighten($off-white,2%);
+    box-shadow: 6px 6px 6px darken($off-white,2%);
+    
     p{
         overflow-wrap: break-word;
+        
     }
 }
+
+
+.conversation__parent-message-user{
+    width:100%;
+    
+    display:flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    
+} 
+
+.conversation__parent-message-other{
+    width:100%;
+    
+    display:flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    
+}
+
 .conversation__messages-container{
     margin-left:$l-size;
     
@@ -67,16 +93,58 @@
 }
 
 .conversation__messages-list{
-    height:50vh;
+    height:45vh;
     overflow-y: auto;
     position: relative;
+    display:flex;
+    flex-direction: column;
+    
+    
 }
 
 .conversation__content-display{
     flex-basis:2;
     width:70%;
     padding: $l-size 0;
-
     margin: 0 auto $l-size auto;
     
+}
+
+
+.conversation__message-header{
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    
+
+    span{
+        font-weight:200;
+        font-size: $font-size-xsmall;
+        color:$grey;
+        margin: 0 $m-size;
+    }
+    
+}
+
+.conversation__message-subheader{
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    text-decoration: none;
+    
+    img{
+        margin-top:0;
+    }
+    p{
+        
+        margin: 0 $m-size;
+        font-weight: 400;
+        font-size:$font-size-medium;
+        color:black;
+    }
+}
+
+.conversation__message-content{
+    margin: 0 $l-size;
 }

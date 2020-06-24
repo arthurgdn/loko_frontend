@@ -10,15 +10,15 @@ const MessageForm = ({conv_id,socket,startSendMessage,addMessageError})=>{
     const onSubmit = (e)=>{
         e.preventDefault()
         
-        startSendMessage(socket,conv_id,message)
+        startSendMessage(socket,conv_id,message.replace(/\n\r?/g, '<br />'))
         setMessage('')
     }
     const disabled = message.length===0
     return (
-        <form onSubmit={onSubmit}>
+        <form onSubmit={onSubmit} className="offer-element__comment-form">
             
-            <input type="text" placeholder="Message" value={message} onChange={(e)=>setMessage(e.target.value)} autoFocus required autoComplete="off"/>
-            <input type="submit" value="Envoyer" disabled={disabled}/>
+            <textarea className="offer-element__comment-text" type="text" placeholder="Message" value={message} onChange={(e)=>setMessage(e.target.value)} autoFocus autoComplete="off"></textarea>
+            <input className="offer-element__comment-button" type="submit" value="Envoyer" disabled={disabled}/>
             {error && (<p>{error}</p>)}
         </form>
     )

@@ -96,7 +96,7 @@ const Conversation =  ({setConversationError,editSpecificConversationError,match
                             {conversation.hasImage ? (<img className="profile__picture" src={process.env.DEV_URL+"/conversation/"+conversation._id+"/image"}/>):(<AiOutlineMessage className="header__picture offer-element__comment-picture"/>)}
                             <h3>{formatConversationName(conversation,user_id)}</h3>    
                         </div>
-                        <Messages conv_id={match.params.id}/>
+                        <Messages conv_id={match.params.id} user_id={user_id}/>
                     </div>
                     <div className="group__sidebar">
                         <div className="manager__sidebar-container">
