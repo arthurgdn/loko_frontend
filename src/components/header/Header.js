@@ -20,7 +20,7 @@ const Header = ({user }) => {
             <Link className="header__user" to='/me'>
                 <img className="header__picture" src={process.env.DEV_URL+"/users/"+user._id+"/avatar"}/>
         
-                <h3>{user.firstName}  {user.lastName}</h3>
+                <h3 className="show-for-desktop">{user.firstName}  {user.lastName}</h3>
             </Link>
             
         </div>

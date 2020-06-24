@@ -16,8 +16,8 @@ const FeedFiltering = ({filters,setDistanceRadius,sortByDate,sortByPoints,setTex
     return (
         <div className="feed__filter-container">
             <div className="feed__search">
-                {displayIcon && (<i className="feed__icon"><AiOutlineSearch/></i>)} 
-                <input
+                {displayIcon && (<i className="feed__icon show-for-desktop"><AiOutlineSearch className="show-for-desktop"/></i>)} 
+                <input 
                     type="text"
                     onFocus={()=>setDisplayIcon(false)}
                     onBlur={()=>setDisplayIcon(true)}

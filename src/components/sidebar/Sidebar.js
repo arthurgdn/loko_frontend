@@ -15,7 +15,7 @@ const Sidebar = ({user,startLogout }) => {
           <div className="sidebar__link-container">
             <Link style={{textDecoration:'none'}}  to='/rechercher'>
               <div className="sidebar__link">
-                <FiSearch/><p>Rechercher</p>
+                <FiSearch/><p className="show-for-desktop">Rechercher</p>
               </div>
               
             </Link>
@@ -23,7 +23,7 @@ const Sidebar = ({user,startLogout }) => {
           <div className="sidebar__link-container">
             <Link style={{textDecoration:'none'}} to='/nouvelle_annonce'>
               <div className="sidebar__link">
-                <MdCreate/><p>Créer une annonce</p>
+                <MdCreate/><p className="show-for-desktop">Créer une annonce</p>
               </div>
               
             </Link>
@@ -31,21 +31,21 @@ const Sidebar = ({user,startLogout }) => {
           <div className="sidebar__link-container">
             <Link style={{textDecoration:'none'}}  to='/offers/gestion'>
               <div className="sidebar__link">
-                <FiFileText/><p>Vos annonces</p>
+                <FiFileText/><p className="show-for-desktop">Vos annonces</p>
               </div>
             </Link>
           </div>
           <div className="sidebar__link-container">
             <Link style={{textDecoration:'none'}}  to='/me/collaborations'>
               <div className="sidebar__link">
-                <FaUserFriends/><p>Personnes suivies</p>
+                <FaUserFriends/><p className="show-for-desktop">Personnes suivies</p>
               </div>
             </Link>
           </div>
           <div className="sidebar__link-container">
             <Link style={{textDecoration:'none'}}  to='/conversations'>
               <div className="sidebar__link">
-                <FiMessageCircle/><p>Conversations</p>
+                <FiMessageCircle/><p className="show-for-desktop">Conversations</p>
               </div>
             
             </Link>
@@ -54,7 +54,7 @@ const Sidebar = ({user,startLogout }) => {
             <Link style={{textDecoration:'none'}}  to='/groups'>
               
               <div className="sidebar__link">
-                <FaUsers /><p>Groupes</p>
+                <FaUsers /><p className="show-for-desktop">Groupes</p>
               </div>
             
             </Link>
@@ -64,7 +64,7 @@ const Sidebar = ({user,startLogout }) => {
             <Link style={{textDecoration:'none'}}  to='/settings'>
               
               <div className="sidebar__link">
-                <FiSettings /><p>Paramètres</p>
+                <FiSettings /><p className="show-for-desktop">Paramètres</p>
               </div>
             
             </Link>
@@ -74,7 +74,7 @@ const Sidebar = ({user,startLogout }) => {
             
               
               <div className="sidebar__link sidebar__logout" onClick={startLogout}  >
-                <FiLogOut  /><p >Se déconnecter</p>
+                <FiLogOut  /><p className="show-for-desktop">Se déconnecter</p>
               </div>
             
             

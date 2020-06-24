@@ -37,8 +37,13 @@ button:disabled {
 .main-area{
     
     display: flex;
+    flex-direction: column;
     height: 90vh;
     background : white;
+    @media (min-width : $desktop-breakpoint){
+        flex-direction: row;
+        
+    }
     
     
 }
@@ -49,6 +54,7 @@ button:disabled {
     margin-bottom:7vh;
     overflow-y:auto;
     background : white;
+    
     
 }
 

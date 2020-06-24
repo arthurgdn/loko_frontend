@@ -33,7 +33,10 @@
     padding : $s-size $l-size;
     font-size: $font-size-medium;
     font-weight : 300;
-    width:30%;
+    width:90%;
+    @media (min-width : $desktop-breakpoint){
+        width:30%;
+    }
     @include transition(width .3s ease 0s, padding .3s ease);
     
     &:focus {
@@ -58,6 +61,6 @@
 
 
 .feed__search i{
-    position: absolute;
+    position: relative;
 }
 
