@@ -30,7 +30,7 @@ const CollaboratorsList = ({collaborators,startSetCollaborators,setCollaborators
                 <div>
                     <h3>Vous suivez {loadedCollaborators.length} personne{loadedCollaborators.length>1&&'s'}</h3>
                     <div className="feed__search">
-                        {displayIcon && (<i className="feed__icon"><AiOutlineSearch/></i>)} 
+                        {displayIcon && (<i className="feed__icon show-for-desktop"><AiOutlineSearch className="show-for-desktop"/></i>)} 
                         <input
                             type="text"
                             onFocus={()=>setDisplayIcon(false)}

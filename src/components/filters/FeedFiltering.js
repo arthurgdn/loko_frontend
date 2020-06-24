@@ -33,7 +33,7 @@ const FeedFiltering = ({filters,setDistanceRadius,sortByDate,sortByPoints,setTex
             <div className="feed__slider">
                 <p>Afficher les annonces dans un rayon de (km): </p>
                 <TippedSlider
-                    style={{width:400}}
+                    style={{width:"90%"}}
                     min={0}
                     className="feed__tippedslider"
                     max={4000}
