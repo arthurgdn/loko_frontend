@@ -2,14 +2,17 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 export default ({users})=>{
     return (
-        <div>
+        <div className="content-container">
             {users.length>0 ?(
                 users.map((user)=>(
+                    <div key={user._id} className="collaborator__list">
+                            <Link to={'/profile/'+user._id} className="offer-element__comment-subheader">
+                                <img className="header__picture offer-element__comment-picture" src={process.env.DEV_URL+"/users/"+user._id+"/avatar"}/>
+                                <p>{user.firstName} {user.lastName}</p>
+                            </Link>
+                            
+                        </div>
                     
-                    <Link to={'/profile/'+user._id} key={user._id}>
-                        <img className="header__picture" src={process.env.DEV_URL+"/users/"+user._id+"/avatar"}/>
-                        <h3>{user.firstName} {user.lastName}</h3>
-                    </Link>
                     
                 ))
             ):(<p className="search__infotext" >Aucun utilisateur ne correspond à votre recherche</p>)}
