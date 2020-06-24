@@ -13,7 +13,6 @@ export default ({users})=>{
                             
                         </div>
                     
-                    
                 ))
             ):(<p className="search__infotext" >Aucun utilisateur ne correspond à votre recherche</p>)}
         </div>

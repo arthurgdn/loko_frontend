@@ -4,7 +4,7 @@ import {startSetKeywordFeed} from '../../actions/keywordOffers'
 import OfferElement from "../offer/OfferElement"
 import FeedGroupElement from './FeedGroupElement'
 
-const KeywordFeed = ({keywordOffers,startSetKeywordFeed,match,setKeyWordOffersError})=>{
+const KeywordFeed = ({keywordName,keywordOffers,startSetKeywordFeed,match,setKeyWordOffersError})=>{
     const [showingItems,setItems]= useState([])
     const [error,setError] = useState('')
     useEffect(()=>{
@@ -19,7 +19,14 @@ const KeywordFeed = ({keywordOffers,startSetKeywordFeed,match,setKeyWordOffersEr
         setItems(keywordOffers)
     },[startSetKeywordFeed,keywordOffers])
     return (
+        <div>
+        <div>
+            <div className="banner__title">
+                <h3>{keywordName}</h3>
+            </div>
+        </div>
         <div className="content-container">
+        
             {error && (<p>{error}</p>)}
             {showingItems.length===0?(
                 <p>Pas d'offres ou de groupes associées à ce mot clé</p>):(
@@ -33,11 +40,13 @@ const KeywordFeed = ({keywordOffers,startSetKeywordFeed,match,setKeyWordOffersEr
                     })
                 )}
         </div>
+        </div>
 
     )
 }
     
 const mapStateToProps = (state)=>({
+    keywordName : state.keywordOffers.keywordName,
     keywordOffers : state.keywordOffers.keywordOffers,
     setKeyWordOffersError : state.keywordOffers.setKeyWordOffersError
 })

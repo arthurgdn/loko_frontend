@@ -1,25 +1,32 @@
 import React,{useState,useEffect} from 'react'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
-import moment from 'moment'
+import {GoLocation} from 'react-icons/go'
 
 const FeedGroupElement =  ({name,description,locationText,hasImage,_id,keywords})=>
     
     
     (
-        <div>
-            
-            
-            <Link to={'/group/'+_id}><h3>{name}</h3></Link>
-            <p>{description}</p>
-            <p>Groupe se situant à {locationText} </p>
-            
-            {hasImage&& (<img  src={process.env.DEV_URL+"/group/"+_id+"/image"}/>)}
-            
-            <ul>{keywords.map((keyword)=>(<li key={keyword.name}><Link to={'/keyword/'+keyword._id}>{keyword.name}</Link></li>))}</ul>
-            
-            
-
+        <div className="group__content-display group__feed-display">
+            <div className="profile__header">
+                <img className="profile__picture" src={process.env.DEV_URL+"/group/"+_id+"/image"}/>
+                <h3>{name}</h3>
+            </div>
+            <div className="group__body">  
+                {locationText && (<p className="profile__location"><GoLocation/> {locationText}</p>)}
+                <div className="keyword__container">
+                    <div className="keyword__list">
+                        {keywords.map((keyword)=>(
+                            <Link className="keyword__link" key={keyword._id} to={'/keyword/'+keyword._id}>
+                                <button>
+                                    {keyword.name}
+                                </button>
+                            </Link>))
+                        }
+                    </div>
+                </div>
+                <p>{description}</p>                            
+            </div>
         </div>
         )
         

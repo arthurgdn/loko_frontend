@@ -1,9 +1,9 @@
-const keywordOffersReducerDefaultState = {setKeywordFeedError:'',keywordOffers:[]}
+const keywordOffersReducerDefaultState = {setKeywordFeedError:'',keywordOffers:[],keywordName:''}
 const keywordOffersReducer = (state=keywordOffersReducerDefaultState,action)=>{
     
     switch(action.type){
         case 'SET_KEYWORD_FEED':
-            return {setKeywordFeedError:'',keywordOffers:action.feed}
+            return {setKeywordFeedError:'',keywordName:action.name,keywordOffers:action.feed}
         case 'SET_KEYWORD_FEED_ERROR':
             return {...state,setKeywordFeedError:'Erreur lors du chargement des annonces'}
         default: 

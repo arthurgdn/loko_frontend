@@ -27,7 +27,6 @@ export default ({match,history})=>{
     return (
         <div>
             {error &&(<p>{error}</p>)}
-            <button onClick={()=>{history.goBack()}}><MdArrowBack/></button>
             <div className="content-container">
                 {Object.keys(offer).length===0?(<p>Aucune annonce ne correspond</p>):(<OfferElement displayCollaborationDemandForm={true} displayComments={true} displayAllComments={true} key={offer._id} {...offer}/>)}
             </div>

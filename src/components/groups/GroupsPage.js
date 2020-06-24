@@ -6,7 +6,7 @@ import SuggestedGroupsList from './SuggestedGroupsList'
 export default ({history})=> (
         <div>
             <div className="banner__title">
-                <h3>Groupes</h3>
+                <h3>Vos Groupes</h3>
             </div>
             
             <div className="content-container">
