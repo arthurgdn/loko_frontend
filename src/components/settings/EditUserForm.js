@@ -81,13 +81,13 @@ const EditUserForm = ({user,startEditUserInfo,editUserInfoError})=>{
             <form onSubmit={onSubmit} className="settings__form">
             {error && (<p>{error}</p>)}
                 <div className="settings__horizontal-wrapper">
-                    <p>Prénom : </p><input
+                    <p className="show-for-desktop">Prénom : </p><input
                         type="text"
                         value={firstName}
                         className="settings__input"
                         placeholder="Prénom"
                         onChange={(e)=>setFirstName(e.target.value)}
-                    /><p>Nom : </p>
+                    /><p className="show-for-desktop">Nom : </p>
                     <input
                         type="text"
                         className="settings__input"
@@ -115,7 +115,7 @@ const EditUserForm = ({user,startEditUserInfo,editUserInfoError})=>{
                         disabled={useBrowserLocation}
                         value = {locationInput}
                         placeholder="Entrez ici votre localisation"
-                        className="settings__input settings__location-input"
+                        className="settings__input"
                         onChange={onLocationInputChange}/>
 
                     )} 

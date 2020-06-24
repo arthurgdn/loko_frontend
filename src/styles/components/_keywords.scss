@@ -1,9 +1,16 @@
 .keyword__list{
     display:flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
-    flex-wrap:wrap;
+    flex-direction: column;
+    justify-content: flex-start;
+    @media (min-width : $desktop-breakpoint){
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        flex-wrap:wrap;
+    }
+    
+    
+    
     
 }
 

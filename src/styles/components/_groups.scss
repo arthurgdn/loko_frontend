@@ -11,7 +11,7 @@
 
 .group__big-button{
     
-    width:30rem;
+    width:auto;
     display:block;
     margin: $m-size auto;
     background: white;
@@ -60,8 +60,11 @@
 }
 
 .group__content-display{
-    flex-basis:2;
-    width:70%;
+    @media (min-width : $desktop-breakpoint){
+        flex-basis:2;
+        width:70%;
+    }
+    
     padding: $l-size 0;
 
     margin: 0 auto $l-size auto;
@@ -70,8 +73,11 @@
     width:100%;
 }
 .group__sidebar{
-    flex-basis:1;
-    width:25%;
+    @media (min-width : $desktop-breakpoint){
+        flex-basis:1;
+        width:25%;
+    }
+    
     margin-top: $xl-size;
         
 }

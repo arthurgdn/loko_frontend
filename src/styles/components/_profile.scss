@@ -15,7 +15,16 @@
     top:0;
     left:0;
 }
-
+.profile__subheader{
+    display:flex;
+    flex-direction: column;
+    text-align: center;
+    @media (min-width : $desktop-breakpoint){
+        flex-direction: row;
+        align-items: center;
+        
+    }
+}
 .profile__header{
     display:flex;
     height:12rem;
@@ -31,14 +40,27 @@
     text-align:center;
     h3{
         margin: 0 $l-size;
-        font-size:$font-size-xxlarge;
+        font-size:$font-size-large;
+        @media (min-width : $desktop-breakpoint){
+            font-size:$font-size-xxlarge;
+        }
     }
+    
  
 }
-
+.profile__no-space{
+    margin:$s-size 0;
+    
+}
+.profile__button-align{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding:0 $l-size;
+}
 .profile__button{
     
-    margin: $m-size $s-size;
+    margin: $s-size $s-size;
     margin-left: auto;
     background: white;
     box-shadow: 2px 2px 2px  darken($dark-green,20%);
@@ -57,6 +79,9 @@
     }
     &:active {
         background:lighten($dark-green,10%);
+    }
+    @media (max-width : $desktop-breakpoint){
+        margin:0 auto $xs-size auto;
     }
 }
 
@@ -82,12 +107,14 @@
 
 .profile__horizontal-list{
     display:flex;
-    flex-direction: row;
+    flex-direction: column;
+    @media (min-width : $desktop-breakpoint){
+        flex-direction: row;
+    }
     
 }
 
 .profile__list-item{
-    border-right: 1px solid black;
     margin: 0 $s-size 0 0;
     padding:0 $s-size 0 0;
 }
@@ -95,4 +122,19 @@
     border-right:none;
     margin: 0 $s-size 0 0;
     padding:0 $s-size 0 0;
+}
+
+.profile__recommendation-text{
+    resize:none;
+    vertical-align: middle;
+    border : 1px solid #cacccd;
+    width:100%;
+    @media (min-width : $desktop-breakpoint){
+        height:7rem;
+    }
+    height:10rem;
+    margin:$s-size;
+    padding : $m-size;
+    font-size: $font-size-small;
+    border-radius:20px;
 }

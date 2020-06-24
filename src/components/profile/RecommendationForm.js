@@ -19,7 +19,7 @@ export default ({sendRecommendation})=>{
         
             
             <form onSubmit={onSubmit} className="offer-element__comment-form">
-                <textarea className="offer-element__comment-text" value={content} onChange={(e)=>setContent(e.target.value)} placeholder="Veuillez raconter comment s'est passé votre travail avec cette personne">
+                <textarea className="profile__recommendation-text" value={content} onChange={(e)=>setContent(e.target.value)} placeholder="Veuillez raconter comment s'est passé votre travail avec cette personne">
                 </textarea>
                 <button className="offer-element__comment-button" disabled={disabled}>Publier</button>
                 {error && (<p>{error}</p>)}

@@ -81,25 +81,30 @@ const ProfilePage = ({ startSendCollaboration,startSetProfile,startSendRecommend
             <div className="profile__container">
                 <div className="profile__header">
                     <img className="profile__picture" src={process.env.DEV_URL+"/users/"+match.params.id+"/avatar"}/>
-                    <h3>{profile.firstName} {profile.lastName} {isCollaborator && (<FiUserCheck/>)}</h3>
+                    <div className="profile__subheader">
+                        <h3>{profile.firstName} {profile.lastName} {isCollaborator && (<FiUserCheck/>)}</h3>
 
-                    {match.params.id!==user_id ?(<div>
+                        {match.params.id!==user_id ?(<div>
+                            
+                            {(!isCollaborator && !isInCollaborationDemands) && <button className="profile__button" onClick={(e)=>{
+                            
+                            startSendCollaboration({_id : match.params.id})
+                            
+                        }}><AiOutlineUserAdd />Suivre </button>}
+                        {frontSendCollabError && (<p>{frontSendCollabError}</p>)}
                         
-                        {(!isCollaborator && !isInCollaborationDemands) && <button className="profile__button" onClick={(e)=>{
                         
-                        startSendCollaboration({_id : match.params.id})
-                        
-                    }}><AiOutlineUserAdd />Suivre </button>}
-                    {frontSendCollabError && (<p>{frontSendCollabError}</p>)}
-    
-                    {isInCollaborationDemands && (
-                        <button className="profile__button" id={"accept"+match.params.id} onClick={accept}><AiOutlineCheckCircle/> Accepter</button>
-                    )}
-                    {isInCollaborationDemands && (
-                        <button className="profile__button" id={"reject"+match.params.id} onClick={reject}><TiDeleteOutline/>Rejeter</button>
-                    )}
-                    {frontNewCollabError && (<p>{frontNewCollabError}</p>)}
-                    <button onClick={sendMessage} className="profile__button"><AiOutlineMessage/> Message</button></div>) : (<button className="profile__button" onClick={()=>{history.push('/settings')}}><AiOutlineEdit/> Modifier</button>)}
+                        {frontNewCollabError && (<p>{frontNewCollabError}</p>)}
+                        <button onClick={sendMessage} className="profile__button"><AiOutlineMessage/> Message</button></div>) : (<button className="profile__button" onClick={()=>{history.push('/settings')}}><AiOutlineEdit/> Modifier</button>)}
+                        <div className="profile__button-align">
+                            {isInCollaborationDemands && (
+                                <button className="profile__button profile__no-space" id={"accept"+match.params.id} onClick={accept}><AiOutlineCheckCircle/> </button>
+                            )}
+                            {isInCollaborationDemands && (
+                                <button className="profile__button profile__no-space" id={"reject"+match.params.id} onClick={reject}><TiDeleteOutline/></button>
+                            )}
+                        </div>
+                    </div>
                 </div>
                 <div className="profile__body">
                         
@@ -168,7 +173,7 @@ const ProfilePage = ({ startSendCollaboration,startSetProfile,startSendRecommend
                                     <img className="header__picture offer-element__comment-picture" src={process.env.DEV_URL+"/users/"+recommendation.publisher._id+"/avatar"}/>
                                     <p>{recommendation.publisher.firstName} {recommendation.publisher.lastName}</p>
                                 </Link>
-                                <span>{moment(recommendation.createdAt).lang('fr').fromNow()}</span>
+                                <span className="show-for-desktop">{moment(recommendation.createdAt).lang('fr').fromNow()}</span>
                             </div>
                             <p className="offer-element__comment-content">{recommendation.content}</p>
                         </div>))}     

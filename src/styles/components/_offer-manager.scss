@@ -53,23 +53,34 @@
 }
 .manager__container{
     display:flex;
-    flex-direction: row;
+    flex-direction: column;
+    @media (min-width : $desktop-breakpoint){
+        flex-direction: row;
+    }
+    
     
 }
 
 .manager__offer-display{
-    flex-basis:2;
-    width:50%;
+    @media (min-width : $desktop-breakpoint){
+        flex-basis:2;
+        width:50%;
+        margin: 0 auto $l-size auto;
+    }
+    
     padding: $l-size 0;
 
-    margin: 0 auto $l-size auto;
+    margin: 0 $s-size 0 $s-size;
     
 }
 
 .manager__sidebar{
-    flex-basis:1;
-    width:30%;
+    
     margin-top:$xl-size;
+    @media (min-width : $desktop-breakpoint){
+        width:30%;
+        flex-basis:1;
+    }
     
 }
 
@@ -103,8 +114,8 @@
     background: white;
     border : 1px solid #cacccd;
     border-radius : 10px;
-    height:35px;
-    padding : auto;
+    height:auto;
+    padding : $xs-size $s-size;
     display:inline-block;
     font-size: $font-size-medium;
     font-weight : 300;
