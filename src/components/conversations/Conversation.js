@@ -86,13 +86,18 @@ const Conversation =  ({setConversationError,editSpecificConversationError,match
 
     return (
         <div>
-           
+            
             {frontSetConvError &&(<p>{frontSetConvError}</p>)}
             {Object.keys(conversation).length<=2?(<p className="group__text-info">Aucune conversation ne correspond</p>):
                 (
+                <div>
+                <div className="banner__title show-for-mobile">
+                    {conversation.hasImage ? (<img className="profile__picture" src={process.env.DEV_URL+"/conversation/"+conversation._id+"/image"}/>):(<AiOutlineMessage className="header__picture offer-element__comment-picture"/>)}
+                    <h3>{formatConversationName(conversation,user_id)}</h3>    
+                </div>
                 <div className="manager__container">
                     <div className="conversation__content-display">
-                        <div className="profile__header">
+                        <div className="profile__header show-for-desktop">
                             {conversation.hasImage ? (<img className="profile__picture" src={process.env.DEV_URL+"/conversation/"+conversation._id+"/image"}/>):(<AiOutlineMessage className="header__picture offer-element__comment-picture"/>)}
                             <h3>{formatConversationName(conversation,user_id)}</h3>    
                         </div>
@@ -172,6 +177,7 @@ const Conversation =  ({setConversationError,editSpecificConversationError,match
                         </div>
 
                             
+                    </div>
                     </div>
                 </div>
                               

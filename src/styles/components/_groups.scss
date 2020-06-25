@@ -17,8 +17,8 @@
     background: white;
     border : 1px solid #cacccd;
     border-radius : 10px;
-    height:40px;
-    padding : auto;
+    height:auto;
+    padding : $s-size $m-size;
     font-size: $font-size-xlarge;
     font-weight : 300;
     display:flex;
@@ -76,9 +76,10 @@
     @media (min-width : $desktop-breakpoint){
         flex-basis:1;
         width:25%;
+        margin-top: $xl-size;
     }
+    margin-top:$s-size;
     
-    margin-top: $xl-size;
         
 }
 .group__body{

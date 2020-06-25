@@ -75,6 +75,7 @@
     flex-direction: row;
     justify-content: flex-end;
     
+    
 } 
 
 .conversation__parent-message-other{
@@ -87,14 +88,17 @@
 }
 
 .conversation__messages-container{
-    margin-left:$l-size;
-    
+
+    @media (min-width : $desktop-breakpoint){
+        margin-left:$l-size;
+    }
     
 }
 
 .conversation__messages-list{
     height:45vh;
     overflow-y: auto;
+    padding:$s-size;
     position: relative;
     display:flex;
     flex-direction: column;
@@ -103,10 +107,14 @@
 }
 
 .conversation__content-display{
-    flex-basis:2;
-    width:70%;
-    padding: $l-size 0;
+    
+    width:100%;
+    padding: $l-size $xs-size;
     margin: 0 auto $l-size auto;
+    @media (min-width : $desktop-breakpoint){
+        width:70%;
+        flex-basis:2;
+    }
     
 }
 
