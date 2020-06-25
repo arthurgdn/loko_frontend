@@ -6,7 +6,7 @@ export default ()=>(
     <header className="showcase__header">
     
     
-        <div className="header__content"> 
+        <div className="showcase__header-content"> 
             <Link className="header__title" to='/'>
                 <img src={process.env.DEV_URL+'/showcase/cactus_mini'}/>
                 <h1>Loko</h1>
