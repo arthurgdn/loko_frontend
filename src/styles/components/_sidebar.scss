@@ -1,6 +1,6 @@
 .sidebar{
     background : lighten($off-white,2%);
-    
+    width:auto;
     border-right: 1px solid $dark-green;
     order: 0;
     @media (min-width : $desktop-breakpoint){
