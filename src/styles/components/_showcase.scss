@@ -20,17 +20,22 @@
     flex-direction: row;
 }
 .showcase__signup{
-    flex: 1;
-    order: 1;
     
+    @media (min-width : $desktop-breakpoint){
+        flex: 1;
+        order: 1;
+    }
     background : $lighter-green
 }
 
 .showcase__header{
     background:$dark-green;
-    z-index: 0;
-    flex: 0 10vh;
     
+    height:auto;
+    @media (min-width : $desktop-breakpoint){
+        flex: 0 10vh;
+        z-index: 0;
+    }
     padding:0;
     margin:0;
     width:100%;
@@ -68,10 +73,12 @@
 
 .showcase__main-area{
     display: flex;
-    @media (max-width : $desktop-breakpoint){
-        flex-direction: column;
+    flex-direction: column;
+    @media (min-width : $desktop-breakpoint){
+        flex-direction: row;
+        height: 90vh;
     }
-    height: 90vh;
+    
     padding: $l-size 0;
     overflow-y:auto;
     background : $lighter-green;

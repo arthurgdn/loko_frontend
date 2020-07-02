@@ -40,31 +40,36 @@ const LoginForm = ({ startLogin, isAuthenticated,loginError }) => {
         
         
       <form className="login__form" onSubmit={e => onSubmit(e)}>
-        <FaRegUserCircle/>
-        <input
-          className="login__input"
-          type="email"
-          ref={emailRef}
-          placeholder="Email"
-          name="email"
-          value={email}
-          onChange={e => onChange(e)}
-          required
-          focus="true"
-        />
-      
-        <RiLockPasswordLine/>
-        <input
-          
-          type="password"
-          className="login__input"
-          placeholder="Mot de passe"
-          required
-          name="password"
-          value={password}
-          onChange={e => onChange(e)}
-          minLength="6"
-        />
+        <div className="login__item">
+          <FaRegUserCircle/>
+          <input
+            className="login__input"
+            type="email"
+            ref={emailRef}
+            placeholder="Email"
+            name="email"
+            value={email}
+            onChange={e => onChange(e)}
+            required
+            focus="true"
+          />
+        </div>
+        
+        <div className="login__item">
+          <RiLockPasswordLine/>
+          <input
+            
+            type="password"
+            className="login__input"
+            placeholder="Mot de passe"
+            required
+            name="password"
+            value={password}
+            onChange={e => onChange(e)}
+            minLength="6"
+          />
+        </div>
+        
       
       <input type="submit" className="login__button"  value="Connexion" />
     </form>
