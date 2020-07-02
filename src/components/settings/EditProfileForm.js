@@ -122,7 +122,7 @@ const EditProfileForm = ({profile={},stateOffers,startEditCompletedOffers,startS
                     className="settings__select"
                     onChange = {(new_skills)=>setSkills(new_skills?new_skills:[])}
                     />
-                <p>Offres auxquelles vous avez répondu : </p>
+                <p>Annonces auxquelles vous avez répondu : </p>
                 <Select
                     value= {completedOffers}
                     options = {offers}

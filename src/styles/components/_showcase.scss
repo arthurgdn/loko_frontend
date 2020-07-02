@@ -29,7 +29,7 @@
 }
 
 .showcase__header{
-    background:$dark-green;
+    background:darken($dark-green,15%);
     
     height:auto;
     @media (min-width : $desktop-breakpoint){

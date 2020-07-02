@@ -38,6 +38,9 @@ const EditUserForm = ({user,startEditUserInfo,editUserInfoError})=>{
                 
                
                 setUseBrowserLocation(useBrowser)
+            },(error)=>{
+                console.log(error)
+                setError("Votre appareil ne supporte pas la geolocalisation, veuillez entrer votre position manuellement")
             })
         }else{
             setError('Vous devez autoriser la géolocalisation')
@@ -98,7 +101,7 @@ const EditUserForm = ({user,startEditUserInfo,editUserInfoError})=>{
                 </div>
                 
                 <div className="settings__horizontal-lignup">
-                    <p>Utiliser votre position actuelle : </p>
+                    <p>Utiliser votre position actuelle</p>
                     <div className="toggle-switch-location">
                         <input type="checkbox" checked={useBrowserLocation} 
                         onChange={onUseBrowserLocationChange}
