@@ -4,7 +4,9 @@
     background: $off-white;
     margin : 0 $s-size;
     padding : $m-size $m-size $xs-size $m-size ;
-    
+    @media (max-width : $desktop-breakpoint){
+        margin-bottom:$m-size;
+    }
 }
 
 .login__form{
@@ -12,6 +14,7 @@
     flex-direction : row;
     @media (max-width : $desktop-breakpoint){
         flex-direction: column;
+        
     }
     align-items: center;
 }
@@ -19,10 +22,16 @@
     display:flex;
     flex-direction: row;
     align-items: center;
+    @media (max-width : $desktop-breakpoint){
+        margin-bottom:$s-size;
+    }
 }
 .login__form__error{
     margin: 0 0 $m-size 0;
     font-style : italic;
+    @media (max-width : $desktop-breakpoint){
+        text-align: center;
+    }
 }
 
 .login__input{
@@ -64,7 +73,12 @@
 
 .login__footer{
     display: flex;
+    
+    
     justify-content: space-between;
+    @media (max-width : $desktop-breakpoint){
+        flex-direction: column;
+    }
 }
 
 .login__forgot-password{

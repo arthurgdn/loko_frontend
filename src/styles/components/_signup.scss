@@ -1,7 +1,9 @@
 .signup__container{
     width : 50%;
     margin : 0 auto;
-    
+    @media (max-width : $desktop-breakpoint){
+        width: 90%;
+    }
     background: $off-white;
     border: 1px solid #cacccd;
     border-radius : 10px;

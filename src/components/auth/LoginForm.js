@@ -74,8 +74,9 @@ const LoginForm = ({ startLogin, isAuthenticated,loginError }) => {
       <input type="submit" className="login__button"  value="Connexion" />
     </form>
     <div className="login__footer">
-      {error && (<p className="login__error">{error}</p>)}
+      
       <Link to='/reset' className="login__forgot-password">Mot de passe oublié?</Link>
+      {error && (<p className="login__error">{error}</p>)}
     </div>
       
     </div>
