@@ -19,7 +19,7 @@ body {
     flex-direction: column;
     width:100%;
     position: relative;
-    overflow-x: hidden;
+    overflow-x:hidden;
     @media (min-width : $desktop-breakpoint){
         position:fixed;
         height: 100%;
@@ -45,6 +45,7 @@ button:disabled {
     display: flex;
     flex-direction: column;
     background : white;
+    overflow-x: hidden;
     @media (min-width : $desktop-breakpoint){
         
         flex-direction: row;
