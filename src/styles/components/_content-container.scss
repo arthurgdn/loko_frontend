@@ -5,6 +5,7 @@
     @media (max-width : $desktop-breakpoint){
         display:flex;
         flex-direction: column;
+        max-width: auto;
     }
     
     
