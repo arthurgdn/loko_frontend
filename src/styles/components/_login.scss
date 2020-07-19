@@ -27,10 +27,13 @@
     }
 }
 .login__form__error{
-    margin: 0 0 $m-size 0;
+    margin: 0;
     font-style : italic;
+    color : $dark-grey;
+    text-align: center;
+    font-size : $font-size-small;
     @media (max-width : $desktop-breakpoint){
-        text-align: center;
+        
     }
 }
 
@@ -78,6 +81,7 @@
     justify-content: space-between;
     @media (max-width : $desktop-breakpoint){
         flex-direction: column;
+        margin: 0 auto;
     }
 }
 
@@ -90,4 +94,5 @@
     &:hover{
         text-decoration: underline 1px $dark-grey;
     }
+   
 }
