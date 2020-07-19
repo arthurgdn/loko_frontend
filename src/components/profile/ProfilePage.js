@@ -175,7 +175,7 @@ const ProfilePage = ({ startSendCollaboration,startSetProfile,startSendRecommend
                                 </Link>
                                 <span className="show-for-desktop">{moment(recommendation.createdAt).lang('fr').fromNow()}</span>
                             </div>
-                            <p className="offer-element__comment-content">{recommendation.content}</p>
+                            <p className="offer-element__comment-content" dangerouslySetInnerHTML={{ __html:recommendation.content }}></p>
                         </div>))}     
                 </div>
                 )}

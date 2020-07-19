@@ -14,6 +14,6 @@ export default ({publisherId,publisherName,content,createdAt})=>(
             
         </div>
         
-        <p className="offer-element__comment-content">{content}</p>
+        <p className="offer-element__comment-content" dangerouslySetInnerHTML={{ __html:content }}></p>
     </div>
 )

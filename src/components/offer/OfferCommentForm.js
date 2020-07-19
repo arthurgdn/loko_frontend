@@ -3,7 +3,7 @@ export default ({onNewComment})=>{
     const [content,setContent]=useState('')
     const onSubmit = (e)=>{
         e.preventDefault()
-        onNewComment({content})
+        onNewComment({content:content.replace(/\n\r?/g, '<br />')})
         setContent('')
     }
     const disabled = content.length===0

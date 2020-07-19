@@ -9,7 +9,7 @@ export default ({sendRecommendation})=>{
             setError('Veuillez renseigner du contenu')
         }
         else {
-            sendRecommendation(content)
+            sendRecommendation(content.replace(/\n\r?/g, '<br />'))
             setContent('')
         }
         
