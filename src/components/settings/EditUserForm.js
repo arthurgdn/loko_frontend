@@ -3,10 +3,10 @@ import {connect} from 'react-redux'
 import ImageUploader from 'react-images-upload'
 import axios from 'axios'
 import {startEditUserInfo} from '../../actions/user'
+import { startLoadUser } from '../../actions/auth'
 const EditUserForm = ({user,startEditUserInfo,editUserInfoError})=>{
     const [firstName,setFirstName] = useState(user.firstName?user.firstName:'')
     const [lastName,setLastName] = useState(user.lastName?user.lastName:'')
-    
     const [profilePicture,setProfilePicture] = useState('')
     const [location,setLocation] = useState(user.location?user.location:{type:'Point',coordinates:[]})
     const [useBrowserLocation,setUseBrowserLocation] = useState(false)
@@ -15,6 +15,17 @@ const EditUserForm = ({user,startEditUserInfo,editUserInfoError})=>{
    
     
     const [error,setError]= useState('')
+    useEffect(()=>{
+        if(!user._id){
+            startLoadUser()
+        }
+    },[])
+    useEffect(()=>{
+        setFirstName(user.firstName)
+        setLastName(user.lastName)
+        setLocation(user.location)
+        setLocationText(user.locationText)
+    },[user,startLoadUser])
     useEffect(()=>{
         setError(editUserInfoError)
     },[editUserInfoError])
@@ -153,6 +164,7 @@ const mapStateToProps = (state)=>({
     editUserInfoError : state.user.editUserInfoError
 })
 const mapDispatchToProps = (dispatch)=>({
-    startEditUserInfo : (updates,profilePicture)=>dispatch(startEditUserInfo(updates,profilePicture))
+    startEditUserInfo : (updates,profilePicture)=>dispatch(startEditUserInfo(updates,profilePicture)),
+    startLoadUser: ()=>dispatch(startLoadUser())
 })
 export default connect(mapStateToProps,mapDispatchToProps)(EditUserForm)

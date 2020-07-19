@@ -2,7 +2,7 @@ import React,{useEffect} from 'react'
 import {connect} from 'react-redux'
 import EditProfileForm from './EditProfileForm'
 import {startSetProfile} from '../../actions/profile'
-const EditProfilePage = (props)=>{
+export default ()=>{
     
     return (
         <div>
@@ -19,10 +19,3 @@ const EditProfilePage = (props)=>{
         </div>
     )
 }
-const mapStateToProps = (state)=>{
-    return {
-        
-        user : state.user
-    }
-}
-export default connect(mapStateToProps)(EditProfilePage)

@@ -67,6 +67,7 @@ export const startLoadUser =()=>{
         try {
             
             const res = await axios.get('/users/me')
+            console.log(res)
             const res2 = await axios.post('/analytics/connect')
             dispatch({
               type: 'USER_LOADED'

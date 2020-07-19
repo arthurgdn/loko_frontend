@@ -3,7 +3,6 @@ import EditProfileForm from './EditProfileForm'
 import EditUserForm from './EditUserForm'
 import PersonnalSettings from './PersonnalSettings'
 export default ()=>{
-    const [selectedTab,setSelectedTab] = useState(0)
     return (
         <div>
             <div className="banner__title">

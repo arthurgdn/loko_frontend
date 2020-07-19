@@ -4,6 +4,7 @@ import CreatableSelect from 'react-select/creatable'
 import Select from 'react-select'
 import {startEditProfile,startSetProfile,startEditCompletedOffers} from '../../actions/profile'
 import {startSetOffers} from '../../actions/offers'
+import { startLoadUser } from '../../actions/auth'
 const EditProfileForm = ({profile={},stateOffers,startEditCompletedOffers,startSetOffers,user,startSetProfile,startEditProfile,allKeywords,editProfileError,addCompletedOfferError,setProfileError})=>{
     
     
@@ -25,9 +26,18 @@ const EditProfileForm = ({profile={},stateOffers,startEditCompletedOffers,startS
         setError(addCompletedOfferError)
     },[addCompletedOfferError])
     useEffect(()=>{
+        if(!!user._id){
+            startSetProfile(user._id)
+            startSetOffers()
+        }else{
+            startLoadUser()
+        }
+        
+    },[])
+    useEffect(()=>{
         startSetProfile(user._id)
         startSetOffers()
-    },[])
+    },[user,startLoadUser])
     useEffect(()=>{
         const formattedKeywords = []
         if(profile.keywords){
@@ -150,6 +160,7 @@ const mapStateToProps = (state)=>({
     addCompletedOfferError : state.profile.addCompletedOfferError
 })
 const mapDispatchToProps = (dispatch)=>({
+    startLoadUser: ()=>dispatch(startLoadUser()),
     startEditProfile : (updates)=>dispatch(startEditProfile(updates)),
     startSetProfile : (profile_id)=>dispatch(startSetProfile(profile_id)),
     startSetOffers : ()=>dispatch(startSetOffers()),
