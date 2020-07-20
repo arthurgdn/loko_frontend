@@ -94,6 +94,7 @@ const ManageOffer = ({_id,publisherId,collaborators,completedStatus,user,startEd
                         defaultValue={statusIndex.find((index)=>index.value===offerStatus)}
                         options = {statusIndex}
                         onChange={onCompletedStatusChange}
+                        placeholder="Statut"
                     />
                     </div>
                     

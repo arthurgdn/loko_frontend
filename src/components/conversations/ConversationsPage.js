@@ -79,6 +79,8 @@ const ConversationsPage = ({setConversationsError,newConversationError,collabora
                                 options={displayedCollaborators}
                                 isMulti
                                 onChange={onSelectedMembersChange}
+                                noOptionsMessage={()=>"Aucune suggestion"}
+                                placeholder="Ajouter un membre"
                             />
                             <button  className="settings__button" onClick={createConversation} active={(members.length>0).toString()}>Démarrer</button>
                             {frontNewConvError && (<p>{frontNewConvError}</p>)}

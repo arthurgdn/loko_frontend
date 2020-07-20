@@ -122,6 +122,8 @@ const EditProfileForm = ({profile={},stateOffers,startEditCompletedOffers,startS
                     value = {keywords}
                     options = {allKeywords}
                     className="settings__select"
+                    noOptionsMessage={()=>"Aucune suggestion"}
+                    placeholder="Mots clés"
                     isMulti
                     onChange = {(new_keywords)=>setKeywords(new_keywords?new_keywords:[])}
                     />
@@ -130,6 +132,8 @@ const EditProfileForm = ({profile={},stateOffers,startEditCompletedOffers,startS
                     value = {skills}
                     isMulti
                     className="settings__select"
+                    noOptionsMessage={()=>"Aucune suggestion"}
+                        placeholder="Compétences"
                     onChange = {(new_skills)=>setSkills(new_skills?new_skills:[])}
                     />
                 <p>Annonces auxquelles vous avez répondu : </p>
@@ -137,6 +141,8 @@ const EditProfileForm = ({profile={},stateOffers,startEditCompletedOffers,startS
                     value= {completedOffers}
                     options = {offers}
                     isMulti
+                    noOptionsMessage={()=>"Aucune suggestion"}
+                    placeholder="Annonces"
                     className="settings__select"
                     onChange = {(new_offers)=>setCompletedOffers(new_offers?new_offers:[])}
                     />

@@ -255,19 +255,23 @@ import getLocationFormatted from '../../actions/getLocationFormatted'
                         {this.state.scope==='group'&&( <div>
                             <p>Publier dans le groupe suivant : </p>
                             <Select 
-                            options={this.state.userGroups}
-                            isMulti
-                            onChange = {this.onGroupsChange}
+                                options={this.state.userGroups}
+                                isMulti
+                                onChange = {this.onGroupsChange}
+                                noOptionsMessage={()=>"Aucune suggestion"}
+                                placeholder="Groupe"
                             /> </div>) }
                         
                     </div>)}
                     
                     <p>Mots clés associés : </p>
                     <CreatableSelect
-                    options = {this.state.allKeywords}
-                    value={this.state.keywords}
-                    isMulti
-                    onChange = {this.onKeywordsChange}
+                        options = {this.state.allKeywords}
+                        value={this.state.keywords}
+                        isMulti
+                        onChange = {this.onKeywordsChange}
+                        noOptionsMessage={()=>"Aucune suggestion"}
+                        placeholder="Mots clés"
                     />
                     
                     <ImageUploader

@@ -21,7 +21,7 @@ export const startEditOffer = (id,updates,image={})=>{
                 imageBody.append('image',image)
                 
                 const buffer = await axios.post('/offer/'+id+'/image',imageBody)
-                dispatch(editOffer(id,res.data))
+                dispatch(editOffer(id,{...res.data,hasImage:true}))
             }else{
                 dispatch(editOffer(id,res.data))
             }
@@ -72,7 +72,7 @@ export const startAddOffer = (offer,image)=>{
                 imageBody.append('image',image)
                 
                 const buffer = await axios.post('/offer/'+res.data._id+'/image',imageBody)
-                dispatch(addOffer(res.data))
+                dispatch(addOffer({...res.data,hasImage:true}))
             }else{
                 dispatch(addOffer(res.data))
             }

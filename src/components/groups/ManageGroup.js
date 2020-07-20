@@ -151,6 +151,8 @@ const ManageGroup = ({collaborators,startSetCollaborators,group,history}) =>{
                                 options={displayedCollaborators}
                                 isMulti={false}
                                 onChange={onInviteMemberChange}
+                                noOptionsMessage={()=>"Aucune suggestion"}
+                                placeholder="Inviter un membre"
                             />
                             <button className="manager__button" onClick={inviteMember}>Inviter</button>
                         </div>

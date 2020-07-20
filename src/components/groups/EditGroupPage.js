@@ -164,6 +164,7 @@ const EditGroupPage = ({startEditGroup,group,allKeywords,setGroupError})=>{
                         defaultValue={securityStatusIndex.find((index)=>index.value===group.securityStatus)}
                         options = {securityStatusIndex}
                         onChange={(options)=>setSecurityStatus(options.value)}
+                        placeholder="Statut du groupe"
                     />
                 
                 
@@ -173,6 +174,8 @@ const EditGroupPage = ({startEditGroup,group,allKeywords,setGroupError})=>{
                         options = {allKeywords}
                         value={keywords}
                         isMulti
+                        noOptionsMessage={()=>"Aucune suggestion"}
+                        placeholder="Mots clés"
                         onChange = {(options)=>{
                             if(options===null){
                                 setKeywords([])

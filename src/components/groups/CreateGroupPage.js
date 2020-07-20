@@ -157,6 +157,7 @@ const CreateGroupPage = ({allKeywords,startCreateGroup,history,userGroupCreatedE
                         defaultValue={securityStatusIndex.find((index)=>index.value==='open')}
                         options = {securityStatusIndex}
                         onChange={(options)=>setSecurityStatus(options.value)}
+                        placeholder="Statut du groupe"
                     />
                     
                     <p>Mots clés associés</p>
@@ -164,6 +165,8 @@ const CreateGroupPage = ({allKeywords,startCreateGroup,history,userGroupCreatedE
                         options = {allKeywords}
                         value={keywords}
                         isMulti
+                        noOptionsMessage={()=>"Aucune suggestion"}
+                        placeholder="Mots clés"
                         onChange = {(options)=>{
                             if(options===null){
                                 setKeywords([])

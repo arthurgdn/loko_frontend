@@ -133,6 +133,8 @@ const Conversation =  ({setConversationError,editSpecificConversationError,match
                                         options={displayedCollaborators}
                                         isMulti={false}
                                         onChange={onSelectedMembersChange}
+                                        noOptionsMessage={()=>"Aucune suggestion"}
+                                        placeholder="Ajouter un membre"
                                     />
                                     <button className="manager__button" onClick={addMember}>Ajouter</button>
                                 </div>
