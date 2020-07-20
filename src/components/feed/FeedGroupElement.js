@@ -10,7 +10,7 @@ const FeedGroupElement =  ({name,description,locationText,hasImage,_id,keywords}
         <div className="group__content-display group__feed-display">
             <div className="profile__header">
                 <img className="profile__picture" src={process.env.DEV_URL+"/group/"+_id+"/image"}/>
-                <h3>{name}</h3>
+                <h3><Link style={{textDecoration:'none',color:'white'}} to={"/group/"+_id}>{name}</Link></h3>
             </div>
             <div className="group__body">  
                 {locationText && (<p className="profile__location"><GoLocation/> {locationText}</p>)}
