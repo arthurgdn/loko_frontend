@@ -20,7 +20,7 @@ const ManageOffer = ({offers,match,history})=>{
     return (
         <div className="manager__container">
             <div className="manager__offer-display">
-                {Object.keys(offer).length===0?(<p>Aucune offre ne correspond</p>):(<OfferElement displayCollaborationDemandForm={false} displayComments={false} key={offer._id} {...offer}/>)}
+                {Object.keys(offer).length===0?(<p>Aucune offre ne correspond</p>):(<OfferElement displayCollaborationDemandForm={false} displayGroups={true} displayComments={false} key={offer._id} {...offer}/>)}
             </div>
             <div className="manager__sidebar">
                 {Object.keys(offer).length!==0 && (<ManageOfferSidebar {...offer} history={history} />)}

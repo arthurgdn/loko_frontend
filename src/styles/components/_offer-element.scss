@@ -250,3 +250,17 @@
     border: 1px solid darken($dark-green,15%);
     
 }
+
+.offer-element__group{
+    text-decoration: none;
+    color:darken($dark-green,15%);
+    margin:$m-size;
+    transition:.3s color ease;
+    &:hover{
+        color:darken($dark-green,20%)
+    }
+}
+
+.offer-element__groups{
+    margin:$m-size;
+}

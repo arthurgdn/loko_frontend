@@ -7,14 +7,14 @@ import getLocationFormatted from '../../actions/getLocationFormatted'
 import OfferCommentSection from './OfferCommentSection'
 import CollaborationDemandForm from './CollaborationDemandForm'
 import {startSendCollaborationDemand} from '../../actions/offers'
-const OfferElement =  ({user,title,description,createdAt,locationRadius,locationText,collaborators,hasImage,_id,keywords,publisherName,publisherId,displayComments,displayAllComments,displayCollaborationDemandForm,startSendCollaborationDemand})=>{
+const OfferElement =  ({user,title,description,createdAt,locationRadius,locationText,collaborators,scope,groups,hasImage,_id,keywords,publisherName,publisherId,displayComments,displayAllComments,displayGroups=false,displayCollaborationDemandForm,startSendCollaborationDemand})=>{
     
     const onCollaborationDemandSent = (message)=>{
         
         startSendCollaborationDemand(_id,message)
     }
     const isCollaborator = collaborators.find((collaborator)=>String(collaborator._id)===String(user._id))
-    
+    console.log('scope,groups',scope,groups)
     return(
         <div className="offer-element__container">
             
@@ -44,8 +44,17 @@ const OfferElement =  ({user,title,description,createdAt,locationRadius,location
                         <CollaborationDemandForm onCollaborationDemandSent={onCollaborationDemandSent}/>
                     }
             {displayComments && <OfferCommentSection displayAllComments={displayAllComments} offer_id={_id}/>}
-
-        </div>
+            {(displayGroups && scope==="group" ) && (
+                <div className="offer-element__groups"> 
+                    <p>Cette annonce est publiée dans le{groups.length>1 && ("s")} groupe{groups.length>1 && ("s")} suivant{groups.length>1 && ("s")} : </p>
+                    {groups.map((group)=>(
+                        <div>
+                            <Link className="offer-element__group" to={"/group/"+group.group}>{group.groupName}</Link>
+                        </div>
+                    ))}
+                </div>
+            )}
+            </div>
         )
         
         
