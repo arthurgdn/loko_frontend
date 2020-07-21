@@ -5,7 +5,7 @@ const groupOffersReducer = (state=groupOffersReducerDefaultState,action)=>{
         case 'SET_GROUP_OFFERS':
             return {setGroupOffersError:'',groupOffers:action.offers}
         case 'ADD_GROUP_OFFER':
-            return {addGroupOfferError:'',groupOffers:[...state,action.offer]}
+            return {addGroupOfferError:'',groupOffers:[...state.groupOffers,action.offer]}
         case 'EDIT_GROUP_OFFER':
             return {error:'',groupOffers:state.groupOffers.map((offer)=>{
                 if(offer.id===action.id){

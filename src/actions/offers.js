@@ -77,6 +77,7 @@ export const startAddOffer = (offer,image)=>{
                 dispatch(addOffer(res.data))
             }
             if(res.data.scope==='group'){
+                console.log('group data offer',res.data)
                 dispatch({
                     type:'ADD_GROUP_OFFER',
                     offer : res.data
@@ -84,7 +85,7 @@ export const startAddOffer = (offer,image)=>{
             }
             
         }catch(e){
-            
+            console.log(e)
             dispatch({
                 type : 'ADD_OFFER_ERROR'
         })
