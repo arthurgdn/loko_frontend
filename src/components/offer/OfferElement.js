@@ -7,7 +7,7 @@ import getLocationFormatted from '../../actions/getLocationFormatted'
 import OfferCommentSection from './OfferCommentSection'
 import CollaborationDemandForm from './CollaborationDemandForm'
 import {startSendCollaborationDemand} from '../../actions/offers'
-const OfferElement =  ({user,title,description,createdAt,locationRadius,locationText,collaborators,scope,groups,hasImage,_id,keywords,publisherName,publisherId,displayComments,displayAllComments,displayGroups=false,displayCollaborationDemandForm,startSendCollaborationDemand})=>{
+const OfferElement =  ({user,title,description,createdAt,completedStatus,locationRadius,locationText,collaborators,scope,groups,hasImage,_id,keywords,publisherName,publisherId,displayComments,displayAllComments,displayGroups=false,displayCollaborationDemandForm,startSendCollaborationDemand})=>{
     
     const onCollaborationDemandSent = (message)=>{
         
@@ -39,7 +39,7 @@ const OfferElement =  ({user,title,description,createdAt,locationRadius,location
             
             </div>
             
-            {(displayCollaborationDemandForm && publisherId!==user._id && !isCollaborator) && 
+            {(displayCollaborationDemandForm && publisherId!==user._id && !isCollaborator && completedStatus==="created") && 
                     
                         <CollaborationDemandForm onCollaborationDemandSent={onCollaborationDemandSent}/>
                     }
