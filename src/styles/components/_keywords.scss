@@ -14,6 +14,47 @@
     
 }
 
+.keyword__feed-button{
+    margin: $s-size $s-size;
+    background: white;
+    box-shadow: 2px 2px 2px  darken($dark-green,20%);
+    border-radius : 10px;
+    color:$grey;
+    height:35px;
+    padding : auto;
+    font-size: $font-size-large;
+    font-weight : 300;
+    align-items: center;
+    transition : background .3s ease;
+    
+    &:hover {
+        background:$off-white;
+
+    }
+    &:active {
+        background:lighten($dark-green,10%);
+    }
+    @media (max-width : $desktop-breakpoint){
+        margin:0 auto $xs-size auto;
+    }
+}
+.keyword__icon{
+    color:  darken($dark-green,10%);
+    margin: $s-size $s-size;
+    
+    
+    font-size: $font-size-large;
+    font-weight : 300;
+    align-items: center;
+}
+
+.keyword__banner{
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 0 auto;
+    align-items: center;
+}
 .keyword__container{
     margin:0 auto;
     padding: 0 auto;

@@ -156,3 +156,18 @@ export const startAddPhoneNUmber = (phoneNumber)=>{
         }
     }
 }
+
+export const startAddUserKeyword = (id)=>{
+    return async (dispatch)=>{
+        try{
+            const res = await axios.post('/keyword/'+id+"/follow")
+            console.log(res.data,'data received from back')
+            dispatch({
+                type: 'ADD_USER_KEYWORD',
+                keyword: res.data
+            })
+        }catch(e){
+            console.log(e)
+        }
+    }
+}

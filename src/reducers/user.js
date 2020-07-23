@@ -34,6 +34,8 @@ const userReducer = (state=userReducerDefaultState,action)=>{
             return {...state,collaborationDemands : action.collaborationDemands,setCollaborationDemandsError:''}
         case 'SET_COLLABORATORS':
             return {...state,collaborators : action.collaborators,setCollaboratorsError:''}
+        case 'ADD_USER_KEYWORD':
+            return {...state,userKeywords : [...state.userKeywords,action.keyword]}
         case 'ADD_PHONE':
             return {...state,phoneNumber : action.phoneNumber,error:''}   
         case 'USER_GROUP_CREATED' :
