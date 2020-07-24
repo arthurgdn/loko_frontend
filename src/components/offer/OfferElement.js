@@ -7,11 +7,16 @@ import getLocationFormatted from '../../actions/getLocationFormatted'
 import OfferCommentSection from './OfferCommentSection'
 import CollaborationDemandForm from './CollaborationDemandForm'
 import {startSendCollaborationDemand} from '../../actions/offers'
-const OfferElement =  ({user,title,description,createdAt,completedStatus,locationRadius,locationText,collaborators,scope,groups,hasImage,_id,keywords,publisherName,publisherId,displayComments,displayAllComments,displayGroups=false,displayCollaborationDemandForm,startSendCollaborationDemand})=>{
-    
+const OfferElement =  ({user,title,description,createdAt,completedStatus,locationRadius,locationText,collaborators,scope,groups,hasImage,_id,keywords,publisherName,publisherId,hasSentDemand,displayComments,displayAllComments,displayGroups=false,displayCollaborationDemandForm,startSendCollaborationDemand})=>{
+    const [stateDemandSent,setStateDemandSent] = useState(false)
+    useEffect(()=>{
+        console.log('hasSentDemand',hasSentDemand)
+        setStateDemandSent(hasSentDemand)
+    },[])
     const onCollaborationDemandSent = (message)=>{
         
         startSendCollaborationDemand(_id,message)
+        setStateDemandSent(true)
     }
     const isCollaborator = collaborators.find((collaborator)=>String(collaborator._id)===String(user._id))
     console.log('scope,groups',scope,groups)
@@ -39,10 +44,11 @@ const OfferElement =  ({user,title,description,createdAt,completedStatus,locatio
             
             </div>
             
-            {(displayCollaborationDemandForm && publisherId!==user._id && !isCollaborator && completedStatus==="created") && 
+            {(displayCollaborationDemandForm && publisherId!==user._id && !isCollaborator && !stateDemandSent && completedStatus==="created") && 
                     
                         <CollaborationDemandForm onCollaborationDemandSent={onCollaborationDemandSent}/>
                     }
+            {stateDemandSent && (<p className="offer-element__tooltip">Vous avez répondu à cette annonce !</p>)}
             {displayComments && <OfferCommentSection displayAllComments={displayAllComments} offer_id={_id}/>}
             {(displayGroups && scope==="group" ) && (
                 <div className="offer-element__groups"> 

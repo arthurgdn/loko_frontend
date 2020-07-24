@@ -243,7 +243,10 @@
 
     
 }
-
+.offer-element__tooltip{
+    margin:$m-size;
+    
+}
 .offer-element__collaboration-form{
     padding:$s-size $l-size $s-size $s-size;
     border-radius:10px;
