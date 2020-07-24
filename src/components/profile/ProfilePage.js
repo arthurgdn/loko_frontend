@@ -5,6 +5,7 @@ import moment from 'moment'
 import  {AiOutlineEdit,AiOutlineUserAdd,AiOutlineMessage,AiOutlineCheckCircle} from 'react-icons/ai'
 import {GoLocation} from 'react-icons/go'
 import {FiUserCheck} from 'react-icons/fi'
+import {FaHourglassEnd} from 'react-icons/fa'
 import {TiDeleteOutline} from 'react-icons/ti'
 import {startSendCollaboration,startNewCollaboration} from '../../actions/user'
 import { startSetProfile, startSendRecommendation } from '../../actions/profile';
@@ -42,9 +43,11 @@ const ProfilePage = ({ startSendCollaboration,startSetProfile,startSendRecommend
         keywords:[],
         skills : [],
         recommendations : [],
-        completedOffers:[]
+        completedOffers:[],
 
     })
+
+    const [demandSent,setDemandSent] = useState(false)
     
     useEffect(()=>{
         startSetProfile(match.params.id)
@@ -53,6 +56,7 @@ const ProfilePage = ({ startSendCollaboration,startSetProfile,startSendRecommend
     useEffect(()=>{
         if(stateProfile.user===match.params.id){
             setProfile(stateProfile)
+            setDemandSent(stateProfile.demandSent)
         }
         
         
@@ -82,15 +86,16 @@ const ProfilePage = ({ startSendCollaboration,startSetProfile,startSendRecommend
                 <div className="profile__header">
                     <img className="profile__picture" src={process.env.DEV_URL+"/users/"+match.params.id+"/avatar"}/>
                     <div className="profile__subheader">
-                        <h3>{profile.firstName} {profile.lastName} {isCollaborator && (<FiUserCheck/>)}</h3>
+                        <h3>{profile.firstName} {profile.lastName} {isCollaborator && (<FiUserCheck/>)} {demandSent && (<FaHourglassEnd/>)}</h3>
 
                         {match.params.id!==user_id ?(<div>
                             
-                            {(!isCollaborator && !isInCollaborationDemands) && <button className="profile__button" onClick={(e)=>{
+                            {(!isCollaborator && !isInCollaborationDemands && !demandSent) && <button className="profile__button" onClick={(e)=>{
                             
                             startSendCollaboration({_id : match.params.id})
-                            
+                            setDemandSent(true)
                         }}><AiOutlineUserAdd />Suivre </button>}
+                        
                         {frontSendCollabError && (<p>{frontSendCollabError}</p>)}
                         
                         
