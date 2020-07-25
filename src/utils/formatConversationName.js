@@ -1,4 +1,5 @@
 export default  (conversation,user_id)=>{
+    console.log('formatting',conversation,user_id)
     //Formate le nom d'une conversation
     if(conversation.name){
         return conversation.name
@@ -16,6 +17,7 @@ export default  (conversation,user_id)=>{
             
             return name.slice(0,name.length -1)
         }
+        console.log('name',name)
         return name
     }
 }

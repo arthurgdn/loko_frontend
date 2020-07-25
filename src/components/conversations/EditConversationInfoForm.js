@@ -13,6 +13,7 @@ const EditConversationInfoForm = ({_id,name,description,startEditConversation,se
     const onSubmit = (e)=>{
         e.preventDefault()
         startEditConversation(_id,{name:nameInput,description:descriptionInput},image)
+        
         setDisplayEditConvInfoForm(false)
     }
     return (

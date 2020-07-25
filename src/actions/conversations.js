@@ -73,7 +73,7 @@ export const startEditConversation = (id,updates,image={})=>{
         try{
             
             const res = await axios.patch('/conversation/'+id,JSON.stringify(updates))
-            
+            console.log('edit return',res.data)
             if(image.name){
                 const imageBody = new FormData()
             
