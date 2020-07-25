@@ -1,0 +1,15 @@
+.post-signup__title{
+    color: darken($dark-green,15%);
+}
+
+.post-signup__button{
+    padding:$m-size;
+    font-size:$font-size-large;
+    width: 40%;
+    color:white;
+    border-radius:10px;
+    overflow: hidden;
+    border:none;
+    background:darken($dark-green,15%);
+    
+}

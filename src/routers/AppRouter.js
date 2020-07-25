@@ -29,6 +29,7 @@ import GroupsPage from '../components/groups/GroupsPage'
 import CreateGroupPage from '../components/groups/CreateGroupPage'
 import EditGroupPage from '../components/groups/EditGroupPage.js'
 import SearchPage from '../components/search/SearchPage'
+import PostSignup from '../components/PostSignup'
 export const history = createBrowserHistory()
 const AppRouter = ()=>(
     <Router history={history}>
@@ -58,6 +59,7 @@ const AppRouter = ()=>(
                 <PrivateRoute exact={true} path='/nouvelle_annonce' component={CreateOfferPage}/>
                 <PrivateRoute exact={true} path='/conversation/:id' component={Conversation}/>
                 <PrivateRoute exact={true} path='/load/conversation/:id' component={LoadConversation}/>
+                <PrivateRoute exact={true} path='/postSignup' component={PostSignup}/>
                 <Route component={NotFoundPage}/>
             </Switch>
         </div>
