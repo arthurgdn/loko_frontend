@@ -42,7 +42,7 @@ const KeywordFeed = ({user,keywordName,keywordOffers,startAddUserKeyword,startSe
         <div className="content-container">
         
             {error && (<p>{error}</p>)}
-            {showingItems.length===0?(
+            {showingItems.length===0? !error &&(
                 <p>Pas d'offres ou de groupes associées à ce mot clé</p>):(
                     showingItems.map((item)=>{
                         

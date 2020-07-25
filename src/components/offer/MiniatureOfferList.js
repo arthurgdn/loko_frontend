@@ -26,7 +26,7 @@ const MiniatureOfferList = ({offers,startSetOffers,setOffersError})=>{
             <div className="content-container">
                 {error && (<p>{error}</p>)}
                 <div className="manager__miniature-list">
-                    {showingOffers.length===0?(
+                    {showingOffers.length===0? !error && (
                         <p className="manager__no-offer">Vous n'avez travaillé sur aucune annonces pour le moment</p>):(
                             showingOffers.map((offer)=><MiniatureOfferElement  privateLink = {true} key={offer._id} {...offer} />)
                         )}

@@ -20,7 +20,7 @@ const OfferList = ({offers,startSetOffers,setOffersError})=>{
     return (
         <div className="content-container">
             {error && (<p>{error}</p>)}
-            {showingOffers.length===0?(
+            {showingOffers.length===0? !error && (
                 <p>Vous n'avez pas encore publié d'offres</p>):(
                     showingOffers.map((offer)=><OfferElement displayCollaborationDemandForm={true} displayComments={true} displayAllComments={false} key={offer._id} {...offer} />)
                 )}

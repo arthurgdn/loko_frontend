@@ -20,7 +20,7 @@ const FeedContainer = ({feed,startSetFeed,setFeedError})=>{
     },[startSetFeed,feed])
     return (
         <div className="content-container feed__container">
-            {showingOffers.length===0?(
+            {showingOffers.length===0? !error && (
                 <p>Aucune annonces à afficher, ajoutez des centres d'intérêts à votre profil, ou suivez d'autres utilisateurs</p>):(
                     showingOffers.map((offer)=><OfferElement displayCollaborationDemandForm={true} displayComments={true} displayAllComments={false} key={offer._id} {...offer} />)
                 )}

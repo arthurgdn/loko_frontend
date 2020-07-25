@@ -49,7 +49,7 @@ const Messages = ({messages,startSetMessages,conv_id,token,setMessagesError,user
     return (
         <div className="conversation__messages-container" >
         
-        {!displayedMessages.length>0? (<p>Envoyez le premier message !</p>) : (
+        {!displayedMessages.length>0? !error && (<p>Envoyez le premier message !</p>) : (
             <div ref={messageContainer} className="conversation__messages-list">
                 {displayedMessages.map((message)=>(<MessageElement key={message._id} {...message} user_id={user_id}/>))}
             </div>)

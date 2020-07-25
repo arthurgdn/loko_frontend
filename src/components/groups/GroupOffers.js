@@ -21,7 +21,7 @@ const GroupOffers = ({groupOffers,startSetGroupOffers,group_id,setGroupOffersErr
     return (
         <div className="content-container">
             {error && (<p>{error}</p>)}
-            {showingOffers.length===0?(
+            {showingOffers.length===0? !error && (
                 <p className="group__text-info">Aucune annonce n'a encore été publiée dans le groupe</p>):(
                     showingOffers.map((offer)=><OfferElement displayCollaborationDemandForm={true} displayComments={true} displayAllComments={false} key={offer._id} {...offer} />)
                 )}

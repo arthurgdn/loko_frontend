@@ -88,7 +88,7 @@ const Conversation =  ({setConversationError,editSpecificConversationError,match
         <div>
             
             {frontSetConvError &&(<p>{frontSetConvError}</p>)}
-            {Object.keys(conversation).length<=2?(<p className="group__text-info">Aucune conversation ne correspond</p>):
+            {Object.keys(conversation).length<=2?(!frontSetConvError && !editConvError)&&(<p className="group__text-info">Aucune conversation ne correspond</p>):
                 (
                 <div>
                 <div className="banner__title show-for-mobile">

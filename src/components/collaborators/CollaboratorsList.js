@@ -6,7 +6,7 @@ import {startSetCollaborators} from '../../actions/user'
 const CollaboratorsList = ({collaborators,startSetCollaborators,setCollaboratorsError})=>{
     const [loadedCollaborators,setLoadedCollaborators] = useState([])
     const [displayedCollaborators,setDisplayedCollaborators] = useState([])
-    const [error,setError]=useState([])
+    const [error,setError]=useState('')
     const [displayIcon,setDisplayIcon]=useState(true)
     const [searchText,setSearchText] = useState('')
     useEffect(()=>{
@@ -26,7 +26,7 @@ const CollaboratorsList = ({collaborators,startSetCollaborators,setCollaborators
     return (
         <div className="collaborator__container">
             
-            {!loadedCollaborators.length>0? (<p>Vous ne suivez personne pour l'instant</p>) : (
+            {!loadedCollaborators.length>0? !error && (<p className="manager__no-offer">Vous ne suivez personne pour l'instant</p>) : (
                 <div>
                     <h3>Vous suivez {loadedCollaborators.length} personne{loadedCollaborators.length>1&&'s'}</h3>
                     <div className="feed__search">
