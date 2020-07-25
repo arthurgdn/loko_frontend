@@ -29,11 +29,18 @@ const RegisterForm = ({ startRegister, isAuthenticated,registerError }) => {
     } else {
         
       startRegister({ firstName,lastName, email, password });
+      history.push()
     }
   };
+useEffect(()=>{
+  if(isAuthenticated){
+    console.log('authenticates now')
+  }
+  
 
+},[isAuthenticated])
   if (isAuthenticated) {
-    return <Redirect to='/home' />;
+    return <Redirect to='/postSignup' />;
   }
 
   return (
