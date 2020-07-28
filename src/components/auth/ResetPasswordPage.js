@@ -25,6 +25,7 @@ export default ({match})=>{
     }
     return (
         <div>
+            
             <p>Entrez votre nouveau mot de passe</p>
             <form onSubmit={onSubmit}>
                 <input type="password" value={password} onChange={(e)=>setPassword(e.target.value)} placeholder="Nouveau mot de passe"/>

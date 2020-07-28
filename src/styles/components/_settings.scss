@@ -93,7 +93,21 @@
 
     }
 }
-
+.settings__email-input{
+    margin : $m-size 0;
+    background: white;
+    border : 1px solid #cacccd;
+    border-radius : 10px;
+    height:35px;
+    width:40%;
+    padding : $s-size;
+    font-size: $font-size-large;
+    font-weight : 300;
+    &:focus {
+        border: 1px solid $dark-green;  
+    }
+    
+}
 .settings__input{
     margin : $xs-size 0;
     background: white;
@@ -111,6 +125,11 @@
         width:33%;
     }
 
+}
+
+.settings__reset-text{
+    margin: $m-size;
+    color:darken($dark-green,15%);
 }
 .settings__horizontal-lignup{
     display:flex;
