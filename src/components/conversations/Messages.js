@@ -5,12 +5,24 @@ import {Link} from 'react-router-dom'
 import {startSetMessages} from '../../actions/messages'
 import MessageElement from './MessageElement'
 import MessageForm from './MessageForm'
-const Messages = ({messages,startSetMessages,conv_id,token,setMessagesError,user_id})=>{
+const Messages = ({messages,socket,startSetMessages,conv_id,token,setMessagesError,user_id})=>{
     const [displayedMessages,setDisplayedMessages] = useState([])
     const [error,setError] = useState('')
+    const [stateSocket,setStateSocket]=useState({})
     const messageContainer = React.createRef()
     useEffect(()=>{
+        console.log('setting socket',socket)
+        setStateSocket(socket)
+        return ()=>{
+            if(Object.keys(socket).length>0){
+                socket.disconnect()
+            }
+        }
+    },[socket])
+  
+    useEffect(()=>{
         startSetMessages(conv_id,token)
+        
     },[])
     useEffect(()=>{
         setError(setMessagesError)
@@ -31,7 +43,6 @@ const Messages = ({messages,startSetMessages,conv_id,token,setMessagesError,user
         const $messages =  messageContainer.current
         if($messages){
             const $newMessage = $messages.lastElementChild
-            console.log("debug message",$newMessage)
             const newMessageStyles = getComputedStyle($newMessage)
             const newMessageMargin = parseInt(newMessageStyles.marginBottom)
             const newMessageHeight = $newMessage.offsetHeight + newMessageMargin
@@ -63,6 +74,7 @@ const Messages = ({messages,startSetMessages,conv_id,token,setMessagesError,user
 }
 const mapStateToProps = (state)=>({
     messages : state.messages.messages,
+    socket : state.socket,
     token : state.auth.token,
     setMessagesError : state.messages.setMessagesError
 })

@@ -15,8 +15,9 @@ import { startSetConversation, startPatchMembers, startAddAdmin } from '../../ac
 import {startSetCollaborators } from '../../actions/user'
 import EditConversationInfoForm from './EditConversationInfoForm'
 import formatConversationName from '../../utils/formatConversationName'
+import socketReducer from '../../reducers/socket'
 
-const Conversation =  ({setConversationError,editSpecificConversationError,match,user_id,stateConversation,startSetConversation,collaborators,startSetCollaborators,startPatchMembers,startAddAdmin,history})=>{
+const Conversation =  ({setConversationError,socket,editSpecificConversationError,match,user_id,stateConversation,startSetConversation,collaborators,startSetCollaborators,startPatchMembers,startAddAdmin,history})=>{
     
     
     const [member,setMember] = useState({})
@@ -31,7 +32,7 @@ const Conversation =  ({setConversationError,editSpecificConversationError,match
     useEffect(()=>{
         setFrontSetConvError(setConversationError)
     },[setConversationError])
-
+    
     useEffect(()=>{
         setEditConvError(editSpecificConversationError)
     },[editSpecificConversationError])
@@ -43,7 +44,7 @@ const Conversation =  ({setConversationError,editSpecificConversationError,match
             startSetConversation(match.params.id)
         }
         startSetCollaborators()
-             
+         
     },[])
     useEffect(()=>{
         if(stateConversation._id===match.params.id){
@@ -197,6 +198,7 @@ const Conversation =  ({setConversationError,editSpecificConversationError,match
 }
 const mapStateToProps = (state)=>({
     user_id : state.user._id,
+    socket: state.socket,
     stateConversation : state.conversation,
     collaborators : state.user.collaborators,
     setConversationError : state.conversation.setConversationError,

@@ -13,6 +13,7 @@ export const setMessages = (messages)=>({
 export const startSetMessages = (id,token) =>{
     return async (dispatch)=>{
         try {
+            
             const socket = io.connect(process.env.DEV_URL,{
                 transportOptions : {
                     polling : {
@@ -30,7 +31,12 @@ export const startSetMessages = (id,token) =>{
             })
             //On ajoute l'évenement pour les messages reçus
             socket.on('messageReceived',(message)=>{
+                console.log("we receive a message from back")
                 dispatch(addMessage(message))
+            })
+
+            socket.on('disconnect',()=>{
+                dispatch({type:'REMOVE_SOCKET'})
             })
             //On ajoute le socket créé dans le store
             dispatch({type : 'SET_SOCKET',socket})
@@ -44,7 +50,7 @@ export const startSetMessages = (id,token) =>{
         }
     }
 }
-//We will deal with socket.io connexion when creating the corresponding components
+
 export const addMessage = (message)=>({
     type : 'ADD_MESSAGE',
     message
@@ -52,7 +58,7 @@ export const addMessage = (message)=>({
 
 export const startSendMessage = (socket,conv_id,message)=>{
     return async (dispatch)=>{
-        console.log(message)
+        console.log('emitting',message)
         socket.emit('messageSent',{conv_id,message},(error)=>{
             if(error){
                 dispatch({type:'ADD_MESSAGE_ERROR'})
