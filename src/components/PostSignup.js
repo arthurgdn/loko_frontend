@@ -1,6 +1,5 @@
 import React from 'react'
-import {connect} from 'react-redux'
-const PostSignup = ({user,history})=>{
+export default ({history})=>{
     return (
             <div className="content-container">
                 <h1 className="post-signup__title">Bienvenue sur Loko ! </h1>
@@ -18,7 +17,4 @@ const PostSignup = ({user,history})=>{
             </div>
         )
 }
-const mapStateToProps = (state)=>({
-    user:state.user
-})
-export default connect(mapStateToProps)(PostSignup)
+

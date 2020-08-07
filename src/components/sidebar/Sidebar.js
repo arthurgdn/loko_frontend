@@ -1,13 +1,16 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
+import { Link} from 'react-router-dom';
+
+//Icons imports
 import {FiSearch,FiMessageCircle,FiFileText, FiSettings,FiLogOut} from 'react-icons/fi'
 import {FaUserFriends,FaUsers} from 'react-icons/fa'
 import {MdCreate} from 'react-icons/md'
-import {startLogout} from '../../actions/auth'
-const Sidebar = ({user,startLogout }) => {
-  
 
+//Actions imports
+import {startLogout} from '../../actions/auth'
+
+const Sidebar = ({startLogout }) => {
   return (
     <div className="sidebar">
         <div className="sidebar-container">
