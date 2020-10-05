@@ -2,9 +2,12 @@ import React, {useState,useEffect} from 'react'
 import {connect} from 'react-redux'
 import ImageUploader from 'react-images-upload'
 import axios from 'axios'
+
 import {startEditUserInfo} from '../../actions/user'
 import { startLoadUser } from '../../actions/auth'
+
 const EditUserForm = ({user,startEditUserInfo,editUserInfoError})=>{
+
     const [firstName,setFirstName] = useState(user.firstName?user.firstName:'')
     const [lastName,setLastName] = useState(user.lastName?user.lastName:'')
     const [profilePicture,setProfilePicture] = useState('')
@@ -12,23 +15,25 @@ const EditUserForm = ({user,startEditUserInfo,editUserInfoError})=>{
     const [useBrowserLocation,setUseBrowserLocation] = useState(false)
     const [locationInput,setLocationInput] = useState('')
     const [locationText,setLocationText] = useState(user.locationText?user.locationText:'')
-   
-    
     const [error,setError]= useState('')
+
     useEffect(()=>{
         if(!user._id){
             startLoadUser()
         }
     },[])
+
     useEffect(()=>{
         setFirstName(user.firstName)
         setLastName(user.lastName)
         setLocation(user.location)
         setLocationText(user.locationText)
     },[user,startLoadUser])
+
     useEffect(()=>{
         setError(editUserInfoError)
     },[editUserInfoError])
+    
     const onUseBrowserLocationChange = (e)=>{
         const useBrowser = e.target.checked
         if(useBrowser){
