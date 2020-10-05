@@ -1,5 +1,7 @@
 import {createStore,combineReducers,applyMiddleware,compose} from 'redux'
 import thunk from 'redux-thunk'
+
+//Import reducers
 import userReducer from '../reducers/user'
 import profileReducer from '../reducers/profile'
 import authReducer from '../reducers/auth'

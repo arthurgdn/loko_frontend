@@ -12,9 +12,7 @@ const conversationsReducer = (state=conversationsReducerDefaultState,action)=>{
         case 'EDIT_CONVERSATION':
             return {error:'',conversations:state.conversations.map((conversation)=>{
                 if(conversation._id===action.id){
-                   
-                    return {...conversation,
-                        ...action.updates}
+                    return {...conversation,...action.updates}
                 }else{
                     return conversation
                 }
@@ -25,7 +23,6 @@ const conversationsReducer = (state=conversationsReducerDefaultState,action)=>{
             return {...state,newConversationrror:'Erreur lors de la création de la conversation'}
         case 'REMOVE_CONVERSATION_ERROR':
             return {...state,removeConversationError:'Erreur lors de la suppression de la conversation'}
-        
         default: 
             return state
     }

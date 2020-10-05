@@ -6,7 +6,6 @@ const commentsReducer = (state=commentsReducerDefaultState,action)=>{
         case 'SET_COMMENTS':
             const filteredState=state.comments.filter(({offer_id})=>offer_id!==action.id)
             return {setCommentsError:'',comments:[...filteredState,{offer_id : action.id,comments : action.comments}]}
-            
         case 'NEW_COMMENT':
             const associatedComments = state.comments.find(({offer_id})=>offer_id===action.id)
             const newFilteredState=state.comments.filter(({offer_id})=>offer_id!==action.id)

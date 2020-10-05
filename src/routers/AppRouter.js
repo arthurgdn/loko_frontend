@@ -1,19 +1,20 @@
 import React from 'react'
+import {createBrowserHistory} from 'history'
+import {Router,Switch,Route} from 'react-router-dom'
 
+import PrivateRoute from './PrivateRoute'
+import PublicRoute from './PublicRoute'
+
+//Import compoenents
 import LoginPage from '../components/LoginPage'
 import HomePage from '../components/HomePage'
 import ProfilePage from '../components/profile/ProfilePage'
 import PersonnalProfilePage from '../components/profile/PersonnalProfilePage'
 import GroupPage from '../components/groups/GroupPage'
 import Conversation from '../components/conversations/Conversation'
-
 import CreateOfferPage from '../components/offers/CreateOfferPage'
 import OfferList from '../components/offer/OfferList'
-import {createBrowserHistory} from 'history'
 import NotFoundPage from '../components/NotFoundPage'
-import {Router,Switch,Route} from 'react-router-dom'
-import PrivateRoute from './PrivateRoute'
-import PublicRoute from './PublicRoute'
 import SettingsPage from '../components/settings/SettingsPage'
 import ResetPasswordPage from '../components/auth/ResetPasswordPage'
 import ForgottenPasswordPage from '../components/auth/ForgottenPasswordPage'
@@ -30,11 +31,11 @@ import CreateGroupPage from '../components/groups/CreateGroupPage'
 import EditGroupPage from '../components/groups/EditGroupPage.js'
 import SearchPage from '../components/search/SearchPage'
 import PostSignup from '../components/PostSignup'
+
 export const history = createBrowserHistory()
 const AppRouter = ()=>(
     <Router history={history}>
         <div>
-            
             <Switch>
                 <PublicRoute exact={true} path='/' component={LoginPage}/>
                 <PublicRoute exact={true} path='/reset' component={ForgottenPasswordPage}/>
@@ -62,9 +63,7 @@ const AppRouter = ()=>(
                 <PrivateRoute exact={true} path='/postSignup' component={PostSignup}/>
                 <Route component={NotFoundPage}/>
             </Switch>
-        </div>
-        
-        
+        </div>  
     </Router>
 )
 
