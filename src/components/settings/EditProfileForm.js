@@ -2,13 +2,14 @@ import React, {useState,useEffect} from 'react'
 import {connect} from 'react-redux'
 import CreatableSelect from 'react-select/creatable'
 import Select from 'react-select'
+
 import {startEditProfile,startSetProfile,startEditCompletedOffers} from '../../actions/profile'
 import {startSetOffers} from '../../actions/offers'
 import { startLoadUser } from '../../actions/auth'
+
 const EditProfileForm = ({profile={},stateOffers,startEditCompletedOffers,startSetOffers,user,startSetProfile,startEditProfile,allKeywords,editProfileError,addCompletedOfferError,setProfileError})=>{
-    
-    
-     
+ 
+    //useStates
     const [description,setDescription] = useState(profile.description?profile.description:'')
     const [summary,setSummary] = useState(profile.summary?profile.summary:'')
     const [skills,setSkills] = useState(profile.skills?profile.skills:[])
@@ -16,15 +17,20 @@ const EditProfileForm = ({profile={},stateOffers,startEditCompletedOffers,startS
     const [completedOffers,setCompletedOffers] = useState(profile.completedOffers?profile.completedOffers:[])
     const [offers,setOffers] = useState(stateOffers?stateOffers:[])
     const [error,setError] = useState('')
+
+    //useEffects
     useEffect(()=>{
         setError(setProfileError)
     },[setProfileError])
+
     useEffect(()=>{
         setError(editProfileError)
     },[editProfileError])
+
     useEffect(()=>{
         setError(addCompletedOfferError)
     },[addCompletedOfferError])
+
     useEffect(()=>{
         if(!!user._id){
             startSetProfile(user._id)
@@ -34,34 +40,36 @@ const EditProfileForm = ({profile={},stateOffers,startEditCompletedOffers,startS
         }
         
     },[])
+
     useEffect(()=>{
         startSetProfile(user._id)
         startSetOffers()
     },[user,startLoadUser])
+
     useEffect(()=>{
+
+        //Formats API returned data for display 
         const formattedKeywords = []
         if(profile.keywords){
-            
             for(const keyword of profile.keywords){
-                
                 formattedKeywords.push({value : keyword.name,label:keyword.name,_id:keyword._id})
             }
         }
+
         const formattedSkills = []
         if(profile.skills){
             for(const skill of profile.skills){
-                
                 formattedSkills.push({value : skill,label:skill})
             }
         }
+
         if(profile.completedOffers){
             for(const offer of profile.completedOffers){
                 offer.value = offer.completedOffer?offer.completedOffer:offer._id
-                offer.label = offer.title
-                
+                offer.label = offer.title  
             }
-            
         }
+
         for(const keyword of allKeywords){
             keyword.value = keyword.name
             keyword.label= keyword.name
@@ -72,9 +80,9 @@ const EditProfileForm = ({profile={},stateOffers,startEditCompletedOffers,startS
         setKeywords(profile.keywords?formattedKeywords:[])
         setSkills(profile.skills?formattedSkills:[])
         setCompletedOffers(profile.completedOffers?profile.completedOffers:[])
-        
-        
+         
     },[startSetProfile,profile])
+
     useEffect(()=>{
         if(stateOffers.length>0){
             for(const offer of stateOffers){
@@ -85,6 +93,7 @@ const EditProfileForm = ({profile={},stateOffers,startEditCompletedOffers,startS
         }
         setOffers(stateOffers?stateOffers:[]) 
     },[startSetOffers,stateOffers,completedOffers])
+
     const onSubmit = (e)=>{
         e.preventDefault()
         const finalKeywords = []
@@ -100,14 +109,12 @@ const EditProfileForm = ({profile={},stateOffers,startEditCompletedOffers,startS
             console.log('sent value',completedOffer.value)
             finalCompletedOffers.push({_id:completedOffer.value})
         }
-
         startEditProfile({
             description,
             summary,
             skills:finalSkills,
             keywords :finalKeywords
         })
-        
         startEditCompletedOffers(finalCompletedOffers)
 
     }

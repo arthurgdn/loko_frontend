@@ -1,4 +1,5 @@
 import React from 'react'
+
 export default ({history})=>{
     return (
             <div className="content-container">

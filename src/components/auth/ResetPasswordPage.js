@@ -4,6 +4,7 @@ import axios from 'axios'
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 axios.defaults.headers.patch['Content-Type'] = 'application/json';
 axios.defaults.baseURL = process.env.DEV_URL
+
 export default ({match})=>{
     
     const [password,setPassword] = useState('')

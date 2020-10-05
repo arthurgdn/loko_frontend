@@ -16,19 +16,20 @@ export const register = (token)=>({
   type : 'REGISTER',
   token
 })
+export const logout = ()=>({
+    type:'LOGOUT'
+})
+
 export const startRegister = (registration_form)=>{
   return async (dispatch)=>{
     try{
-      
         const res = await axios.post('/users',JSON.stringify(registration_form))
-        
         localStorage.setItem('token',res.data.token)
         dispatch(register(res.data.token))
         dispatch(loadUser(res.data.user));
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + res.data.token;
-        const res2 = await axios.post('/analytics/connect')
+       await axios.post('/analytics/connect')
     }catch(e){
-      
       dispatch({
         type: 'REGISTER_ERROR'
       })
@@ -37,38 +38,30 @@ export const startRegister = (registration_form)=>{
 }
 export const startLogin = (email,password)=>{
     return async (dispatch)=>{
-        
-        console.log('logging in')
-          const body = JSON.stringify({ email, password });
-        
-          try {
-              //We try to login the user
-            const res = await axios.post('/users/login', body);
-            localStorage.setItem('token',res.data.token)
-            dispatch(login(res.data.token));
-            axios.defaults.headers.common['Authorization'] = 'Bearer ' + res.data.token;
-            //We then set the user's data
-            
-            const user = await axios.get('/users/me')
-            const res2 = await axios.post('/analytics/connect')
-            dispatch(loadUser(user.data));
-            
-          } catch (e) {
-            console.log(e.response.data)
-            dispatch({
-              type: 'AUTH_ERROR'
-            });
-          }
+      const body = JSON.stringify({ email, password })
+      try {
+        //We try to login the user
+        const res = await axios.post('/users/login', body);
+        localStorage.setItem('token',res.data.token)
+        dispatch(login(res.data.token));
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + res.data.token;
+        //We then set the user's data
+        const user = await axios.get('/users/me')
+        await axios.post('/analytics/connect')
+        dispatch(loadUser(user.data));            
+      } catch (e) {
+        dispatch({
+          type: 'AUTH_ERROR'
+        });
+      }
     }
 }
 
 export const startLoadUser =()=>{
     return async (dispatch)=>{
         try {
-            
             const res = await axios.get('/users/me')
-            console.log(res)
-            const res2 = await axios.post('/analytics/connect')
+            await axios.post('/analytics/connect')
             dispatch({
               type: 'USER_LOADED'
             })
@@ -77,13 +70,10 @@ export const startLoadUser =()=>{
             console.log(e)
             dispatch({
               type: 'SET_USER_ERROR'
-            });
+            })
           }
     }
 }
-export const logout = ()=>({
-    type:'LOGOUT'
-})
 export const startLogout = ()=>{
     return async (dispatch)=>{
         try{
