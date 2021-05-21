@@ -15,21 +15,19 @@ import { startSetConversation, startPatchMembers, startAddAdmin } from '../../ac
 import {startSetCollaborators } from '../../actions/user'
 import EditConversationInfoForm from './EditConversationInfoForm'
 import formatConversationName from '../../utils/formatConversationName'
-import socketReducer from '../../reducers/socket'
 
-const Conversation =  ({setConversationError,socket,editSpecificConversationError,match,user_id,stateConversation,startSetConversation,collaborators,startSetCollaborators,startPatchMembers,startAddAdmin,history})=>{
+const Conversation =  ({setConversationError,editSpecificConversationError,match,user_id,stateConversation,startSetConversation,collaborators,startSetCollaborators,startPatchMembers,startAddAdmin})=>{
     
     
     const [member,setMember] = useState({})
     const [conversation,setConversation]= useState({})
     const [displayEditConvInfoForm,setDisplayEditConvInfoForm] = useState(false)
-    const [displayInfo,setDisplayInfo] = useState(false)
     const [frontSetConvError,setFrontSetConvError]=useState('')
     const [editConvError,setEditConvError]=useState('')
     const [displayedCollaborators,setDisplayedCollaborators] = useState([])
     const isAdmin = (Object.keys(conversation).length>2 && !!conversation.admins.find((admin)=>admin.admin===user_id))
     //On regarde lorsqu'une erreur intervient côté serveur
-    useEffect(()=>{
+    useEffect(()=>{ 
         setFrontSetConvError(setConversationError)
     },[setConversationError])
     
@@ -93,13 +91,13 @@ const Conversation =  ({setConversationError,socket,editSpecificConversationErro
                 (
                 <div>
                 <div className="banner__title show-for-mobile">
-                    {conversation.hasImage ? (<img className="profile__picture" src={process.env.DEV_URL+"/conversation/"+conversation._id+"/image"}/>):(<AiOutlineMessage className="header__picture offer-element__comment-picture"/>)}
+                    {conversation.hasImage ? (<img className="profile__picture" src={process.env.DEV_URL+'/conversation/'+conversation._id+'/image'}/>):(<AiOutlineMessage className="header__picture offer-element__comment-picture"/>)}
                     <h3>{formatConversationName(conversation,user_id)}</h3>    
                 </div>
                 <div className="manager__container">
                     <div className="conversation__content-display">
                         <div className="profile__header show-for-desktop">
-                            {conversation.hasImage ? (<img className="profile__picture" src={process.env.DEV_URL+"/conversation/"+conversation._id+"/image"}/>):(<AiOutlineMessage className="header__picture offer-element__comment-picture"/>)}
+                            {conversation.hasImage ? (<img className="profile__picture" src={process.env.DEV_URL+'/conversation/'+conversation._id+'/image'}/>):(<AiOutlineMessage className="header__picture offer-element__comment-picture"/>)}
                             <h3>{formatConversationName(conversation,user_id)}</h3>    
                         </div>
                         <Messages conv_id={match.params.id} user_id={user_id}/>
@@ -119,7 +117,7 @@ const Conversation =  ({setConversationError,socket,editSpecificConversationErro
                                     <div className="manager__sidebar-members">
                                         {conversation.members.map((member)=>
                                             <Link to={'/profile/'+member.member} key={member.member} className="offer-element__comment-subheader">
-                                                <img className="header__picture offer-element__comment-picture" src={process.env.DEV_URL+"/users/"+member.member+"/avatar"}/>
+                                                <img className="header__picture offer-element__comment-picture" src={process.env.DEV_URL+'/users/'+member.member+'/avatar'}/>
                                                 <p> {!!conversation.admins.find((admin)=>admin.admin===member.member) && (<RiAdminLine/>)} {member.firstName} {member.lastName}</p>
                                                 
                                             </Link>
@@ -134,7 +132,7 @@ const Conversation =  ({setConversationError,socket,editSpecificConversationErro
                                         options={displayedCollaborators}
                                         isMulti={false}
                                         onChange={onSelectedMembersChange}
-                                        noOptionsMessage={()=>"Aucune suggestion"}
+                                        noOptionsMessage={()=>'Aucune suggestion'}
                                         placeholder="Ajouter un membre"
                                     />
                                     <button className="manager__button" onClick={addMember}>Ajouter</button>
@@ -150,10 +148,10 @@ const Conversation =  ({setConversationError,socket,editSpecificConversationErro
                                                 }).map((member)=>(
                                                     <div key={member.member}>
                                                         <Link to={'/profile/'+member.member} className="offer-element__comment-subheader">
-                                                            <img className="header__picture offer-element__comment-picture" src={process.env.DEV_URL+"/users/"+member.member+"/avatar"}/>
+                                                            <img className="header__picture offer-element__comment-picture" src={process.env.DEV_URL+'/users/'+member.member+'/avatar'}/>
                                                             <p>{member.firstName} {member.lastName}</p>
                                                         </Link>
-                                                        <button className="manager__button manager__button-margin" id={"admin"+member.member} onClick={addAdmin}><GiUpgrade/> Promouvoir</button>
+                                                        <button className="manager__button manager__button-margin" id={'admin'+member.member} onClick={addAdmin}><GiUpgrade/> Promouvoir</button>
                                                         <button className="manager__button" id={member.member} onClick={removeMember}><TiDeleteOutline/> Supprimer</button>
                                                 
                                                     </div>
