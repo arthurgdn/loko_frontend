@@ -1,40 +1,35 @@
-import React from 'react'
-import {connect} from 'react-redux'
-import OfferForm from './OfferForm'
-import {startAddOffer} from '../../actions/offers'
-class  CreateOfferPage extends React.Component{
-    constructor(props){
-        super(props)
-        this.state = {
-            addOfferError : props.addOfferError
-        }
+import React from 'react';
+import {connect} from 'react-redux';
+import OfferForm from './OfferForm';
+import {startAddOffer} from '../../actions/offers';
+class  CreateOfferPage extends React.Component {
+  constructor (props) {
+    super(props);
+    this.state = {addOfferError: props.addOfferError};
+  }
+    onSubmit=(offer, image)=>{
+      console.log('submitted:', offer, image);
+      this.props.startAddOffer(offer, image);
+      this.props.history.push('/offers/gestion');
     }
-    onSubmit=(offer,image)=>{
-        console.log('submitted:',offer,image)
-        this.props.startAddOffer(offer,image)
-        this.props.history.push('/offers/gestion')
-    }
-    render(){
-        return (
-            <div>
-                <div className="banner__title">
-                    <h3>Créer une annonce</h3>
-                </div>
-                <div className="content-container">
-                    <OfferForm
-                        inGroup = {false}
-                        onSubmit={this.onSubmit}
-                    />
-                    {this.state.addOfferError && (<p>{this.state.addOfferError}</p>)}
-                </div>
-            </div>
-        )
+    render () {
+      return (
+        <div>
+          <div className="banner__title">
+            <h3>Créer une annonce</h3>
+          </div>
+          <div className="content-container">
+            <OfferForm
+              inGroup = {false}
+              onSubmit={this.onSubmit}
+            />
+            {this.state.addOfferError && <p>{this.state.addOfferError}</p>}
+          </div>
+        </div>
+      );
     }
 }
-const mapStateToProps = (state)=>({
-    addOfferError : state.offers.addOfferError
-})
-const mapDispatchToProps=(dispatch)=>({
-    startAddOffer: (offer,image)=>dispatch(startAddOffer(offer,image))
-}) 
-export default connect(mapStateToProps,mapDispatchToProps)(CreateOfferPage)
+const mapStateToProps = (state)=>({addOfferError: state.offers.addOfferError});
+const mapDispatchToProps=
+(dispatch)=>({startAddOffer: (offer, image)=>dispatch(startAddOffer(offer, image))});
+export default connect(mapStateToProps, mapDispatchToProps)(CreateOfferPage);
