@@ -5,77 +5,77 @@ axios.defaults.baseURL = process.env.DEV_URL;
 
 
 export const setConversation = (conversation)=>({
-    type : 'SET_CONVERSATION',
-    conversation
+  type: 'SET_CONVERSATION',
+  conversation
 });
 
 export const startSetConversation = (id) =>{
 
-    return async (dispatch)=>{
+  return async (dispatch)=>{
 
-        try {
+    try {
 
-            const res = await axios.get('/conversation/'+id);
-            console.log(res.data);
-            dispatch(setConversation(res.data));
+      const res = await axios.get('/conversation/'+id);
+      console.log(res.data);
+      dispatch(setConversation(res.data));
 
-        }catch(e) {
+    }catch(e) {
 
-            console.log(e);
-            dispatch({
-                type : 'SET_CONVERSATION_ERROR'
-            });
+      console.log(e);
+      dispatch({type: 'SET_CONVERSATION_ERROR'});
 
-        }
+    }
 
-    };
+  };
 
 };
 export const startPatchMembers = (id, member, action)=>{
 
-    return async (dispatch)=>{
+  return async (dispatch)=>{
 
-        try{
+    try{
 
-            const res =await axios.post('/conversation/'+id+'/member', JSON.stringify({_id:member, action}));
-            if(Object.keys(res.data).length>0) {
+      const res =await axios.post(
+        `/conversation/${id}/member`,
+        JSON.stringify({_id: member, action})
+      );
+      if(Object.keys(res.data).length>0) {
 
-                dispatch({type: 'EDIT_SPECIFIC_CONVERSATION', updates : {...res.data}});
+        dispatch({type: 'EDIT_SPECIFIC_CONVERSATION', updates: {...res.data}});
 
-            }else{
+      }else{
 
-                dispatch({type:'CLEAR_CONVERSATION'});
+        dispatch({type: 'CLEAR_CONVERSATION'});
 
-            }
+      }
 
-        }catch(e) {
+    }catch(e) {
 
-            dispatch({
-                type:'EDIT_SPECIFIC_CONVERSATION_ERROR'
-            });
+      dispatch({type: 'EDIT_SPECIFIC_CONVERSATION_ERROR'});
 
-        }
+    }
 
-    };
+  };
 
 };
 export const startAddAdmin = (id, user_id, newStatus)=>{
 
-    return async (dispatch)=>{
+  return async (dispatch)=>{
 
-        try{
-            const res = await axios.post('/conversation/'+id+'/admin', JSON.stringify({_id:user_id, newStatus}));
-            dispatch({type: 'EDIT_SPECIFIC_CONVERSATION', updates : {...res.data}});
+    try{
+      const res = await axios.post(
+        `/conversation/${id}/admin`,
+        JSON.stringify({_id: user_id, newStatus})
+      );
+      dispatch({type: 'EDIT_SPECIFIC_CONVERSATION', updates: {...res.data}});
 
-        }catch(e) {
+    }catch(e) {
 
-            dispatch({
-                type:'EDIT_SPECIFIC_CONVERSATION_ERROR'
-            });
+      dispatch({type: 'EDIT_SPECIFIC_CONVERSATION_ERROR'});
 
-        }
+    }
 
-    };
+  };
 
 };
 
