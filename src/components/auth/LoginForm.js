@@ -1,36 +1,40 @@
-import React, {useState, useEffect,useRef} from 'react';
+import React, {
+  useState, useEffect, useRef
+} from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import {FaRegUserCircle} from 'react-icons/fa'
-import {RiLockPasswordLine} from 'react-icons/ri'
+import {FaRegUserCircle} from 'react-icons/fa';
+import {RiLockPasswordLine} from 'react-icons/ri';
 
 import { startLogin } from '../../actions/auth';
 
-const LoginForm = ({ startLogin, isAuthenticated,loginError }) => {
+const LoginForm = ({
+  startLogin, isAuthenticated, loginError
+}) => {
   const [formData, setFormData] = useState({
     email: '',
     password: ''
-  })
+  });
   const { email, password } = formData;
-  const [error,setError] = useState('')
+  const [error, setError] = useState('');
 
-  useEffect(()=>{setError(loginError)},[loginError])
-  const emailRef = useRef(null)
+  useEffect(()=>{setError(loginError);}, [loginError]);
+  const emailRef = useRef(null);
 
   useEffect(()=>{
-    emailRef.current.focus()
-  },[])
-  
+    emailRef.current.focus();
+  }, []);
 
-  const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value })
-  
+
+  const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+
   const onSubmit = async (e) => {
     e.preventDefault();
-    startLogin(email, password)
-  }
+    startLogin(email, password);
+  };
 
   if (isAuthenticated) {
-    return <Redirect to="/home" />
+    return <Redirect to="/home" />;
   }
 
   return (
@@ -51,11 +55,11 @@ const LoginForm = ({ startLogin, isAuthenticated,loginError }) => {
               focus="true"
             />
           </div>
-          
+
           <div className="login__item">
             <RiLockPasswordLine/>
             <input
-              
+
               type="password"
               className="login__input"
               placeholder="Mot de passe"
@@ -66,28 +70,26 @@ const LoginForm = ({ startLogin, isAuthenticated,loginError }) => {
               minLength="6"
             />
           </div>
-          
-        
+
+
           <input type="submit" className="login__button"  value="Connexion" />
         </form>
-      <div className="login__footer">
-        {error && (<p className="login__form__error">{error}</p>)}
-        <Link to='/reset' className="login__forgot-password">Mot de passe oublié?</Link>
-      </div>  
-    </div>
-      
-     
-      
-      
-  </div>)}
+        <div className="login__footer">
+          {error && <p className="login__form__error">{error}</p>}
+          <Link to='/reset' className="login__forgot-password">Mot de passe oublié?</Link>
+        </div>
+      </div>
 
+
+    </div>);};
 
 
 const mapStateToProps = state => ({
-    isAuthenticated: state.auth.isAuthenticated,
-    loginError:state.auth.loginError
-})
+  isAuthenticated: state.auth.isAuthenticated,
+  loginError: state.auth.loginError
+});
 const mapDispatchToProps = (dispatch)=>({
-    startLogin : (email,password)=>dispatch(startLogin(email,password))
-})
+  startLogin: (email, password)=>
+    dispatch(startLogin(email, password))
+});
 export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
